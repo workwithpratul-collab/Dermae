@@ -58,8 +58,13 @@ window.DermaeScenes = (function () {
     gsap.set(s[3].media, { scale: 1.04 });
     gsap.set(s[4].media, { scale: 1 + 0.18 * m });
 
-    // Scene 3 and 5 reveal their parts one at a time
-    var s3parts = [q("h2", s[2].content)].concat(qa(".card", s[2].content), [q(".note", s[2].content)]);
+    // Scene 3 reveals: heading → Medical column → hairline + Aesthetic column → short rule + closing line
+    var c3 = s[2].content;
+    var s3parts = [q("h2", c3), q(".treatments__col--medical", c3), q(".treatments__col--aesthetic", c3), q(".note", c3)];
+    var s3divider = q(".treatments__divider", c3), s3rule = q(".treatments__rule", c3);
+    gsap.set(s3divider, { scaleY: 0, transformOrigin: "50% 0%" });
+    gsap.set(s3rule, { scaleX: 0, transformOrigin: "0% 50%" });
+    // Scene 5 reveals its parts one at a time
     var s5parts = [q("h2", s[4].content)].concat(qa(".steps li", s[4].content), [q(".quote", s[4].content)]);
     gsap.set(s3parts.concat(s5parts), { opacity: 0, y: 16 });
 
@@ -118,7 +123,11 @@ window.DermaeScenes = (function () {
       .to(s[2].wash, { opacity: 1, duration: 0.35, ease: soft }, 3.55)
       .to(s[2].content, { opacity: 1, y: 0, duration: 0.3, ease: "sine.out" }, 3.65)
       .to(s[2].content, { y: -20 * drift, duration: 1.15 }, 3.95);
-    parts(s3parts, 3.68, 0.2);
+    parts(s3parts, 3.66, 0.17);
+    // The hairlines "draw" in: the divider grows downward with the second column,
+    // the short rule grows sideways just before the closing sentence.
+    tl.to(s3divider, { scaleY: 1, duration: 0.35, ease: "sine.inOut" }, 3.95)
+      .to(s3rule, { scaleX: 1, duration: 0.25, ease: "sine.out" }, 4.12);
     tl.to(s[2].content, { opacity: 0, y: -36 * drift, duration: 0.28, ease: "sine.in" }, 4.8)
       .to(s[2].wash, { opacity: 0, duration: 0.3, ease: soft }, 4.82)
       // Soft crossfade into the doctor scene.
