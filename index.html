@@ -15,6 +15,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap">
 
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Animation libraries (exact versions). If they fail to load, the page
+       stays a normal, fully readable scrolling page. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+
+  <script src="js/scenes.js" defer></script>
+  <script src="js/main.js" defer></script>
   <script src="js/form.js" defer></script>
 </head>
 <body>
@@ -22,99 +31,134 @@
 
   <main>
 
-    <!-- Scene 1: Opening -->
-    <section class="scene scene--opening" id="opening" aria-labelledby="opening-title">
-      <picture class="scene__media">
-        <source media="(max-width: 767px)" srcset="images/web/scene-1-mobile.jpg" width="900" height="507">
-        <img src="images/web/scene-1-desktop.jpg" width="1672" height="941"
-             alt="Close-up of a clear serum drop resting on skin."
-             fetchpriority="high" decoding="async">
-      </picture>
-      <div class="scene__content">
-        <h1 class="brand" id="opening-title">DERMAÉ</h1>
-        <p class="tagline">Skin science, beautifully considered.</p>
-      </div>
-    </section>
+    <!-- The film: Scenes 1–5. JavaScript pins this as one full-screen stage
+         with the scenes layered on top of each other. -->
+    <div class="film" id="film">
 
-    <!-- Scene 2: Treatment room -->
-    <section class="scene scene--room" id="room" aria-labelledby="room-title">
-      <picture class="scene__media">
-        <source media="(max-width: 767px)" srcset="images/web/scene-2-mobile.jpg" width="900" height="507">
-        <img src="images/web/scene-2-desktop.jpg" width="1672" height="941"
-             alt="A calm ivory and sage treatment room with soft window light."
-             loading="lazy" decoding="async">
-      </picture>
-      <div class="scene__content">
-        <h2 id="room-title">Where science meets stillness.</h2>
-        <p>Thoughtful dermatology in a calm, unhurried space, with care shaped around your skin.</p>
-      </div>
-    </section>
-
-    <!-- Scene 3: Treatments -->
-    <section class="scene scene--treatments" id="treatments" aria-labelledby="treatments-title">
-      <picture class="scene__media">
-        <source media="(max-width: 767px)" srcset="images/web/scene-3-mobile.jpg" width="900" height="507">
-        <img src="images/web/scene-3-desktop.jpg" width="1672" height="941"
-             alt="A clean treatment area with a sage wall and soft shadows."
-             loading="lazy" decoding="async">
-      </picture>
-      <div class="scene__content">
-        <h2 id="treatments-title">Care for every stage of your skin.</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>Medical dermatology</h3>
-            <p>Acne, eczema, psoriasis, pigmentation concerns, hair loss, and skin examinations.</p>
-          </article>
-          <article class="card">
-            <h3>Aesthetic dermatology</h3>
-            <p>Chemical peels, laser treatments, microneedling, scar treatments, and skin rejuvenation.</p>
-          </article>
+      <!-- Scene 1: Opening -->
+      <section class="scene scene--opening" id="opening" aria-labelledby="opening-title">
+        <div class="scene__media">
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/web/scene-1-mobile.jpg" width="900" height="507">
+            <img src="images/web/scene-1-desktop.jpg" width="1672" height="941"
+                 alt="Close-up of a clear serum drop resting on skin."
+                 fetchpriority="high" decoding="async">
+          </picture>
+          <!-- Same image, pre-blurred: faded in so "the drop softens into a blur". -->
+          <picture class="scene__blur" aria-hidden="true">
+            <source media="(max-width: 767px)" srcset="images/web/scene-1-mobile.jpg">
+            <img src="images/web/scene-1-desktop.jpg" alt="" decoding="async">
+          </picture>
         </div>
-        <p class="note">Your dermatologist will help you understand which options may be suitable.</p>
-      </div>
-    </section>
+        <div class="scene__light" aria-hidden="true"></div>
+        <div class="scene__wash" aria-hidden="true"></div>
+        <div class="scene__content">
+          <h1 class="brand" id="opening-title">DERMAÉ</h1>
+          <p class="tagline">Skin science, beautifully considered.</p>
+        </div>
+      </section>
 
-    <!-- Scene 4: Doctor -->
-    <section class="scene scene--doctor" id="doctor" aria-labelledby="doctor-title">
-      <picture class="scene__media">
-        <source media="(max-width: 767px)" srcset="images/web/scene-4-mobile.jpg" width="900" height="507">
-        <img src="images/web/scene-4-desktop.jpg" width="1672" height="941"
-             alt="Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope."
-             loading="lazy" decoding="async">
-      </picture>
-      <div class="scene__content">
-        <h2 id="doctor-title">Led by expertise. Guided by you.</h2>
-        <p class="doctor-name"><strong>Dr. Mira Sen</strong>, Lead Dermatologist <span class="label">(fictional demo profile)</span></p>
-        <p>Every consultation begins with listening, followed by a clear explanation of your options and a plan that fits your skin and your life.</p>
-      </div>
-    </section>
+      <!-- Scene 2: Treatment room -->
+      <section class="scene scene--room" id="room" aria-labelledby="room-title">
+        <div class="scene__media">
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/web/scene-2-mobile.jpg" width="900" height="507">
+            <img src="images/web/scene-2-desktop.jpg" width="1672" height="941"
+                 alt="A calm ivory and sage treatment room with soft window light."
+                 loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="scene__light" aria-hidden="true"></div>
+        <div class="scene__wash" aria-hidden="true"></div>
+        <div class="scene__content">
+          <h2 id="room-title">Where science meets stillness.</h2>
+          <p>Thoughtful dermatology in a calm, unhurried space, with care shaped around your skin.</p>
+        </div>
+      </section>
 
-    <!-- Scene 5: Your care journey -->
-    <section class="scene scene--journey" id="journey" aria-labelledby="journey-title">
-      <picture class="scene__media">
-        <source media="(max-width: 767px)" srcset="images/web/scene-5-mobile.jpg" width="900" height="507">
-        <img src="images/web/scene-5-desktop.jpg" width="1671" height="941"
-             alt="A calm consultation corner with two chairs, a plant and soft window light."
-             loading="lazy" decoding="async">
-      </picture>
-      <div class="scene__content">
-        <h2 id="journey-title">Clarity at every step.</h2>
-        <ol class="steps">
-          <li><h3>Consult</h3> <p>Share your concerns and goals.</p></li>
-          <li><h3>Plan</h3> <p>Discuss suitable options and what to expect.</p></li>
-          <li><h3>Care</h3> <p>Receive guidance before and after treatment.</p></li>
-        </ol>
-        <figure class="quote">
-          <blockquote>
-            <p>“I finally understood my skin and what to do next.”</p>
-          </blockquote>
-          <figcaption class="label">(Illustrative quote)</figcaption>
-        </figure>
-      </div>
-    </section>
+      <!-- Scene 3: Treatments -->
+      <section class="scene scene--treatments" id="treatments" aria-labelledby="treatments-title">
+        <div class="scene__media">
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/web/scene-3-mobile.jpg" width="900" height="507">
+            <img src="images/web/scene-3-desktop.jpg" width="1672" height="941"
+                 alt="A clean treatment area with a sage wall and soft shadows."
+                 loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="scene__light" aria-hidden="true"></div>
+        <div class="scene__wash" aria-hidden="true"></div>
+        <div class="scene__content">
+          <h2 id="treatments-title">Care for every stage of your skin.</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>Medical dermatology</h3>
+              <p>Acne, eczema, psoriasis, pigmentation concerns, hair loss, and skin examinations.</p>
+            </article>
+            <article class="card">
+              <h3>Aesthetic dermatology</h3>
+              <p>Chemical peels, laser treatments, microneedling, scar treatments, and skin rejuvenation.</p>
+            </article>
+          </div>
+          <p class="note">Your dermatologist will help you understand which options may be suitable.</p>
+        </div>
+      </section>
+
+      <!-- Scene 4: Doctor -->
+      <section class="scene scene--doctor" id="doctor" aria-labelledby="doctor-title">
+        <div class="scene__media">
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/web/scene-4-mobile.jpg" width="900" height="507">
+            <img src="images/web/scene-4-desktop.jpg" width="1672" height="941"
+                 alt="Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope."
+                 loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="scene__light" aria-hidden="true"></div>
+        <div class="scene__wash" aria-hidden="true"></div>
+        <div class="scene__content">
+          <h2 id="doctor-title">Led by expertise. Guided by you.</h2>
+          <p class="doctor-name"><strong>Dr. Mira Sen</strong>, Lead Dermatologist <span class="label">(fictional demo profile)</span></p>
+          <p>Every consultation begins with listening, followed by a clear explanation of your options and a plan that fits your skin and your life.</p>
+        </div>
+      </section>
+
+      <!-- Scene 5: Your care journey -->
+      <section class="scene scene--journey" id="journey" aria-labelledby="journey-title">
+        <div class="scene__media">
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/web/scene-5-mobile.jpg" width="900" height="507">
+            <img src="images/web/scene-5-desktop.jpg" width="1671" height="941"
+                 alt="A calm consultation corner with two chairs, a plant and soft window light."
+                 loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="scene__light" aria-hidden="true"></div>
+        <div class="scene__wash" aria-hidden="true"></div>
+        <div class="scene__content">
+          <h2 id="journey-title">Clarity at every step.</h2>
+          <ol class="steps">
+            <li><h3>Consult</h3> <p>Share your concerns and goals.</p></li>
+            <li><h3>Plan</h3> <p>Discuss suitable options and what to expect.</p></li>
+            <li><h3>Care</h3> <p>Receive guidance before and after treatment.</p></li>
+          </ol>
+          <figure class="quote">
+            <blockquote>
+              <p>“I finally understood my skin and what to do next.”</p>
+            </blockquote>
+            <figcaption class="label">(Illustrative quote)</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Film-only layers (hidden unless the film is running) -->
+      <div class="film__glow" aria-hidden="true"></div>
+      <div class="film__green" aria-hidden="true"></div>
+    </div>
 
     <!-- Scene 6: Booking -->
     <section class="booking" id="booking" aria-labelledby="booking-title" tabindex="-1">
+      <div class="booking__texture" aria-hidden="true"></div>
       <div class="booking__inner">
         <h2 id="booking-title">Begin with a conversation.</h2>
         <p class="booking__intro">Request a consultation, and our team will contact you to confirm the details.</p>

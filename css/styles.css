@@ -113,12 +113,19 @@ a { color: inherit; text-underline-offset: 0.2em; }
   background: var(--ivory-soft);
 }
 
+.scene__media picture { display: block; width: 100%; height: 100%; }
+
 .scene__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: var(--focus, 50% 50%);
 }
+
+/* Decorative layers used by the film. Hidden in the normal page. */
+.scene__blur,
+.scene__light,
+.scene__wash { display: none; }
 
 .scene__content {
   position: relative;
@@ -143,6 +150,15 @@ a { color: inherit; text-underline-offset: 0.2em; }
   text-align: center;
   padding-block: 2.75rem 4rem;
 }
+/* Opening: the name fades in, then the tagline. Pure CSS, so it also
+   works if JavaScript fails; reduced-motion makes it instant (section 8). */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.scene--opening .brand   { animation: rise-in 1.4s cubic-bezier(.25,.1,.25,1) 0.2s both; }
+.scene--opening .tagline { animation: rise-in 1.4s cubic-bezier(.25,.1,.25,1) 0.9s both; }
+
 .brand {
   font-size: clamp(3.25rem, 2rem + 7vw, 7.5rem);
   font-weight: 500;
@@ -217,12 +233,21 @@ a { color: inherit; text-underline-offset: 0.2em; }
   position: relative;
   color: var(--ivory);
   background-color: var(--forest);
-  /* Subtle soft-light texture: two very faint glows */
-  background-image:
-    radial-gradient(ellipse 70% 50% at 20% 0%, rgba(247, 243, 236, 0.07), transparent 70%),
-    radial-gradient(ellipse 60% 60% at 90% 100%, rgba(163, 176, 154, 0.10), transparent 70%);
+  overflow: hidden;
   padding: 4.5rem var(--gutter) 4rem;
 }
+
+/* Subtle soft-light texture: two very faint glows on their own layer,
+   so the film can drift it slightly. */
+.booking__texture {
+  position: absolute;
+  inset: -80px 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 20% 10%, rgba(247, 243, 236, 0.07), transparent 70%),
+    radial-gradient(ellipse 60% 60% at 90% 90%, rgba(163, 176, 154, 0.10), transparent 70%);
+}
+.booking__inner { position: relative; z-index: 1; }
 .booking:focus { outline: none; }
 .booking :focus-visible { outline-color: var(--ivory); }
 
@@ -349,8 +374,8 @@ a { color: inherit; text-underline-offset: 0.2em; }
 
   /* Soft ivory wash on the left so text stays readable on any part of the image.
      It is solid behind the text column, then fades out to show the photo. */
-  .scene::before {
-    content: "";
+  .scene__wash {
+    display: block;
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -376,7 +401,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   }
 
   /* Scene 3: centred panel over the sage wall */
-  .scene--treatments::before { background: rgba(247, 243, 236, 0.15); }
+  .scene--treatments .scene__wash { background: rgba(247, 243, 236, 0.15); }
   .scene--treatments .scene__content {
     max-width: 52rem;
     margin-inline: auto;
@@ -396,8 +421,138 @@ a { color: inherit; text-underline-offset: 0.2em; }
   :root { --gutter: 8rem; }
 }
 
-/* ---------- 8. Reduced motion ---------- */
-/* No animation exists yet. This makes sure nothing added later moves for people who opt out. */
+/* ---------- 8. Scroll film ----------
+   Only active when js/main.js adds .film-on to <html>. If JavaScript or the
+   animation libraries fail, none of this applies and the page above is used. */
+
+/* Lenis (smooth scrolling) helper rules */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Where each scene's "camera" zooms towards */
+.scene--opening    { --origin: 73% 51%; }  /* the drop */
+.scene--room       { --origin: 60% 55%; }
+.scene--treatments { --origin: 50% 50%; }
+.scene--doctor     { --origin: 68% 40%; }  /* the doctor */
+.scene--journey    { --origin: 70% 60%; }
+
+.film__glow,
+.film__green { display: none; }
+
+/* One full-screen stage; the five scenes sit on top of each other */
+.film-on .film {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--ivory);
+}
+.film-on .film .scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;               /* each scene is its own layer, stacked in order */
+  min-height: 0;
+  overflow: hidden;
+  background: var(--ivory);
+  will-change: opacity;
+}
+.film-on .scene__media {
+  transform-origin: var(--origin, 50% 50%);
+  will-change: transform;
+}
+.film-on .scene__content { will-change: transform, opacity; }
+
+/* Pre-blurred copy of the serum image. The blur itself never animates
+   (that can stutter); only its opacity does, which stays smooth. */
+.film-on .scene__blur {
+  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.film-on .scene__blur img { filter: blur(14px); transform: scale(1.06); }
+
+/* Soft window light drifting over each image */
+.film-on .scene__light {
+  display: block;
+  position: absolute;
+  inset: -10%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 45% 55% at 78% 22%, rgba(255, 248, 234, 0.42), transparent 70%);
+  will-change: transform;
+}
+
+/* Brighten (Scene 4 → 5) and forest-green fade (Scene 5 → 6) */
+.film-on .film__glow,
+.film-on .film__green {
+  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.film-on .film__glow {
+  z-index: 20;
+  background: radial-gradient(ellipse 90% 80% at 80% 20%, #FFFDF8 0%, #F8F1E4 75%);
+}
+.film-on .film__green {
+  z-index: 21;
+  background-color: var(--forest);
+}
+
+/* Desktop film: reuse the full-screen layout, a little less padding */
+@media (min-width: 1024px) {
+  .film-on .scene__content { padding-block: 3rem; }
+  .film-on .scene--treatments .scene__content { margin-block: 0; }
+}
+
+/* Phones and tablets: image in a band at the top, text stacked below on ivory */
+@media (max-width: 1023px) {
+  .film-on .film .scene { display: block; }
+  .film-on .scene__media,
+  .film-on .scene__light {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: auto;
+    height: var(--band, 48%);
+    aspect-ratio: auto;
+  }
+  .film-on .scene--opening .scene__media { aspect-ratio: auto; }
+  .film-on .scene__content {
+    position: absolute;
+    top: var(--band, 48%);
+    bottom: 0; left: 0; right: 0;
+    max-width: none;
+    margin: 0;
+    padding: 1.25rem max(var(--gutter), calc((100% - 38rem) / 2));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .film-on .scene__content > * + * { margin-top: 0.8rem; }
+  .film-on .scene--opening { --band: 60%; }
+  .film-on .scene--treatments { --band: 28%; }
+  .film-on .scene--treatments .cards { gap: 0.6rem; }
+  .film-on .scene--treatments .card { padding: 0.9rem 1.1rem; }
+  .film-on .scene--treatments .card h3 { font-size: 1.35rem; margin-bottom: 0.25rem; }
+  .film-on .scene--journey { --band: 38%; }
+  .film-on .steps { margin-top: 1rem; gap: 0.75rem; }
+  .film-on .quote { margin-top: 1.1rem; }
+  .film-on .quote blockquote p { font-size: 1.3rem; }
+}
+
+/* Short phones (e.g. iPhone SE): a little less image, slightly smaller headings,
+   so every scene's text still fits on one screen. */
+@media (max-width: 1023px) and (max-height: 720px) {
+  .film-on .scene--treatments { --band: 22%; }
+  .film-on .scene--journey { --band: 32%; }
+  .film-on .film h2 { font-size: 2rem; }
+  .film-on .scene__content { padding-block: 1rem; }
+}
+
+/* ---------- 9. Reduced motion ---------- */
+/* Belt and braces: nothing CSS-animated moves for people who opt out. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
