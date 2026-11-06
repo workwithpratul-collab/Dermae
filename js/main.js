@@ -20,6 +20,7 @@
   var root = document.documentElement;
   var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
   var desktopMQ = window.matchMedia("(min-width: 1024px)");
+  var portraitMQ = window.matchMedia("(orientation: portrait)"); // portrait vs landscape images and layout
 
   var ctx = null, lenis = null, tick = null, cleanups = [];
   var state = { mode: null, timeline: null };
@@ -35,11 +36,12 @@
     });
   }
 
-  /* Does every scene's text fit on one screen in film layout? (.film-on must be set) */
+  /* Does every scene's text fit on the visible screen in film layout? (.film-on must be set) */
   function filmFits() {
+    var visible = window.innerHeight;
     return qa("#film .scene").every(function (scene) {
       var c = scene.querySelector(".scene__content");
-      return c.scrollHeight <= c.clientHeight + 2 && c.offsetHeight <= scene.clientHeight + 2;
+      return c.offsetTop >= -2 && c.offsetTop + c.offsetHeight <= visible + 2;
     });
   }
 
@@ -98,12 +100,13 @@
     }
   }
 
-  /* Rebuild when it matters: desktop <-> mobile, reduced-motion setting changes,
-     or a resize changes whether the film fits. */
+  /* Rebuild when it matters: desktop <-> mobile, portrait <-> landscape,
+     reduced-motion setting changes, or a resize changes whether the film fits. */
   function onChange() { start(); }
   if (reduceMQ.addEventListener) {
     reduceMQ.addEventListener("change", onChange);
     desktopMQ.addEventListener("change", onChange);
+    portraitMQ.addEventListener("change", onChange);
   }
 
   var lastW = window.innerWidth, lastH = window.innerHeight, resizeTimer;
