@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DERMAÉ — Fictional Dermatology Clinic (Design Demo)</title>
+  <meta name="description" content="DERMAÉ is a fictional concept website for a dermatology clinic, created as a design demo. Clinic details, doctor and quotes are illustrative.">
+  <!-- This is a fictional demo, so keep it out of search results. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1F3A2E">
+
+  <!-- Fonts: Cormorant Garamond (headings) + Inter (body). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/form.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#booking">Skip to booking</a>
+
+  <main>
+
+    <!-- Scene 1: Opening -->
+    <section class="scene scene--opening" id="opening" aria-labelledby="opening-title">
+      <picture class="scene__media">
+        <source media="(max-width: 767px)" srcset="images/web/scene-1-mobile.jpg" width="900" height="507">
+        <img src="images/web/scene-1-desktop.jpg" width="1672" height="941"
+             alt="Close-up of a clear serum drop resting on skin."
+             fetchpriority="high" decoding="async">
+      </picture>
+      <div class="scene__content">
+        <h1 class="brand" id="opening-title">DERMAÉ</h1>
+        <p class="tagline">Skin science, beautifully considered.</p>
+      </div>
+    </section>
+
+    <!-- Scene 2: Treatment room -->
+    <section class="scene scene--room" id="room" aria-labelledby="room-title">
+      <picture class="scene__media">
+        <source media="(max-width: 767px)" srcset="images/web/scene-2-mobile.jpg" width="900" height="507">
+        <img src="images/web/scene-2-desktop.jpg" width="1672" height="941"
+             alt="A calm ivory and sage treatment room with soft window light."
+             loading="lazy" decoding="async">
+      </picture>
+      <div class="scene__content">
+        <h2 id="room-title">Where science meets stillness.</h2>
+        <p>Thoughtful dermatology in a calm, unhurried space, with care shaped around your skin.</p>
+      </div>
+    </section>
+
+    <!-- Scene 3: Treatments -->
+    <section class="scene scene--treatments" id="treatments" aria-labelledby="treatments-title">
+      <picture class="scene__media">
+        <source media="(max-width: 767px)" srcset="images/web/scene-3-mobile.jpg" width="900" height="507">
+        <img src="images/web/scene-3-desktop.jpg" width="1672" height="941"
+             alt="A clean treatment area with a sage wall and soft shadows."
+             loading="lazy" decoding="async">
+      </picture>
+      <div class="scene__content">
+        <h2 id="treatments-title">Care for every stage of your skin.</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Medical dermatology</h3>
+            <p>Acne, eczema, psoriasis, pigmentation concerns, hair loss, and skin examinations.</p>
+          </article>
+          <article class="card">
+            <h3>Aesthetic dermatology</h3>
+            <p>Chemical peels, laser treatments, microneedling, scar treatments, and skin rejuvenation.</p>
+          </article>
+        </div>
+        <p class="note">Your dermatologist will help you understand which options may be suitable.</p>
+      </div>
+    </section>
+
+    <!-- Scene 4: Doctor -->
+    <section class="scene scene--doctor" id="doctor" aria-labelledby="doctor-title">
+      <picture class="scene__media">
+        <source media="(max-width: 767px)" srcset="images/web/scene-4-mobile.jpg" width="900" height="507">
+        <img src="images/web/scene-4-desktop.jpg" width="1672" height="941"
+             alt="Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope."
+             loading="lazy" decoding="async">
+      </picture>
+      <div class="scene__content">
+        <h2 id="doctor-title">Led by expertise. Guided by you.</h2>
+        <p class="doctor-name"><strong>Dr. Mira Sen</strong>, Lead Dermatologist <span class="label">(fictional demo profile)</span></p>
+        <p>Every consultation begins with listening, followed by a clear explanation of your options and a plan that fits your skin and your life.</p>
+      </div>
+    </section>
+
+    <!-- Scene 5: Your care journey -->
+    <section class="scene scene--journey" id="journey" aria-labelledby="journey-title">
+      <picture class="scene__media">
+        <source media="(max-width: 767px)" srcset="images/web/scene-5-mobile.jpg" width="900" height="507">
+        <img src="images/web/scene-5-desktop.jpg" width="1671" height="941"
+             alt="A calm consultation corner with two chairs, a plant and soft window light."
+             loading="lazy" decoding="async">
+      </picture>
+      <div class="scene__content">
+        <h2 id="journey-title">Clarity at every step.</h2>
+        <ol class="steps">
+          <li><h3>Consult</h3> <p>Share your concerns and goals.</p></li>
+          <li><h3>Plan</h3> <p>Discuss suitable options and what to expect.</p></li>
+          <li><h3>Care</h3> <p>Receive guidance before and after treatment.</p></li>
+        </ol>
+        <figure class="quote">
+          <blockquote>
+            <p>“I finally understood my skin and what to do next.”</p>
+          </blockquote>
+          <figcaption class="label">(Illustrative quote)</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Scene 6: Booking -->
+    <section class="booking" id="booking" aria-labelledby="booking-title" tabindex="-1">
+      <div class="booking__inner">
+        <h2 id="booking-title">Begin with a conversation.</h2>
+        <p class="booking__intro">Request a consultation, and our team will contact you to confirm the details.</p>
+
+        <!--
+          FORMSPREE: replace YOUR_FORM_ID with the real form ID when it is ready.
+          While the placeholder is here, js/form.js will NOT send anything and
+          will say so clearly instead of showing a fake "sent" message.
+        -->
+        <form class="form" id="booking-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input type="hidden" name="_subject" value="New consultation request (DERMAÉ demo)">
+          <!-- Honeypot: hidden from people, bots tend to fill it in. -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="gotcha">Leave this field empty</label>
+            <input type="text" id="gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form__grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+              <p class="field__error" id="name-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone <span class="optional">(optional)</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+              <p class="field__error" id="phone-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+              <p class="field__error" id="email-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="appointment-type">Appointment type</label>
+              <select id="appointment-type" name="appointment_type" required>
+                <option value="">Choose one</option>
+                <option>Medical dermatology</option>
+                <option>Aesthetic dermatology</option>
+                <option>Not sure yet</option>
+              </select>
+              <p class="field__error" id="appointment-type-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="date">Preferred date</label>
+              <input id="date" name="preferred_date" type="date" required>
+              <p class="field__error" id="date-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="time">Preferred time <span class="optional">(optional)</span></label>
+              <input id="time" name="preferred_time" type="time">
+              <p class="field__error" id="time-error" hidden></p>
+            </div>
+          </div>
+
+          <button class="button" type="submit">Request Consultation</button>
+
+          <p class="form__demo-note" data-demo-note>Demo form: not connected yet, so requests won't be sent.</p>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="contact">
+          <h3 class="visually-hidden">Contact details</h3>
+          <address>
+            <p><span class="contact__label">Address</span> Demo address</p>
+            <p><span class="contact__label">Phone</span> +00 00000 00000</p>
+            <p><span class="contact__label">Email</span> <a href="mailto:hello@dermae.example">hello@dermae.example</a></p>
+          </address>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>DERMAÉ is a fictional concept website. Its clinic details, doctor, and quotes are illustrative and aren't medical advice.</p>
+  </footer>
+</body>
+</html>

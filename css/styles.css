@@ -1,0 +1,410 @@
+/* =========================================================
+   DERMAÉ — styles
+   Mobile-first: base styles are for phones, and media queries
+   at the bottom add the larger-screen layout.
+   ========================================================= */
+
+/* ---------- 1. Design tokens ---------- */
+:root {
+  /* Brand colours (from CLAUDE.md) */
+  --ivory: #F7F3EC;
+  --sage: #A3B09A;        /* decoration only: too light for text on ivory */
+  --forest: #1F3A2E;
+  --charcoal: #2B2B2B;
+
+  /* Supporting shades */
+  --forest-deep: #172C22; /* footer */
+  --charcoal-soft: #4A4744; /* secondary text on ivory (about 8:1 contrast) */
+  --ivory-soft: #E4DED3;  /* secondary text on forest (about 10:1 contrast) */
+  --error-on-dark: #F5C9B8;
+
+  /* Fonts */
+  --font-serif: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Spacing */
+  --gutter: 1.25rem;
+  --measure: 34rem;       /* comfortable line length for text blocks */
+
+  color-scheme: light;
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;   /* 17px */
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  color: var(--forest);
+  line-height: 1.1;
+}
+
+h2 { font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.75rem); letter-spacing: -0.005em; }
+h3 { font-size: 1.6rem; }
+
+p { margin: 0; }
+
+a { color: inherit; text-underline-offset: 0.2em; }
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--forest);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem; left: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--forest);
+  color: var(--ivory);
+  border-radius: 999px;
+  font-weight: 500;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; outline-color: var(--sage); }
+
+/* Small italic tag used for "(fictional demo profile)" etc. */
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--charcoal-soft);
+}
+
+/* ---------- 3. Scenes (mobile: image on top, text below) ---------- */
+.scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--ivory);
+}
+
+.scene__media {
+  display: block;
+  aspect-ratio: 4 / 3;    /* tighter crop on small screens */
+  overflow: hidden;
+  background: var(--ivory-soft);
+}
+
+.scene__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus, 50% 50%);
+}
+
+.scene__content {
+  position: relative;
+  width: 100%;
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  padding: 2.5rem var(--gutter) 3.5rem;
+}
+
+.scene__content > * + * { margin-top: 1.1rem; }
+
+/* Where each image is cropped on small screens (keeps the subject in view) */
+.scene--opening    { --focus: 72% 50%; }
+.scene--room       { --focus: 72% 55%; }
+.scene--treatments { --focus: 50% 50%; }
+.scene--doctor     { --focus: 76% 40%; }
+.scene--journey    { --focus: 72% 60%; }
+
+/* Scene 1: opening */
+.scene--opening .scene__media { aspect-ratio: 1 / 1; }
+.scene--opening .scene__content {
+  margin-inline: auto;
+  text-align: center;
+  padding-block: 2.75rem 4rem;
+}
+.brand {
+  font-size: clamp(3.25rem, 2rem + 7vw, 7.5rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  margin-right: -0.12em;  /* balance the trailing letter-spacing */
+  line-height: 1;
+}
+.tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+  color: var(--charcoal);
+}
+
+/* Scene 3: treatment cards */
+.cards { display: grid; gap: 1rem; }
+.card {
+  padding: 1.5rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(31, 58, 46, 0.14);
+  border-top: 3px solid var(--sage);
+  border-radius: 4px;
+}
+.card h3 { margin-bottom: 0.5rem; }
+.note { color: var(--charcoal-soft); font-size: 0.95rem; }
+
+/* Scene 4: doctor */
+.doctor-name { color: var(--charcoal); }
+.doctor-name strong { font-weight: 600; color: var(--forest); }
+
+/* Scene 5: steps + quote */
+.steps {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  gap: 1.25rem;
+}
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  column-gap: 0.75rem;
+  align-items: baseline;
+}
+.steps li::before {
+  content: "0" counter(step);
+  grid-row: span 2;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-variant-numeric: lining-nums; /* "01" instead of old-style "oı" */
+  color: var(--forest);
+  border-top: 1px solid var(--sage);
+  padding-top: 0.2rem;
+}
+.steps h3 { font-size: 1.5rem; }
+
+.quote { margin: 2rem 0 0; padding-left: 1.25rem; border-left: 2px solid var(--sage); }
+.quote blockquote { margin: 0; }
+.quote blockquote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: var(--forest);
+}
+.quote figcaption { margin-top: 0.5rem; }
+
+/* ---------- 4. Booking (Scene 6) ---------- */
+.booking {
+  position: relative;
+  color: var(--ivory);
+  background-color: var(--forest);
+  /* Subtle soft-light texture: two very faint glows */
+  background-image:
+    radial-gradient(ellipse 70% 50% at 20% 0%, rgba(247, 243, 236, 0.07), transparent 70%),
+    radial-gradient(ellipse 60% 60% at 90% 100%, rgba(163, 176, 154, 0.10), transparent 70%);
+  padding: 4.5rem var(--gutter) 4rem;
+}
+.booking:focus { outline: none; }
+.booking :focus-visible { outline-color: var(--ivory); }
+
+.booking__inner {
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.booking h2 { color: var(--ivory); }
+.booking__intro { margin-top: 1rem; color: var(--ivory-soft); }
+
+.form { margin-top: 2.5rem; text-align: left; }
+.form__grid { display: grid; gap: 1.25rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+.field label { font-weight: 500; font-size: 0.95rem; color: var(--ivory); }
+.optional { font-weight: 400; color: var(--ivory-soft); }
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  font-size: 1rem;        /* 16px+ stops iPhone zooming in on focus */
+  color: var(--charcoal);
+  background: var(--ivory);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  appearance: none;
+}
+.field select {
+  padding-right: 2.5rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--forest) 50%),
+                    linear-gradient(135deg, var(--forest) 50%, transparent 50%);
+  background-position: calc(100% - 1.25rem) 50%, calc(100% - 0.9rem) 50%;
+  background-size: 0.35rem 0.35rem;
+  background-repeat: no-repeat;
+}
+.field input:focus-visible,
+.field select:focus-visible { outline: 3px solid var(--sage); outline-offset: 2px; }
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"] { border-color: var(--error-on-dark); }
+
+.field__error { font-size: 0.9rem; color: var(--error-on-dark); }
+
+.honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.button {
+  display: block;
+  width: 100%;
+  margin-top: 2rem;
+  min-height: 3.25rem;
+  padding: 0.85rem 2rem;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--forest);
+  background: var(--ivory);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.button:hover { background: #FFFFFF; }
+.button:disabled { opacity: 0.7; cursor: progress; }
+.button:focus-visible { outline: 3px solid var(--sage); outline-offset: 3px; }
+
+.form__demo-note { margin-top: 1rem; font-size: 0.9rem; color: var(--ivory-soft); text-align: center; }
+.form__status { margin-top: 1rem; text-align: center; font-weight: 500; }
+.form__status:empty { display: none; }
+.form__status[data-state="error"] { color: var(--error-on-dark); }
+
+.contact {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(247, 243, 236, 0.2);
+}
+.contact address { font-style: normal; display: grid; gap: 0.5rem; }
+.contact__label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ivory-soft);
+}
+
+/* ---------- 5. Footer ---------- */
+.footer {
+  background: var(--forest-deep);
+  color: var(--ivory-soft);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1.75rem var(--gutter) 2rem;
+}
+.footer p { max-width: 40rem; margin: 0 auto; }
+
+/* ---------- 6. Tablet and up ---------- */
+@media (min-width: 640px) {
+  :root { --gutter: 2rem; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .form__grid { grid-template-columns: 1fr 1fr; column-gap: 1.25rem; }
+  .button { width: auto; margin-inline: auto; }
+  .contact address { grid-template-columns: repeat(3, 1fr); text-align: center; }
+}
+
+/* ---------- 7. Desktop: full-screen scenes with text over the image ---------- */
+@media (min-width: 1024px) {
+  :root { --gutter: clamp(3rem, 6vw, 7rem); }
+
+  .scene {
+    min-height: 100vh;
+    min-height: 100svh;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .scene__media {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+  .scene--opening .scene__media { aspect-ratio: auto; }
+
+  /* Soft ivory wash on the left so text stays readable on any part of the image.
+     It is solid behind the text column, then fades out to show the photo. */
+  .scene::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    --text-edge: calc(var(--gutter) + var(--measure));
+    background: linear-gradient(90deg,
+      rgba(247, 243, 236, 0.82) 0,
+      rgba(247, 243, 236, 0.72) var(--text-edge),
+      rgba(247, 243, 236, 0) calc(var(--text-edge) + 16rem));
+  }
+
+  .scene__content {
+    z-index: 2;
+    padding: 6rem var(--gutter);
+    max-width: calc(var(--measure) + 2 * var(--gutter));
+  }
+
+  /* Scene 1 on desktop: text on the left, the drop stays clear on the right */
+  .scene--opening .scene__content {
+    margin-inline: 0;
+    text-align: left;
+    padding-block: 6rem;
+  }
+
+  /* Scene 3: centred panel over the sage wall */
+  .scene--treatments::before { background: rgba(247, 243, 236, 0.15); }
+  .scene--treatments .scene__content {
+    max-width: 52rem;
+    margin-inline: auto;
+    padding: 3rem;
+    background: rgba(247, 243, 236, 0.93);
+    border-radius: 6px;
+    text-align: center;
+  }
+  .scene--treatments .scene__content { margin-block: 6rem; }
+  .scene--treatments .card { text-align: left; }
+
+  .booking { padding-block: 7rem 5rem; }
+}
+
+/* Very wide screens: keep the text column from drifting too far from the edge */
+@media (min-width: 1800px) {
+  :root { --gutter: 8rem; }
+}
+
+/* ---------- 8. Reduced motion ---------- */
+/* No animation exists yet. This makes sure nothing added later moves for people who opt out. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
