@@ -10,14 +10,16 @@ Guidance for Claude when working in this repository. Read this first, every sess
 
 One long, immersive scrolling page that feels like **one continuous, slow camera move** through a calm, luxurious space.
 
-### Six sections (in order)
+### Six scenes (in order)
 
-1. **Serum-drop opening**: a single drop falls or settles, and the brand name appears. This is the "establishing shot".
+The exact on-page wording lives in **`CONTENT.md`** (the source of truth for copy; use it word for word). How each scene looks and moves lives in **`STORYBOARD.md`**.
+
+1. **Opening**: serum drop on skin, then the DERMAÉ name and tagline. This is the "establishing shot".
 2. **Treatment room**: the camera "drifts" into a serene clinic room.
-3. **Treatments**: the main treatments, described gently and factually.
-4. **Doctor**: the (fictional) lead dermatologist and their approach.
-5. **Results and patient quotes**: illustrative only and **clearly labelled** (see Content rules).
-6. **Booking**: booking form (Formspree) plus contact details (fictional).
+3. **Treatments**: medical and aesthetic dermatology, described gently and factually.
+4. **Doctor**: Dr. Mira Sen, Lead Dermatologist, labelled as a *fictional demo profile*.
+5. **Your care journey**: Consult, Plan, Care, plus one quote labelled *(Illustrative quote)*.
+6. **Booking**: booking form (Formspree), fictional contact details and the footer note.
 
 ### How the motion is achieved
 
@@ -120,16 +122,28 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 
 ## Content rules (important)
 
-- **Every clinic detail is fictional and clearly so.** Use a made-up address, a `555`-style phone number and an `example.com`-style email. Include a visible note such as: *"DERMAÉ is a fictional clinic created as a design demo."*
-- **Patient quotes are illustrative.** Label them clearly (for example *"Illustrative testimonials — not real patients"*). Never present them as genuine reviews, and never add star ratings or review counts that imply real data.
+- **Every clinic detail is fictional and clearly so.** Use the details from `CONTENT.md`: address "Demo address", phone `+00 00000 00000`, email `hello@dermae.example`. Keep the footer note visible: *"DERMAÉ is a fictional concept website. Its clinic details, doctor, and quotes are illustrative and aren't medical advice."*
+- **Patient quotes are illustrative.** Label each one visibly, as `CONTENT.md` does with *(Illustrative quote)*. Never present quotes as genuine reviews, and never add star ratings or review counts that imply real data.
 - **No fake "results".** Don't show before/after photos presented as real outcomes. If imagery is AI-generated or stock, label it as illustrative.
 - **No unsupported medical claims.** Avoid words like "cure", "guaranteed", "permanent", "clinically proven", or specific percentages and statistics. Prefer soft, honest wording such as "may help", "designed to" and "results vary". Suggest consulting a qualified dermatologist.
 - The fictional doctor must not imitate a real person (name, photo or credentials).
-- The booking form must not ask for sensitive medical history. Keep it to name, email, phone (optional), preferred treatment, preferred date and a short message.
+- The booking form must not ask for sensitive medical history. Its fields are exactly:
+
+  | Field | Required? | Notes |
+  | --- | --- | --- |
+  | Name | Required | |
+  | Phone | Optional | |
+  | Email | Required | |
+  | Appointment type | Required | Medical dermatology / Aesthetic dermatology / Not sure yet |
+  | Preferred date | Required | Today or later |
+  | Preferred time | Optional | |
+
+  There is no free-text message box. The button reads **Request Consultation**.
 
 ## Formspree
 
 - The form `action` uses a placeholder endpoint like `https://formspree.io/f/YOUR_FORM_ID` until the user supplies a real ID. Never invent one.
+- While the placeholder is in place, the form must **never pretend a request was sent**. It sends nothing, shows "Demo form: not connected yet, so requests won't be sent." under the button, and says so again after a valid submit.
 - Progressive enhancement: the form works as a normal POST without JS. With JS, submit via `fetch` and show inline success and error messages.
 - Add a honeypot field (`_gotcha`) for spam.
 
