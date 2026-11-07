@@ -146,6 +146,10 @@ Keep the same six scenes and order. Stack the text, use tighter image crops, and
 - Under 1024px wide, the header links move into a full-screen ivory menu (Menu button), and a slim "Book consultation" bar sits at the bottom. Both "Book consultation" buttons hide while the booking section is on screen.
 - The footer links form a two-by-two grid on phones.
 - If a scene's text can't fit the screen (for example, a very short phone held sideways), the film switches to a normal scrolling page where lines still rise in with the scroll.
+- **Phones held sideways (Day 14):** on short landscape screens (under 500px tall) there is no bottom bar; "Book consultation" moves into the header instead, so the film text has the whole height. The "Questions?" button hides while the film is on screen and returns for the sections after it. In Scene 3 the text column is wider and sits on a slightly stronger ivory haze so it stays readable.
+- **Menu on short screens (Day 14):** the full-screen menu scrolls if it doesn't fit (for example at 200% zoom), and its links get smaller on very short screens.
+- **Notches and rounded corners (Day 14):** the header, bottom bar, "Questions?" button and side margins move in by the phone's safe area, so nothing sits under a notch, a camera cut-out or the home indicator.
+- **Touch (Day 14):** on phones and tablets the page scrolls with the device's own scrolling (no smoothing added), while the film still follows the finger exactly. The "Questions?" button hides while the booking section is on screen, just like the book bar.
 
 ## Reduced motion
 
@@ -159,3 +163,7 @@ Turn off zooms and smooth scrolling, and use gentle fades only.
 ## Image rule
 
 Reserve space for text, and use the same colors and lighting in every image.
+
+## Share image (added Day 14)
+
+Link previews use one calm 1200x630 image: the Scene 1 serum drop on the right, ivory on the left with the DERMAÉ wordmark in forest green, the tagline in italic serif and a small "Fictional clinic · Design demo" label. The favicon is the letter D in Cormorant on forest green.

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Page not found · DERMAÉ (design demo)</title>
+  <meta name="description" content="This page could not be found. DERMAÉ is a fictional dermatology clinic website created as a design demo.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1F3A2E">
+  <!-- GitHub Pages shows this page for any missing address, at any depth, so
+       everything it needs is inside this file or uses absolute addresses. -->
+  <link rel="icon" href="https://workwithpratul-collab.github.io/Dermae/images/share/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;500;600&display=swap">
+  <style>
+    :root { --ivory: #F7F3EC; --forest: #1F3A2E; --charcoal: #2B2B2B; --charcoal-soft: #4A4744; --sage: #A3B09A; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      padding: calc(env(safe-area-inset-top, 0px) + 1.5rem) max(1.5rem, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 1.5rem) max(1.5rem, env(safe-area-inset-left, 0px));
+      background: var(--ivory); color: var(--charcoal);
+      font: 400 1.0625rem/1.65 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wordmark { align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; font: 500 1.4rem/1 "Cormorant Garamond", Georgia, serif; letter-spacing: 0.22em; color: var(--forest); text-decoration: none; }
+    main { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 40rem; margin: 0 auto; width: 100%; padding: 3rem 0; }
+    .eyebrow { margin: 0 0 1.1rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest); }
+    h1 { margin: 0; font: 500 clamp(2.6rem, 1.6rem + 4vw, 4.5rem)/1.04 "Cormorant Garamond", Georgia, serif; color: var(--forest); letter-spacing: -0.01em; }
+    p.lead { margin: 1.25rem 0 0; max-width: 32rem; }
+    .rule { width: 3rem; height: 1px; margin: 2rem 0 1.5rem; background: var(--forest); opacity: 0.4; }
+    .home {
+      align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0.55rem 1.4rem;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ivory); background: var(--forest); border-radius: 999px; text-decoration: none;
+    }
+    .home:hover { background: #172C22; }
+    a:focus-visible { outline: 3px solid var(--forest); outline-offset: 3px; }
+    footer { font-size: 0.8125rem; font-style: italic; color: var(--charcoal-soft); max-width: 40rem; margin: 0 auto; width: 100%; }
+  </style>
+</head>
+<body>
+  <a class="wordmark" href="/Dermae/" data-home>DERMAÉ<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">, home</span></a>
+  <main>
+    <p class="eyebrow">Page not found</p>
+    <h1>This page isn’t here.</h1>
+    <p class="lead">The page you’re looking for may have moved, or the link may be incomplete.</p>
+    <div class="rule" aria-hidden="true"></div>
+    <a class="home" href="/Dermae/" data-home>Return to DERMAÉ</a>
+  </main>
+  <footer>DERMAÉ is a fictional concept website. Its clinic details, doctor, and quotes are illustrative and aren’t medical advice.</footer>
+  <script>
+    // On the live site the home page is /Dermae/; when testing locally it is /.
+    if (location.pathname.indexOf("/Dermae/") !== 0) {
+      document.querySelectorAll("[data-home]").forEach(function (a) { a.setAttribute("href", "/"); });
+    }
+  </script>
+</body>
+</html>

@@ -29,6 +29,10 @@
   --gutter: 1.25rem;
   --measure: 34rem;       /* comfortable line length for text blocks */
   --header-h: 3.75rem;    /* fixed header height (taller on desktop, see section 2b) */
+  /* Side padding that also clears phone notches and rounded corners
+     (needs viewport-fit=cover in index.html; 0 on devices without them). */
+  --pad-l: max(var(--gutter), env(safe-area-inset-left, 0px));
+  --pad-r: max(var(--gutter), env(safe-area-inset-right, 0px));
 
   color-scheme: light;
 }
@@ -164,8 +168,8 @@ a { color: inherit; text-underline-offset: 0.2em; }
   flex-wrap: wrap;
   align-items: center;
   column-gap: clamp(1.5rem, 2.5vw, 2.5rem);
-  min-height: var(--header-h);
-  padding: env(safe-area-inset-top, 0px) var(--gutter) 0;
+  min-height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  padding: env(safe-area-inset-top, 0px) var(--pad-r) 0 var(--pad-l);
 }
 
 .wordmark {
@@ -220,7 +224,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.75rem;
+  min-height: 46px;
   padding: 0.55rem 1.35rem;
   font-size: 0.78rem;
   font-weight: 500;
@@ -251,11 +255,11 @@ a { color: inherit; text-underline-offset: 0.2em; }
   .cta--header { display: none; }
 
   /* Without JavaScript: links wrap underneath the wordmark */
-  .site-header__bar { padding-block: 0.5rem; }
+  .site-header__bar { padding-top: calc(env(safe-area-inset-top, 0px) + 0.5rem); padding-bottom: 0.5rem; }
   .site-nav { width: 100%; }
   .site-nav a { padding-block: 0.35rem; }
 
-  .js .site-header__bar { padding-block: 0; flex-wrap: nowrap; }
+  .js .site-header__bar { padding-top: env(safe-area-inset-top, 0px); padding-bottom: 0; flex-wrap: nowrap; }
   .js .site-nav { width: auto; }
 
   /* With JavaScript: the menu button, and the links become a full-screen menu */
@@ -263,7 +267,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    min-height: 2.75rem;
+    min-height: 46px;
     margin-right: -0.5rem;
     padding: 0 0.5rem;
     font: inherit;
@@ -291,8 +295,10 @@ a { color: inherit; text-underline-offset: 0.2em; }
     z-index: -1;            /* under the header bar, so the Close button stays on top */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: calc(var(--header-h) + env(safe-area-inset-top, 0px)) var(--gutter) calc(var(--header-h) + env(safe-area-inset-bottom, 0px));
+    justify-content: safe center;   /* centred, but never pushed under the header when space is short */
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: calc(var(--header-h) + env(safe-area-inset-top, 0px)) var(--pad-r) calc(var(--header-h) + env(safe-area-inset-bottom, 0px)) var(--pad-l);
     background: var(--ivory);
     opacity: 0;
     visibility: hidden;
@@ -342,7 +348,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
     align-items: center;
     justify-content: center;
     min-height: 3.25rem;
-    padding: 0 var(--gutter) env(safe-area-inset-bottom, 0px);
+    padding: 0 var(--pad-r) env(safe-area-inset-bottom, 0px) var(--pad-l);
     font-size: 0.8rem;
     font-weight: 500;
     letter-spacing: 0.16em;
@@ -361,6 +367,21 @@ a { color: inherit; text-underline-offset: 0.2em; }
     transition: transform 0.6s cubic-bezier(.25,.1,.25,1), visibility 0s linear 0.6s;
   }
 }
+
+/* Phones held sideways (short screens): a bottom bar would cover the film's
+   text, so the compact "Book a consultation" button sits in the header
+   instead, next to Menu, and the bottom bar is not shown. */
+@media (max-width: 1023.98px) and (orientation: landscape) and (max-height: 500px) {
+  .js .book-bar { display: none; }
+  .js .cta--header { display: inline-flex; min-height: 46px; padding: 0.45rem 1rem; font-size: 0.72rem; }
+  .js .site-header__bar { column-gap: 1.25rem; }
+}
+
+/* Comfortable tap targets: at least 44 x 44 px for every link and button */
+.wordmark { display: inline-flex; align-items: center; min-height: 44px; }
+.site-nav a,
+.footer__nav a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; }
+.site-nav a::after { bottom: 0.55rem; }
 
 /* ---------- 2c. Loading screen and "Scroll to begin" ----------
    Only shown with JavaScript. js/intro.js places the word exactly over
@@ -739,7 +760,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   .scene__content {
     margin-inline: auto;            /* centred column on tablets, full width on phones */
     max-width: calc(36rem + 2 * var(--gutter));
-    padding: clamp(0.75rem, 3dvh, 3rem) var(--gutter) 2rem;
+    padding: clamp(0.75rem, 3dvh, 3rem) var(--pad-r) 2rem var(--pad-l);
   }
 
   /* A soft ivory fade from the top edge, ending where the subject begins */
@@ -845,7 +866,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 
   .scene { justify-content: center; }
 
-  .scene__content { padding: 3rem var(--gutter); }
+  .scene__content { padding: 3rem var(--pad-r) 3rem var(--pad-l); }
 
   /* Solid behind the text column, then fades out to show the photo */
   .scene__wash {
@@ -906,7 +927,10 @@ a { color: inherit; text-underline-offset: 0.2em; }
   .label { font-size: 0.75rem; }
   .eyebrow { font-size: 0.6rem; letter-spacing: 0.12em; margin-bottom: 0.3rem; }
   .treatments__list li { padding-block: 0.05rem; font-size: 0.8125rem; line-height: 1.3; }
-  .scene--treatments .scene__content { padding-block: 0.75rem; }
+  .scene--treatments .scene__content { padding-block: 0.75rem; width: min(44rem, 70vw); margin-left: 22vw; }  /* wider, so the closing notes stay on one line each */
+  .scene--treatments .scene__content > .note { max-width: none; }
+  /* Smaller text over a busier part of the photo: a stronger haze behind it */
+  .scene--treatments .scene__content::before { background: rgba(247, 243, 236, 0.78); inset: 0 -2rem; }
   .scene--treatments .scene__content > .treatments { margin-top: 0.6rem; }
   .scene--treatments .scene__content > .treatments__rule { margin-top: 0.6rem; }
   .scene--treatments .scene__content > .note { margin-top: 0.35rem; }
@@ -933,7 +957,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   position: relative;
   z-index: 1;
   background: var(--ivory);
-  padding: clamp(4.5rem, 11vh, 8.5rem) var(--gutter);
+  padding: clamp(4.5rem, 11vh, 8.5rem) var(--pad-r) clamp(4.5rem, 11vh, 8.5rem) var(--pad-l);
   --section-rgb: 247, 243, 236;   /* its background colour, for the header backdrop (js/nav.js) */
 }
 .section:focus { outline: none; }
@@ -973,7 +997,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 .library__filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .filter {
-  min-height: 2.75rem;
+  min-height: 46px;
   padding: 0.5rem 1.2rem;
   font: inherit;
   font-size: 0.78rem;
@@ -1001,7 +1025,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 .library__search input {
   width: 100%;
-  min-height: 2.75rem;
+  min-height: 46px;
   padding: 0.45rem 0.1rem;
   font: inherit;
   font-size: 1rem;
@@ -1041,6 +1065,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 .t-card__title { font-size: clamp(1.7rem, 1.4rem + 0.8vw, 2.1rem); font-weight: 500; }
 .t-card__summary { margin-top: 0.7rem; color: var(--charcoal); font-size: 0.975rem; line-height: 1.6; }
 .t-card__link {
+  min-height: 46px;
   align-self: flex-start;
   margin-top: auto;
   padding-top: 1.1rem;
@@ -1073,6 +1098,9 @@ a { color: inherit; text-underline-offset: 0.2em; }
 
 .library__empty { margin-top: 2rem; color: var(--charcoal); }
 .text-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0;
   font: inherit;
   color: var(--forest);
@@ -1137,7 +1165,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 .t-dialog__tag { margin: 0; }
 .t-dialog__close {
-  min-height: 2.75rem;
+  min-height: 46px;
   padding: 0.5rem 1.1rem;
   font: inherit;
   font-size: 0.75rem;
@@ -1462,7 +1490,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   color: var(--forest);
 }
 .contact-map__button {
-  min-height: 2.75rem;
+  min-height: 46px;
   padding: 0.5rem 1.3rem;
   font: inherit;
   font-size: 0.78rem;
@@ -1560,7 +1588,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 .faq__a.is-shown .faq__a-inner { opacity: 1; transform: none; }
 .faq__see span { font-weight: 600; color: var(--forest); }
-.faq__see a { color: var(--forest); }
+.faq__see a { display: inline-flex; align-items: center; min-height: 44px; color: var(--forest); }
 .faq__note { margin-top: 1.25rem; font-size: 0.8125rem; font-style: italic; color: var(--charcoal-soft); }
 .faq__noscript { margin-top: 2rem; }
 @media (min-width: 1024px) {
@@ -1570,7 +1598,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 /* ----- FAQ assistant (Day 11) ----- */
 .assistant-launcher {
   position: fixed;
-  right: calc(var(--gutter) * 0.6);
+  right: calc(var(--gutter) * 0.6 + env(safe-area-inset-right, 0px));
   bottom: calc(env(safe-area-inset-bottom, 0px) + 1.25rem);
   z-index: 45;
   min-height: 2.9rem;
@@ -1596,10 +1624,25 @@ a { color: inherit; text-underline-offset: 0.2em; }
   /* Phones and tablets: sit above the "Book a consultation" bar */
   .assistant-launcher { bottom: calc(env(safe-area-inset-bottom, 0px) + 3.25rem + 0.9rem); }
 }
+@media (max-width: 1023.98px) {
+  /* While the booking form is on screen, the button steps aside so it never
+     covers a field or the submit button. */
+  .is-booking .assistant-launcher { visibility: hidden; opacity: 0; }
+}
+@media (max-width: 1023.98px) and (orientation: landscape) and (max-height: 500px) {
+  /* Short screens: smaller menu links so all five fit */
+  .js .site-nav a { font-size: clamp(1.5rem, 7vh, 2.25rem); padding-block: 0.15rem; }
+  /* Phones held sideways have no bottom bar, so the button sits in the corner */
+  .assistant-launcher { bottom: calc(env(safe-area-inset-bottom, 0px) + 0.9rem); }
+  .js .scroll-hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem); }
+  /* The film's text needs the full width here, so the button waits until
+     you've scrolled past the film (html.film-live). */
+  .film-live .assistant-launcher { visibility: hidden; opacity: 0; }
+}
 
 .assistant {
   position: fixed;
-  inset: auto calc(var(--gutter) * 0.6) calc(env(safe-area-inset-bottom, 0px) + 1.25rem) auto;
+  inset: auto calc(var(--gutter) * 0.6 + env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 1.25rem) auto;
   width: min(26rem, calc(100vw - 2 * var(--gutter) * 0.6));
   max-width: none;          /* the browser caps dialog width by default */
   max-height: min(38rem, calc(100dvh - 2.5rem));
@@ -1639,7 +1682,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 .assistant__close {
   flex: none;
-  min-height: 2.5rem;
+  min-height: 46px;
   padding: 0.4rem 0.95rem;
   font: inherit;
   font-size: 0.72rem;
@@ -1676,6 +1719,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 .assistant__msg--suggest { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 .assistant__chip {
+  min-height: 44px;
   padding: 0.45rem 0.8rem;
   font: inherit;
   font-size: 0.85rem;
@@ -1692,6 +1736,8 @@ a { color: inherit; text-underline-offset: 0.2em; }
 .assistant__q { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 500; color: var(--forest); }
 .assistant__note { font-size: 0.78rem; font-style: italic; color: var(--charcoal-soft); }
 .assistant__links a,
+.assistant__msg .faq__see a { display: inline-flex; align-items: center; min-height: 44px; }
+.assistant__links a,
 .assistant__msg a { color: var(--forest); }
 .assistant :focus-visible { outline: 3px solid var(--forest); outline-offset: 2px; }
 .assistant__form {
@@ -1703,7 +1749,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 .assistant__form input {
   flex: 1 1 auto;
   min-width: 0;
-  min-height: 2.75rem;
+  min-height: 46px;
   padding: 0.45rem 0.1rem;
   font: inherit;
   font-size: 1rem;              /* 16px stops iPhone zooming in */
@@ -1716,7 +1762,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 .assistant__form input::placeholder { color: var(--charcoal-soft); opacity: 1; }
 .assistant__form input:focus-visible { outline: none; border-bottom-color: var(--forest); box-shadow: 0 1px 0 var(--forest); }
 .assistant__send {
-  min-height: 2.75rem;
+  min-height: 46px;
   padding: 0.5rem 1.1rem;
   font: inherit;
   font-size: 0.78rem;
@@ -1751,7 +1797,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   color: var(--ivory);
   background-color: var(--forest);
   overflow: hidden;
-  padding: calc(env(safe-area-inset-top, 0px) + 3.5rem) var(--gutter) 3.5rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 3.5rem) var(--pad-r) 3.5rem var(--pad-l);
 }
 .js .booking { padding-top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 2rem); }
 
@@ -1922,7 +1968,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   background: var(--forest-deep);
   color: var(--ivory-soft);
   font-size: 0.875rem;
-  padding: 3rem var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 2.25rem);
+  padding: 3rem var(--pad-r) calc(env(safe-area-inset-bottom, 0px) + 2.25rem) var(--pad-l);
 }
 .footer__inner { max-width: 76rem; margin: 0 auto; }
 .footer__top {

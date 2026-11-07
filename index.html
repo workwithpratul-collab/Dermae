@@ -2,13 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DERMAÉ — Fictional Dermatology Clinic (Design Demo)</title>
-  <meta name="description" content="DERMAÉ is a fictional concept website for a dermatology clinic, created as a design demo. Clinic details, doctor and quotes are illustrative.">
-  <!-- This is a fictional demo, so keep it out of search results. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DERMAÉ · Fictional dermatology clinic website (design demo)</title>
+  <meta name="description" content="A design demo for a fictional dermatology clinic: an immersive scroll film, treatment guide, FAQ and enquiry form. All clinic details are illustrative.">
+  <!-- This is a fictional demo, so keep it out of search results.
+       For a REAL client site, remove this line (see CLAUDE.md, "SEO"). -->
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#1F3A2E">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F3A2E'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='20' fill='%23F7F3EC'%3ED%3C/text%3E%3C/svg%3E">
+  <link rel="canonical" href="https://workwithpratul-collab.github.io/Dermae/">
+
+  <!-- Icons -->
+  <link rel="icon" href="images/share/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/share/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/share/apple-touch-icon.png">
+
+  <!-- Link previews (WhatsApp, LinkedIn, X and others). Absolute URLs, because
+       the apps that build previews read this page from the live site. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DERMAÉ (design demo)">
+  <meta property="og:title" content="DERMAÉ · Fictional dermatology clinic website (design demo)">
+  <meta property="og:description" content="A design demo for a fictional dermatology clinic: an immersive scroll film, treatment guide, FAQ and enquiry form. All clinic details are illustrative.">
+  <meta property="og:url" content="https://workwithpratul-collab.github.io/Dermae/">
+  <meta property="og:image" content="https://workwithpratul-collab.github.io/Dermae/images/share/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DERMAÉ wordmark beside a close-up of a serum drop on skin, labelled Fictional clinic, Design demo.">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DERMAÉ · Fictional dermatology clinic website (design demo)">
+  <meta name="twitter:description" content="A design demo for a fictional dermatology clinic: an immersive scroll film, treatment guide, FAQ and enquiry form. All clinic details are illustrative.">
+  <meta name="twitter:image" content="https://workwithpratul-collab.github.io/Dermae/images/share/og-image.jpg">
+  <meta name="twitter:image:alt" content="DERMAÉ wordmark beside a close-up of a serum drop on skin, labelled Fictional clinic, Design demo.">
+
+  <!-- Structured data (schema.org MedicalClinic), filled with the DEMO details.
+       For a real clinic, replace every value with the clinic's real details. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalClinic",
+    "name": "DERMAÉ (fictional demo clinic)",
+    "description": "A fictional dermatology clinic created as a website design demo. All details are illustrative and not a real business.",
+    "url": "https://workwithpratul-collab.github.io/Dermae/",
+    "image": "https://workwithpratul-collab.github.io/Dermae/images/share/og-image.jpg",
+    "logo": "https://workwithpratul-collab.github.io/Dermae/images/share/icon-512.png",
+    "telephone": "+00 00000 00000",
+    "email": "hello@dermae.example",
+    "address": { "@type": "PostalAddress", "streetAddress": "Demo address" },
+    "medicalSpecialty": "Dermatology",
+    "availableService": [
+      { "@type": "MedicalTherapy", "name": "Medical dermatology" },
+      { "@type": "MedicalTherapy", "name": "Aesthetic dermatology" }
+    ],
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "13:00" }
+    ]
+  }
+  </script>
 
   <!-- Tells the CSS that JavaScript is running (the header becomes fixed, the mobile menu works). -->
   <script>
@@ -72,7 +123,7 @@
   <header class="site-header" id="site-header">
     <div class="site-header__bar">
       <a class="wordmark" href="#opening" data-nav="opening">DERMAÉ<span class="visually-hidden">, back to the start</span></a>
-      <nav class="site-nav" id="site-nav" aria-label="Main">
+      <nav class="site-nav" id="site-nav" aria-label="Main" data-lenis-prevent>
         <ul>
           <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
           <li><a href="#doctor" data-nav="doctor">Doctor</a></li>

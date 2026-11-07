@@ -868,3 +868,27 @@ Link: Book a consultation
 ### Phase 2: header
 
 - Header links: Treatments · Doctor · FAQ · Contact · Book
+
+# Approved additions (Day 14)
+
+No visible page copy changed on Day 14. These are the new texts for search engines, link previews and the "page not found" page.
+
+## Page title and description (search results and link previews)
+
+- **Title:** DERMAÉ · Fictional dermatology clinic website (design demo)
+- **Description:** A design demo for a fictional dermatology clinic: an immersive scroll film, treatment guide, FAQ and enquiry form. All clinic details are illustrative.
+- **Share image** (`images/share/og-image.jpg`, 1200x630): the Scene 1 serum-drop photo, the DERMAÉ wordmark, the tagline *Specialist skin care, carefully considered.*, and the label **Fictional clinic · Design demo**.
+- **Share image alt text:** DERMAÉ wordmark beside a close-up of a serum drop on skin, labelled Fictional clinic, Design demo.
+- **Site name in previews:** DERMAÉ (design demo)
+
+## Structured data (read by search engines, not shown on the page)
+
+Name "DERMAÉ (fictional demo clinic)", with the same demo details as the Contact section: phone +00 00000 00000, email hello@dermae.example, address "Demo address", hours Monday to Friday 9:00–18:00 and Saturday 9:00–13:00, and the specialty Dermatology (medical and aesthetic).
+
+## Page not found (404.html)
+
+- **Eyebrow:** Page not found
+- **Heading:** This page isn’t here.
+- **Text:** The page you’re looking for may have moved, or the link may be incomplete.
+- **Button:** Return to DERMAÉ
+- **Footer note:** DERMAÉ is a fictional concept website. Its clinic details, doctor, and quotes are illustrative and aren’t medical advice.

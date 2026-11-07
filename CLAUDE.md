@@ -50,6 +50,7 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 ```
 /
 ├── index.html
+├── 404.html          # "page not found" page (GitHub Pages shows it for any missing address)
 ├── css/
 │   └── styles.css        # design tokens (CSS variables) at the top
 ├── js/
@@ -66,7 +67,8 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 │   └── form.js           # booking form submit + messages
 ├── images/
 │   ├── originals/        # full-size source images (not loaded by the site)
-│   └── web/              # optimised images, WebP + JPEG fallback (see "Images" in the decisions below)
+│   ├── web/              # optimised images, WebP + JPEG fallback (see "Images" in the decisions below)
+│   └── share/            # share image (og-image.jpg, 1200x630), favicon.svg, favicon-32.png, apple-touch-icon.png, icon-512.png
 ├── .nojekyll             # lets GitHub Pages serve files as-is
 ├── CONTENT.md            # approved copy
 ├── STORYBOARD.md         # how each scene looks and moves
@@ -187,6 +189,13 @@ Notes: the hidden `_subject` field sets the email subject, and `_gotcha` is the 
 - **Commit after each working milestone** with a clear, descriptive message. Don't commit broken work.
 - Don't build ahead of what was asked. Check in at natural milestones.
 
+## SEO and sharing (Day 14)
+
+- `index.html` has the title, meta description, a canonical link, Open Graph and Twitter tags, the icons and MedicalClinic structured data (JSON-LD) with the demo details. All share addresses are **absolute** and point at the live site, `https://workwithpratul-collab.github.io/Dermae/`. If the site moves, update them all (search for that address in `index.html` and `404.html`).
+- The share image and icons live in `images/share/`. The share image must keep its "Fictional clinic · Design demo" label.
+- `404.html` is self-contained (inline styles, absolute icon address) because GitHub Pages shows it at any depth. Its home link goes to `/Dermae/` live and `/` locally.
+- **The demo stays out of search results:** `<meta name="robots" content="noindex, nofollow">` is in `index.html` and `404.html` on purpose. **For a real client site, remove the robots line from `index.html`** (and replace every demo detail in the structured data with the clinic's real, checked details), otherwise search engines will never list it.
+
 ## Git
 
 - Small, focused commits with messages that describe the change (for example "Add page skeleton with six sections").
@@ -222,6 +231,11 @@ Notes: the hidden `_subject` field sets the email subject, and `_gotcha` is the 
 - **Animation lightness (Day 13):** `will-change` is applied only while the film is on screen (`html.film-live`, set by the film's ScrollTrigger); the light layers have none. The header checks what's behind it only on scroll, resize and ScrollTrigger refresh, not every frame. Off-screen parts don't animate: the film's timeline stops once you're past it, and reveals and the doctor zoom run only within their scroll ranges.
 - **Measuring weight:** count requests and downloaded bytes with the browser cache disabled, on first load and after scrolling the whole page, at a desktop and a phone size. Day 13 numbers are in the Day 13 commit message.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
+- **Touch scrolling (Day 14):** Lenis runs with `syncTouch: false`, so phones and tablets keep their own native scrolling (with its natural momentum); the film is still tied to the scroll position. Smooth scrolling only applies to mouse wheels.
+- **Safe areas (Day 14):** the viewport tag has `viewport-fit=cover`, so the page draws under notches and rounded corners and moves its own content in with `env(safe-area-inset-*)`. Side padding uses `--pad-l` and `--pad-r` (the gutter or the inset, whichever is larger); the header adds the top inset to its padding and its minimum height; the book bar, launcher and scroll hint add the bottom inset. A rule that resets the header's padding must keep the top inset.
+- **Tap targets (Day 14):** every link, button and field is at least 44x44px. Use **46px** for minimum heights, not 44px or 2.75rem, because sub-pixel rounding can measure 43.99px.
+- **Short landscape (Day 14):** phones held sideways (`orientation: landscape` and under 500px tall, under 1024px wide) hide the bottom bar and show the header's Book button; the "Questions?" launcher hides while the film is live; Scene 3 uses a wider column and a 0.78 ivory haze (contrast 5.7:1). The launcher also hides while the booking section is on screen under 1024px, like the book bar.
+- **Menu at 200% zoom (Day 14):** the full-screen menu uses `justify-content: safe center` and scrolls on its own (`data-lenis-prevent`), so its first link is never hidden under the header.
 
 ## Progress
 
@@ -239,4 +253,5 @@ Notes: the hidden `_subject` field sets the email subject, and `_gotcha` is the 
 - **Day 11:** FAQ section built from `js/faq-data.js` as an accessible accordion grouped by category, and a free FAQ assistant that answers only from that data (safety reply for medical messages, fallback otherwise, nothing stored). Header: Treatments, Doctor, FAQ, Book.
 - **Day 12:** Patient guide (before, during and after your visit) in the Approach style; Contact section as the one place for the contact details, with demo hours, demo call/WhatsApp/email/directions links and a click-to-load demo map; contact details removed from the booking section. Header: Treatments, Doctor, FAQ, Contact, Book. Page order: film → Treatments → Approach → Doctor → Patient guide → FAQ → Contact → Booking → footer.
 - **Day 13:** Speed and performance: WebP versions and right-sized images for every scene (`srcset`/`sizes`, width and height everywhere), Scene 1 preloaded at high priority and the rest in the background, fonts trimmed to what renders and loaded without blocking, `will-change` only while the film is on screen, header checks only on scroll, one unused CSS rule removed, and the form endpoint marked in one place with a "Connecting the form" guide. Page weight about 55–59% lower (see the Day 13 commit).
-- **Days 14–15:** still to come.
+- **Day 14:** Mobile, tablet, accessibility and SEO: native touch scrolling, safe areas for notches (header, bar, launcher, side margins), no overlaps between the book bar, "Questions?" button and menu, a sideways-phone layout (Book in the header, Scene 3 widened and made more readable), every tap target at least 44x44, a menu that works at 200% zoom; keyboard, headings, landmarks, alt text and focus checked at every size; title, description, share image, Open Graph/Twitter tags, icons, MedicalClinic structured data with demo details, and a 404 page (noindex kept on purpose). Tested at 360x640, 390x844, 430x932, 844x390, 768x1024, 1024x768, 1366x768 and 1920x1080, scrolling down and back up.
+- **Day 15:** still to come.

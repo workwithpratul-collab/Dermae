@@ -52,7 +52,10 @@
 
   function startLenis() {
     if (!window.Lenis) return; // native scrolling still works fine
-    lenis = new window.Lenis({ lerp: 0.08, smoothWheel: true });
+    // Smooth only the mouse wheel. Touch screens keep their own native
+    // scrolling (syncTouch: false): it feels natural and never laggy, and the
+    // film still follows it, because ScrollTrigger reads the real scroll position.
+    lenis = new window.Lenis({ lerp: 0.08, smoothWheel: true, syncTouch: false });
     lenis.on("scroll", ScrollTrigger.update);
     state.lenis = lenis; // used by js/nav.js to glide to a scene
     if (root.classList.contains("is-loading")) lenis.stop(); // js/intro.js starts it when the loader opens
