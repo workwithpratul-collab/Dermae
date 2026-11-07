@@ -52,6 +52,9 @@ body {
 
 img { display: block; max-width: 100%; height: auto; }
 
+/* "hidden" always wins, even over a display rule set elsewhere */
+[hidden] { display: none !important; }
+
 h1, h2, h3 {
   margin: 0;
   font-family: var(--font-serif);
@@ -369,8 +372,11 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 @keyframes loader-failsafe { to { opacity: 0; visibility: hidden; } }
 .js .loader.is-running { animation: none; }
+/* Once it starts fading, clicks and taps go straight through to the page;
+   once hidden, it is gone completely ("display: block" above must not win). */
 .js .loader.is-leaving {
   opacity: 0;
+  pointer-events: none;
   transition: opacity var(--leave, 1.1s) cubic-bezier(.4,0,.2,1);
 }
 
@@ -465,6 +471,53 @@ a { color: inherit; text-underline-offset: 0.2em; }
 }
 @media (prefers-reduced-motion: reduce) {
   .scroll-hint__line::after { animation: none; transform: none; }
+}
+
+/* ---------- 2d. Scroll progress and film grain ---------- */
+/* A 2px line down the right edge, filled by js/scenes.js as you scroll.
+   Sage reads as a quiet accent on both ivory and forest green. */
+.progress { display: none; }
+.js .progress {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  z-index: 51;
+  display: block;
+  width: 2px;
+  pointer-events: none;
+  background: rgba(163, 176, 154, 0.22);
+  transition: opacity 0.4s ease;
+}
+.progress__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--sage);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+}
+.menu-is-open .progress { opacity: 0; }
+
+/* Film grain: a small noise tile drawn once by the browser (SVG), repeated,
+   at very low strength. It shifts in tiny steps a few times a second, using
+   transform only, so it costs almost nothing. Reduced motion: it stays still. */
+.grain {
+  position: fixed;
+  inset: -8%;
+  z-index: 35;
+  pointer-events: none;
+  opacity: 0.32;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.12 0 0 0 0 0.1 0 0 0 1.1 -0.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.9s steps(1) infinite;   /* jumps between the 5 positions below */
+}
+@keyframes grain {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-3%, 2%); }
+  40%  { transform: translate(2%, -3%); }
+  60%  { transform: translate(-2%, -1%); }
+  80%  { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; }
 }
 
 /* ---------- 3. Scenes: full-screen image with text on top (all sizes) ---------- */

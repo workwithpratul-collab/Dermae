@@ -100,6 +100,7 @@
       } else {
         DermaeScenes.buildCalm({ cleanups: cleanups, reduce: reduceMQ.matches, split: split });
       }
+      DermaeScenes.buildProgress({ reduce: reduceMQ.matches });
     });
     state.mode = useFilm ? "film" : "calm";
 

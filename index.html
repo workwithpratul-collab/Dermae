@@ -71,6 +71,12 @@
   <!-- Mobile: slim booking bar along the bottom of the screen -->
   <a class="book-bar" href="#booking" data-nav="booking">Book consultation</a>
 
+  <!-- Scroll progress: a thin line down the right edge (decorative) -->
+  <div class="progress" aria-hidden="true"><span class="progress__fill"></span></div>
+
+  <!-- Very subtle film grain over the scenes (decorative, never clickable) -->
+  <div class="grain" aria-hidden="true"></div>
+
   <!-- "Scroll to begin": fades in after the loader, fades out on the first scroll -->
   <div class="scroll-hint" aria-hidden="true">
     <span class="scroll-hint__text">Scroll to begin</span>
@@ -117,6 +123,12 @@
             <img src="images/web/scene-2-desktop.jpg" width="1672" height="941"
                  alt="A calm ivory and sage treatment room with soft window light."
                  loading="lazy" decoding="async">
+          </picture>
+          <!-- Same image, pre-blurred: faded out so the room "comes into focus". -->
+          <picture class="scene__blur" aria-hidden="true">
+            <source media="(orientation: portrait)" srcset="images/web/scene-2-portrait.jpg">
+            <source media="(max-width: 950px)" srcset="images/web/scene-2-mobile.jpg">
+            <img src="images/web/scene-2-desktop.jpg" alt="" loading="lazy" decoding="async">
           </picture>
         </div>
         <div class="scene__light" aria-hidden="true"></div>

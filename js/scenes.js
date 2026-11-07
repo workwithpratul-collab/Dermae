@@ -18,21 +18,27 @@
 window.DermaeScenes = (function () {
   "use strict";
 
-  // Scroll length per scene, in screen-heights.
-  var SCREENS_PER_SCENE = 1.5;
+  // Scroll length per scene, in screen-heights (raised from 1.5 when each
+  // scene was given a longer pause to read; one beat is ~0.7 screens).
+  var SCREENS_PER_SCENE = 1.8;
 
   // How far (in % of its own height) a line is pushed to be fully hidden by
   // its mask. More than 100%, because each mask has extra room for accents
   // and letter tails (g, y), and tight headings let those hang outside the line.
   var HIDE = 140;
 
-  // Timings (beats) for each scene's text: when it starts to come in, and when it leaves.
+  // The film's timing, in beats. For each scene:
+  //   show = its picture starts fading in over the previous one
+  //   in   = its text starts to rise in      out = its text starts to leave
+  // Every scene's text is fully on screen for at least ~0.65 beats (a calm
+  // pause to read), and each crossfade finishes before the next text arrives.
   var T = {
-    s1Out: 0.9,
-    s2In: 1.95,  s2Out: 2.8,
-    s3In: 3.6,   s3Out: 4.8,
-    s4In: 5.55,  s4Out: 6.38,
-    s5In: 7.35,  s5Out: 8.65
+    s1Out: 1.0,
+    s2Show: 1.45, s2In: 2.35, s2Out: 3.8,
+    s3Show: 4.15, s3In: 4.6,  s3Out: 6.55,
+    s4Show: 6.9,  s4In: 7.4,  s4Out: 8.95,
+    s5Show: 9.35, s5In: 9.95, s5Out: 12.05,
+    green: 12.3,  end: 12.95
   };
 
   var root = document.documentElement;
@@ -93,13 +99,14 @@ window.DermaeScenes = (function () {
         content: q(".scene__content", el)
       };
     });
-    var blur = q(".scene__blur", s[0].el);
+    var blur = q(".scene__blur", s[0].el);       // the drop, pre-blurred
+    var roomBlur = q(".scene__blur", s[1].el);   // the room, pre-blurred
     var glow = q(".film__glow", film);
     var green = q(".film__green", film);
 
     var soft = "sine.inOut";
     var hasSplit = !!window.SplitText && opts.split !== false;
-    var fadeIn = hasSplit ? 0.15 : 0.35;     // without SplitText, the whole text block fades instead
+    var fadeIn = hasSplit ? 0.3 : 0.4;       // without SplitText, the whole text block fades instead
 
     // "Invisible but painted": layers waiting their turn sit at 0.001 opacity
     // instead of 0. You can't see them, but the browser paints them up front,
@@ -116,8 +123,9 @@ window.DermaeScenes = (function () {
     gsap.set(s.slice(1).map(function (x) { return x.content; }), { opacity: 0, y: 30 * drift });
     var later = flat(flat(L.slice(1)));
     if (later.length) gsap.set(later, { yPercent: HIDE });
+    gsap.set(roomBlur, { opacity: 1 });                           // the room arrives out of focus
     gsap.set(s[0].media, { scale: 1 + 0.3 * m });                 // very close on the drop
-    gsap.set(s[1].media, { scale: 1.04 });
+    gsap.set(s[1].media, { scale: 1.04 + 0.08 * m });             // the room arrives a little close…
     gsap.set(s[2].media, { scale: 1 + 0.1 * m, xPercent: 4 * m });
     gsap.set(s[3].media, { scale: 1.04 });
     gsap.set(s[4].media, { scale: 1 + 0.18 * m });
@@ -155,12 +163,12 @@ window.DermaeScenes = (function () {
     function linesIn(lines, at, step) {
       if (!lines.length) return;
       tl.fromTo(lines, { yPercent: HIDE }, {
-        yPercent: 0, duration: 0.32, ease: "power2.out", stagger: step || 0.07, immediateRender: false
+        yPercent: 0, duration: 0.4, ease: "power2.out", stagger: step || 0.08, immediateRender: false
       }, at);
     }
     function linesOut(lines, at) {
       if (!lines.length) return;
-      tl.to(lines, { yPercent: -HIDE, duration: 0.2, ease: "power2.in", stagger: { amount: 0.1 } }, at);
+      tl.to(lines, { yPercent: -HIDE, duration: 0.24, ease: "power2.in", stagger: { amount: 0.1 } }, at);
     }
     function textIn(x, at) {
       tl.to(x.wash, { opacity: 1, duration: 0.35, ease: soft }, at - 0.1)
@@ -169,8 +177,8 @@ window.DermaeScenes = (function () {
     // Lines leave, then the block's last details fade and the wash lifts.
     function textOut(x, lines, at) {
       linesOut(lines, at);
-      tl.to(x.content, { opacity: 0, y: -44 * drift, duration: 0.14, ease: "sine.in" }, at + 0.16)
-        .to(x.wash, { opacity: 0, duration: 0.3, ease: soft }, at + 0.02);
+      tl.to(x.content, { opacity: 0, y: -44 * drift, duration: 0.24, ease: "sine.inOut" }, at + 0.16)
+        .to(x.wash, { opacity: 0, duration: 0.35, ease: soft }, at + 0.02);
     }
     // Slow drift of a text block while it is readable (desktop only).
     function hold(x, from, to) {
@@ -178,32 +186,38 @@ window.DermaeScenes = (function () {
     }
 
     /* ---- Scene 1: Opening ----
-       Starts very close on the drop and slowly pulls back. */
-    tl.to(s[0].media, { scale: 1.04, duration: 1.6 }, 0)
-      .to(s[0].light, { xPercent: -4 * m, yPercent: -8 * m, duration: 1.6 }, 0)
-      .to(s[0].content, { y: -40 * drift, duration: 1.25 }, 0);
+       Starts very close on the drop and slowly pulls back… */
+    tl.to(s[0].media, { scale: 1.04, duration: 1.15, ease: "sine.out" }, 0)
+      .to(s[0].light, { xPercent: -4 * m, yPercent: -8 * m, duration: 2.1 }, 0)
+      .to(s[0].content, { y: -40 * drift, duration: T.s1Out + 0.3 }, 0);
     if (hasSplit) tl.fromTo(flat(L[0]), { yPercent: 0 }, {
       yPercent: -HIDE, duration: 0.3, ease: "power2.in", stagger: 0.07, immediateRender: false
     }, T.s1Out);
-    tl.to(s[0].content, { opacity: 0, duration: 0.15, ease: "sine.in" }, T.s1Out + 0.25)
-      .to(s[0].wash, { opacity: 0, duration: 0.4, ease: soft }, T.s1Out + 0.05)
-      // The drop softens into a blur…
-      .to(blur, { opacity: 1, duration: 0.35, ease: soft }, 1.25)
-      // …and the room appears through it.
-      .to(s[1].el, { opacity: 1, duration: 0.5, ease: soft }, 1.45);
+    tl.to(s[0].content, { opacity: 0, duration: 0.3, ease: "sine.inOut" }, T.s1Out + 0.2)
+      .to(s[0].wash, { opacity: 0, duration: 0.4, ease: soft }, T.s1Out + 0.05);
+
+    /* …then one continuous camera move into the room (Scene 1 → 2).
+       The camera pushes in toward the drop as it softens into a blur; the
+       room fades in through it, still soft, and comes into focus while the
+       push carries on. Everything keeps moving forward (scale only grows),
+       so nothing "bounces back". */
+    tl.to(s[0].media, { scale: 1.04 + 0.22 * m, duration: 1.05, ease: "sine.in" }, 1.15)
+      .to(blur, { opacity: 1, duration: 0.5, ease: soft }, 1.2)
+      .to(s[1].el, { opacity: 1, duration: 0.6, ease: soft }, T.s2Show)
+      .to(roomBlur, { opacity: 0, duration: 0.65, ease: soft }, T.s2Show + 0.3);
 
     /* ---- Scene 2: Treatment room ----
        Slow push forward; light and text drift at different speeds. */
     var l2 = flat(L[1]);
-    tl.to(s[1].media, { scale: 1 + 0.1 * m + 0.04, duration: 1.6 }, 1.45)
-      .to(s[1].light, { xPercent: 6 * m, yPercent: -4 * m, duration: 2.2 }, 1.45);
+    tl.to(s[1].media, { scale: 1.04 + 0.2 * m, duration: T.s2Out + 0.25 - T.s2Show }, T.s2Show)
+      .to(s[1].light, { xPercent: 6 * m, yPercent: -4 * m, duration: T.s3Show - T.s2Show }, T.s2Show);
     textIn(s[1], T.s2In);
     linesIn(l2, T.s2In);
-    hold(s[1], T.s2In + 0.35, T.s2Out);
+    hold(s[1], T.s2In + 0.4, T.s2Out);
     textOut(s[1], l2, T.s2Out);
     // The camera drifts right into a detail of the room.
-    tl.to(s[1].media, { xPercent: -5 * m, scale: 1 + 0.16 * m + 0.04, duration: 0.6, ease: "sine.in" }, 3.05)
-      .to(s[2].el, { opacity: 1, duration: 0.45, ease: soft }, 3.2);
+    tl.to(s[1].media, { xPercent: -5 * m, scale: 1.04 + 0.27 * m, duration: 0.6, ease: "sine.in" }, T.s2Out + 0.25)
+      .to(s[2].el, { opacity: 1, duration: 0.45, ease: soft }, T.s3Show);
 
     /* ---- Scene 3: Treatments ----
        Slow sideways glide; the heading, then both lists line by line
@@ -212,61 +226,62 @@ window.DermaeScenes = (function () {
     var pick = function (sel) { var els = qa(sel, c3); return flat(els.map(function (el) { return l3[b3.indexOf(el)]; })); };
     var head3 = pick("h2"), med = pick(".treatments__col--medical h3, .treatments__col--medical li"),
         aes = pick(".treatments__col--aesthetic h3, .treatments__col--aesthetic li"), note3 = pick(".note");
-    tl.to(s[2].media, { xPercent: -4 * m, duration: 2.3 }, 3.2)
-      .to(s[2].light, { xPercent: -8 * m, duration: 2.3 }, 3.2);
+    tl.to(s[2].media, { xPercent: -4 * m, duration: T.s4Show + 0.45 - T.s3Show }, T.s3Show)
+      .to(s[2].light, { xPercent: -8 * m, duration: T.s4Show + 0.45 - T.s3Show }, T.s3Show);
     textIn(s[2], T.s3In);
-    linesIn(head3, T.s3In + 0.02, 0.08);
-    linesIn(med, T.s3In + 0.18, 0.035);
-    linesIn(aes, T.s3In + 0.18, 0.035);
-    tl.to(s3divider, { scaleY: 1, duration: 0.45, ease: "sine.inOut" }, T.s3In + 0.2)
-      .to(s3rule, { scaleX: 1, duration: 0.25, ease: "sine.out" }, T.s3In + 0.52);
-    linesIn(note3, T.s3In + 0.56);
-    hold(s[2], T.s3In + 0.35, T.s3Out);
+    linesIn(head3, T.s3In + 0.02, 0.09);
+    linesIn(med, T.s3In + 0.22, 0.045);
+    linesIn(aes, T.s3In + 0.22, 0.045);
+    tl.to(s3divider, { scaleY: 1, duration: 0.55, ease: "sine.inOut" }, T.s3In + 0.24)
+      .to(s3rule, { scaleX: 1, duration: 0.3, ease: "sine.out" }, T.s3In + 0.62);
+    linesIn(note3, T.s3In + 0.68);
+    hold(s[2], T.s3In + 0.4, T.s3Out);
     textOut(s[2], flat(l3), T.s3Out);
     // Soft crossfade into the doctor scene.
-    tl.to(s[3].el, { opacity: 1, duration: 0.45, ease: soft }, 5.05);
+    tl.to(s[3].el, { opacity: 1, duration: 0.45, ease: soft }, T.s4Show);
 
     /* ---- Scene 4: Doctor ----
        Slow zoom toward the doctor. */
     var l4 = flat(L[3]);
-    tl.to(s[3].media, { scale: 1.04 + 0.12 * m, duration: 1.45 }, 5.05)
-      .to(s[3].light, { xPercent: -5 * m, yPercent: 4 * m, duration: 1.9 }, 5.05);
+    tl.to(s[3].media, { scale: 1.04 + 0.12 * m, duration: T.s4Out + 0.15 - T.s4Show }, T.s4Show)
+      .to(s[3].light, { xPercent: -5 * m, yPercent: 4 * m, duration: T.s5Show - T.s4Show }, T.s4Show);
     textIn(s[3], T.s4In);
-    linesIn(l4, T.s4In, 0.06);
-    hold(s[3], T.s4In + 0.35, T.s4Out);
+    linesIn(l4, T.s4In, 0.07);
+    hold(s[3], T.s4In + 0.4, T.s4Out);
     textOut(s[3], l4, T.s4Out);
     // The camera moves into the window light and the screen brightens.
-    tl.to(s[3].media, { xPercent: -3 * m, yPercent: 3 * m, scale: 1.04 + 0.2 * m, duration: 0.5, ease: "sine.in" }, 6.5)
-      .to(glow, { opacity: 0.85, duration: 0.45, ease: "sine.in" }, 6.45)
-      .to(s[4].el, { opacity: 1, duration: 0.3, ease: soft }, 6.7)
-      .to(glow, { opacity: 0, duration: 0.45, ease: "sine.out" }, 7.0);
+    tl.to(s[3].media, { xPercent: -3 * m, yPercent: 3 * m, scale: 1.04 + 0.2 * m, duration: 0.55, ease: "sine.in" }, T.s4Out + 0.15)
+      .to(glow, { opacity: 0.85, duration: 0.45, ease: "sine.in" }, T.s5Show - 0.25)
+      .to(s[4].el, { opacity: 1, duration: 0.3, ease: soft }, T.s5Show)
+      .to(glow, { opacity: 0, duration: 0.5, ease: "sine.out" }, T.s5Show + 0.3);
 
     /* ---- Scene 5: Your care journey ----
        Slow pull back; Consult, Plan and Care one at a time, then the quote. */
     var b5 = blocks(c5), l5 = L[4];
     var linesOf = function (el) { return flat(b5.filter(function (b) { return el === b || el.contains(b); }).map(function (b) { return l5[b5.indexOf(b)]; })); };
-    tl.to(s[4].media, { scale: 1.03, duration: 2.0 }, 6.7)
-      .to(s[4].light, { xPercent: 5 * m, yPercent: -5 * m, duration: 2.3 }, 6.7);
+    tl.to(s[4].media, { scale: 1.03, duration: T.green - T.s5Show }, T.s5Show)
+      .to(s[4].light, { xPercent: 5 * m, yPercent: -5 * m, duration: T.end - T.s5Show }, T.s5Show);
     textIn(s[4], T.s5In);
-    linesIn(linesOf(q("h2", c5)), T.s5In + 0.02, 0.08);
+    linesIn(linesOf(q("h2", c5)), T.s5In + 0.02, 0.09);
     steps.forEach(function (li, i) {
-      var at = T.s5In + 0.15 + i * 0.16;
-      tl.to(li, { "--num": 1, duration: 0.3, ease: "sine.out" }, at);
-      linesIn(linesOf(li), at + 0.03, 0.05);
+      var at = T.s5In + 0.2 + i * 0.2;
+      tl.to(li, { "--num": 1, duration: 0.35, ease: "sine.out" }, at);
+      linesIn(linesOf(li), at + 0.03, 0.06);
     });
-    var atQ = T.s5In + 0.15 + steps.length * 0.16;
-    tl.to(quote, { "--rule": 1, duration: 0.35, ease: "sine.inOut" }, atQ);
-    linesIn(linesOf(quote), atQ + 0.03, 0.06);
-    hold(s[4], T.s5In + 0.35, T.s5Out);
+    var atQ = T.s5In + 0.2 + steps.length * 0.2;
+    tl.to(quote, { "--rule": 1, duration: 0.4, ease: "sine.inOut" }, atQ);
+    linesIn(linesOf(quote), atQ + 0.03, 0.07);
+    hold(s[4], T.s5In + 0.4, T.s5Out);
     textOut(s[4], flat(l5), T.s5Out);
     // Fade into deep forest green, then a short hold before the pin releases.
-    tl.to(green, { opacity: 1, duration: 0.5, ease: soft }, 8.85)
-      .to({}, { duration: 0.15 }, 9.35);
+    tl.to(green, { opacity: 1, duration: 0.5, ease: soft }, T.green)
+      .to({}, { duration: T.end - T.green - 0.5 }, T.green + 0.5);
 
-    // Header links glide to these moments: each scene with its text fully shown.
-    tl.addLabel("treatments", T.s3In + 0.95)
-      .addLabel("doctor", T.s4In + 0.76)
-      .addLabel("journey", T.s5In + 1.12);
+    // Header links glide to these moments: each scene with its text fully
+    // shown, part-way into its pause.
+    tl.addLabel("treatments", T.s3In + 1.6)
+      .addLabel("doctor", T.s4In + 1.22)
+      .addLabel("journey", T.s5In + 1.78);
 
     return tl;
   }
@@ -362,5 +377,17 @@ window.DermaeScenes = (function () {
     });
   }
 
-  return { buildFilm: buildFilm, buildBooking: buildBooking, buildCalm: buildCalm, playIntro: playIntro };
+  /* ---------- Scroll progress line (every mode) ----------
+     Fills from top to bottom over the whole page. Reduced motion: it simply
+     follows the scroll bar, with no smoothing. */
+  function buildProgress(opts) {
+    var fill = q(".progress__fill");
+    if (!fill) return;
+    gsap.fromTo(fill, { scaleY: 0 }, {
+      scaleY: 1, ease: "none",
+      scrollTrigger: { start: 0, end: "max", scrub: opts.reduce ? true : 0.4 }
+    });
+  }
+
+  return { buildFilm: buildFilm, buildBooking: buildBooking, buildCalm: buildCalm, buildProgress: buildProgress, playIntro: playIntro };
 })();
