@@ -311,7 +311,7 @@ window.DermaeScenes = (function () {
     var texture = q(".booking__texture", booking);
     var inner = q(".booking__inner", booking);
     var lines = flat([q("h2", inner), q(".booking__intro", inner)].map(split));
-    var items = [q(".form", inner), q(".contact", inner), q(".footer p")];
+    var items = [q(".form", inner), q(".contact", inner)];
 
     gsap.fromTo(texture, { y: 60 * (opts.desktop ? 1 : 0.5) }, {
       y: 0, ease: "none",

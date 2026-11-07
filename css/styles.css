@@ -145,7 +145,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   background: linear-gradient(180deg, rgba(247, 243, 236, 0.86) 0%, rgba(247, 243, 236, 0.6) 55%, rgba(247, 243, 236, 0) 100%);
 }
 .site-header::after {
-  background: linear-gradient(180deg, rgba(31, 58, 46, 0.98) 0%, rgba(31, 58, 46, 0.96) 62%, rgba(31, 58, 46, 0) 100%);
+  background: linear-gradient(180deg, var(--forest) 0%, var(--forest) 62%, rgba(31, 58, 46, 0) 100%);
 }
 .site-header.has-scrim::before { opacity: 1; }
 .site-header[data-theme="dark"].has-scrim::before { opacity: 0; }
@@ -926,111 +926,251 @@ a { color: inherit; text-underline-offset: 0.2em; }
 .booking:focus { outline: none; }
 .booking :focus-visible { outline-color: var(--ivory); }
 
+/* Layout: one grid. Mobile: heading, intro, form, contact, stacked.
+   Desktop (1024px+): heading, intro and contact on the left, form on the
+   right. The HTML order (heading, intro, form, contact) never changes, so
+   keyboard and screen-reader order stay logical at every size. */
 .booking__inner {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "intro" "form" "contact";
   width: 100%;
-  max-width: 44rem;
+  max-width: 76rem;
   margin: 0 auto;
-  text-align: center;
 }
-.booking h2 { color: var(--ivory); }
-.booking__intro { margin-top: 1rem; color: var(--ivory-soft); }
+.booking h2 {
+  grid-area: head;
+  color: var(--ivory);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.booking__intro {
+  grid-area: intro;
+  margin-top: 1.25rem;
+  max-width: 30rem;
+  color: var(--ivory-soft);
+}
 
-.form { margin-top: 2.5rem; text-align: left; }
-.form__grid { display: grid; gap: 1.25rem; }
+.form { grid-area: form; margin-top: 2.75rem; }
+.form__grid { display: grid; gap: 1.75rem; }
 
-.field { display: flex; flex-direction: column; gap: 0.4rem; }
-.field label { font-weight: 500; font-size: 0.95rem; color: var(--ivory); }
-.optional { font-weight: 400; color: var(--ivory-soft); }
+/* Underline-style fields: ivory text and a fine ivory line on forest green */
+.field { position: relative; display: flex; flex-direction: column; gap: 0.35rem; }
+.field label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ivory);
+}
+.optional { font-weight: 400; letter-spacing: 0.04em; text-transform: none; color: var(--ivory-soft); }
 
 .field input,
 .field select {
   width: 100%;
-  min-height: 3rem;
-  padding: 0.7rem 0.9rem;
+  min-height: 2.9rem;
+  padding: 0.55rem 0.1rem;
   font: inherit;
-  font-size: 1rem;        /* 16px+ stops iPhone zooming in on focus */
-  color: var(--charcoal);
-  background: var(--ivory);
-  border: 2px solid transparent;
-  border-radius: 4px;
+  font-size: 1.0625rem;     /* 16px+ stops iPhone zooming in on focus */
+  color: var(--ivory);
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(247, 243, 236, 0.55);   /* about 4:1 against forest */
+  border-radius: 0;
+  box-shadow: 0 1px 0 transparent;
   appearance: none;
+  color-scheme: dark;       /* light calendar/clock icons and a dark dropdown list */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 .field select {
-  padding-right: 2.5rem;
-  background-image: linear-gradient(45deg, transparent 50%, var(--forest) 50%),
-                    linear-gradient(135deg, var(--forest) 50%, transparent 50%);
-  background-position: calc(100% - 1.25rem) 50%, calc(100% - 0.9rem) 50%;
+  padding-right: 2rem;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ivory) 50%),
+                    linear-gradient(135deg, var(--ivory) 50%, transparent 50%);
+  background-position: calc(100% - 0.85rem) 55%, calc(100% - 0.5rem) 55%;
   background-size: 0.35rem 0.35rem;
   background-repeat: no-repeat;
 }
-.field input:focus-visible,
-.field select:focus-visible { outline: 3px solid var(--sage); outline-offset: 2px; }
-.field input[aria-invalid="true"],
-.field select[aria-invalid="true"] { border-color: var(--error-on-dark); }
+.field select option { color: var(--ivory); background-color: var(--forest); }
+.field input::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.85; }
+.field input:hover,
+.field select:hover { border-bottom-color: rgba(247, 243, 236, 0.85); }
 
-.field__error { font-size: 0.9rem; color: var(--error-on-dark); }
+/* Focus: the line turns solid ivory and thickens, with a faint highlight */
+.booking .field input:focus-visible,
+.booking .field select:focus-visible,
+.booking .field input:focus,
+.booking .field select:focus {
+  outline: none;
+  border-bottom-color: var(--ivory);
+  box-shadow: 0 1px 0 var(--ivory);
+  background-color: rgba(247, 243, 236, 0.06);
+}
+
+/* Browser autofill would paint the fields pale blue: keep them on-brand */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ivory);
+  -webkit-box-shadow: 0 0 0 100px var(--forest) inset;
+  caret-color: var(--ivory);
+}
+
+/* Errors: a soft peach line and message (about 8:1 against forest) */
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"] {
+  border-bottom-color: var(--error-on-dark);
+  box-shadow: 0 1px 0 var(--error-on-dark);
+}
+.field__error {
+  display: flex;
+  gap: 0.45rem;
+  align-items: baseline;
+  margin-top: 0.15rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--error-on-dark);
+}
+.field__error::before {
+  content: "";
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateY(-0.1rem);
+}
 
 .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .button {
   display: block;
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   min-height: 3.25rem;
-  padding: 0.85rem 2rem;
+  padding: 0.85rem 2.25rem;
   font: inherit;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--forest);
   background: var(--ivory);
   border: 0;
   border-radius: 999px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.25s ease;
 }
 .button:hover { background: #FFFFFF; }
 .button:disabled { opacity: 0.7; cursor: progress; }
-.button:focus-visible { outline: 3px solid var(--sage); outline-offset: 3px; }
+.button:focus-visible { outline: 2px solid var(--ivory); outline-offset: 4px; }
 
-.form__demo-note { margin-top: 1rem; font-size: 0.9rem; color: var(--ivory-soft); text-align: center; }
-.form__status { margin-top: 1rem; text-align: center; font-weight: 500; }
+.form__demo-note { margin-top: 1rem; font-size: 0.875rem; color: var(--ivory-soft); }
+.form__status { margin-top: 0.75rem; font-weight: 500; }
 .form__status:empty { display: none; }
 .form__status[data-state="error"] { color: var(--error-on-dark); }
 
+/* Contact details: small labels over each value, behind a hairline */
 .contact {
+  grid-area: contact;
   margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(247, 243, 236, 0.2);
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(247, 243, 236, 0.22);
 }
-.contact address { font-style: normal; display: grid; gap: 0.5rem; }
+.contact address { display: grid; gap: 1.1rem; font-style: normal; }
 .contact__label {
   display: block;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  margin-bottom: 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ivory-soft);
 }
+.contact a { text-decoration-color: rgba(247, 243, 236, 0.5); }
+.contact a:hover { text-decoration-color: var(--ivory); }
 
 /* ---------- 7. Footer ---------- */
 .footer {
   background: var(--forest-deep);
   color: var(--ivory-soft);
   font-size: 0.875rem;
-  text-align: center;
-  padding: 1.75rem var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 2rem);
+  padding: 3rem var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 2.25rem);
 }
-.footer p { max-width: 40rem; margin: 0 auto; }
+.footer__inner { max-width: 76rem; margin: 0 auto; }
+.footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid rgba(247, 243, 236, 0.16);
+}
+.footer__wordmark { margin-right: 0; color: var(--ivory); font-size: 1.6rem; }
+.footer__nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer__nav a {
+  display: inline-block;
+  padding-block: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ivory);
+}
+.footer__nav a:hover { text-decoration: underline; text-underline-offset: 0.35em; }
+.footer :focus-visible { outline-color: var(--ivory); }
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-top: 1.5rem;
+  line-height: 1.55;
+}
+.footer__note { max-width: 40rem; }
+.footer__copy { white-space: nowrap; }
+@media (max-width: 639.98px) {
+  /* Phones: the four links as a tidy two-by-two grid */
+  .footer__nav ul { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; column-gap: 2.5rem; }
+}
 
-/* ---------- 8. Wider screens: two-column form ---------- */
+/* ---------- 8. Wider screens ---------- */
 @media (min-width: 640px) {
-  .form__grid { grid-template-columns: 1fr 1fr; column-gap: 1.25rem; }
-  .button { width: auto; margin-inline: auto; }
-  .contact address { grid-template-columns: repeat(3, 1fr); text-align: center; }
+  .form__grid { grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+  .button { width: auto; }
+  .contact address { grid-template-columns: repeat(3, auto); justify-content: start; column-gap: 3rem; }
 }
 @media (orientation: portrait) and (min-width: 640px) {
   :root { --gutter: 2rem; }
+}
+/* Desktop: two columns. Text and contact details left, form right. */
+@media (min-width: 1024px) {
+  .booking__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "head    form"
+      "intro   form"
+      "contact form";
+    column-gap: clamp(3.5rem, 7vw, 8rem);
+  }
+  .form { margin-top: 0.6rem; }
+  .contact { align-self: end; margin-top: 2.5rem; }
+  .contact address { grid-template-columns: 1fr; row-gap: 1.1rem; }
 }
 
 /* ---------- 9. Scroll film ----------
