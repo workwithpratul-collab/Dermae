@@ -40,11 +40,12 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 
 **Do not use:** React, TypeScript, Next.js, any framework or build step, or a database.
 
-- Load GSAP, ScrollTrigger and Lenis from a CDN with **exact pinned versions** (for example `gsap@3.13.0`, never just `gsap`).
+- Load GSAP, ScrollTrigger, SplitText and Lenis from a CDN with **exact pinned versions** (for example `gsap@3.13.0`, never just `gsap`).
+- Currently pinned: GSAP, ScrollTrigger and SplitText **3.13.0** (cdnjs), Lenis **1.1.13** (jsDelivr). Fonts come from Google Fonts.
 - Keep the site runnable by opening it through a simple local server. No `npm install` is required to view it.
 - Lenis + ScrollTrigger wiring: call `ScrollTrigger.update` on Lenis scroll and drive Lenis from `gsap.ticker`.
 
-### Planned file structure
+### File structure
 
 ```
 /
@@ -52,16 +53,21 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 ├── css/
 │   └── styles.css        # design tokens (CSS variables) at the top
 ├── js/
-│   ├── main.js           # setup: Lenis, GSAP registration, reduced-motion check
-│   ├── scenes.js         # one function per section's animation
+│   ├── main.js           # setup: Lenis, GSAP registration, reduced-motion check, rebuilds on resize/fonts
+│   ├── scenes.js         # the film timeline (beat table T), text splitting, booking, progress line
 │   ├── nav.js            # fixed header, mobile menu, "Book consultation" bar
 │   ├── intro.js          # loading screen + "Scroll to begin" hint
 │   └── form.js           # booking form submit + messages
-├── assets/
-│   ├── images/           # optimised WebP/AVIF + JPG fallback
-│   └── fonts/            # only if self-hosting
+├── images/
+│   ├── originals/        # full-size source images (not loaded by the site)
+│   └── web/              # optimised JPGs: scene-N-desktop / -mobile / -portrait
+├── .nojekyll             # lets GitHub Pages serve files as-is
+├── CONTENT.md            # approved copy
+├── STORYBOARD.md         # how each scene looks and moves
 └── CLAUDE.md
 ```
+
+(The earlier plan used `assets/images/` and `assets/fonts/`; the site uses `images/` and Google Fonts instead.)
 
 Adjust this if the project grows, and update this file when it does.
 
@@ -163,3 +169,24 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 
 - Small, focused commits with messages that describe the change (for example "Add page skeleton with six sections").
 - Never commit secrets. A Formspree form ID is public and fine to commit, but nothing else sensitive should go in the repo.
+
+## Decisions made so far (Days 1–5)
+
+- **Film timing** lives in one beat table (`T`) in `js/scenes.js`; the film is 1.8 screen-heights per scene. Keep each scene's text fully readable for at least ~0.65 beats, and let it fully leave before the next picture fades in. Header links glide to timeline labels (`treatments`, `doctor`, `journey`) set in the same file; move them if the timing changes.
+- **Text reveals** use SplitText with masked lines. Split only after the web fonts have loaded, and split again whenever the screen width changes. Headings get their full text as an `aria-label`; other split text gets a visually hidden full copy, with the line pieces hidden from screen readers. With reduced motion, text is never split.
+- **Blur transitions** use a pre-blurred copy of the image (`.scene__blur`) whose opacity fades. The blur itself is never animated.
+- **The header** always has a soft ivory backdrop over the photos (some are too dark for the links on their own) and becomes ivory-on-forest over green. Re-check its contrast when images or timing change.
+- **`[hidden]` always wins** (`display: none !important`). Elements that fade out must also ignore clicks (`pointer-events: none`), so nothing invisible can block the page.
+- **The loading screen** has a CSS safety net that hides it after 4.5s even if JavaScript fails, so the site can never get stuck behind it.
+- **After a resize or rotation**, the film is rebuilt and the visitor's place is restored from the last normal scroll.
+- **The progress line** follows the scroll bar in every mode, including reduced motion (it shows position; it isn't decoration that moves on its own).
+- **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
+
+## Progress
+
+- **Day 1:** Fixed header with film-aware links, mobile full-screen menu, and "Book consultation" button and bar.
+- **Day 2:** Ivory loading screen with a letter-by-letter DERMAÉ reveal, and the "Scroll to begin" hint.
+- **Day 3:** Line-by-line masked text reveals in every scene (GSAP upgraded to 3.13.0 for SplitText).
+- **Day 4:** Scroll progress line, film grain, the Scene 1 → 2 camera move, and a full retiming of the film.
+- **Day 5:** Redesigned booking scene (two columns on desktop, underline fields) and a full footer.
+- **Days 6–15:** still to come.
