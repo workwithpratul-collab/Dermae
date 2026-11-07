@@ -27,6 +27,7 @@
   /* Spacing */
   --gutter: 1.25rem;
   --measure: 34rem;       /* comfortable line length for text blocks */
+  --header-h: 3.75rem;    /* fixed header height (taller on desktop, see section 2b) */
 
   color-scheme: light;
 }
@@ -101,6 +102,258 @@ a { color: inherit; text-underline-offset: 0.2em; }
   color: var(--charcoal);
 }
 
+/* Sections that links move focus to: no outline box around a whole scene */
+[tabindex="-1"]:focus { outline: none; }
+
+/* ---------- 2b. Header, mobile menu and "Book consultation" ----------
+   Without JavaScript the header simply sits above the page in normal flow.
+   With JavaScript (html.js) it is fixed and transparent over the film.
+   js/nav.js sets data-theme="dark" over forest green, and .has-scrim
+   when a soft background is needed behind it. */
+@media (min-width: 1024px) { :root { --header-h: 4.75rem; } }
+
+.site-header {
+  position: relative;
+  z-index: 50;
+  color: var(--forest);
+  background: var(--ivory);
+}
+.js .site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: none;
+  pointer-events: none;   /* clicks pass through the empty parts of the bar… */
+}
+.js .site-header a,
+.js .site-header button { pointer-events: auto; }  /* …but not its links */
+
+/* Two soft backgrounds (ivory and forest), faded in only when needed */
+.site-header::before,
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 -2rem;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.site-header::before {
+  background: linear-gradient(180deg, rgba(247, 243, 236, 0.86) 0%, rgba(247, 243, 236, 0.6) 55%, rgba(247, 243, 236, 0) 100%);
+}
+.site-header::after {
+  background: linear-gradient(180deg, rgba(31, 58, 46, 0.98) 0%, rgba(31, 58, 46, 0.96) 62%, rgba(31, 58, 46, 0) 100%);
+}
+.site-header.has-scrim::before { opacity: 1; }
+.site-header[data-theme="dark"].has-scrim::before { opacity: 0; }
+.site-header[data-theme="dark"].has-scrim::after { opacity: 1; }
+.site-header[data-theme="dark"] { color: var(--ivory); }
+
+.site-header__bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  min-height: var(--header-h);
+  padding: env(safe-area-inset-top, 0px) var(--gutter) 0;
+}
+
+.wordmark {
+  margin-right: auto;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem clamp(1.25rem, 2.2vw, 2.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-nav a {
+  position: relative;
+  display: inline-block;
+  padding-block: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.5s ease;
+}
+/* Hairline underline that draws in on hover/focus */
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0.35rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.5s cubic-bezier(.25,.1,.25,1);
+}
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after { transform: scaleX(1); }
+.site-header :focus-visible { outline-color: currentColor; }
+
+/* "Book consultation": header button (desktop) and bottom bar (mobile) */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.55rem 1.35rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ivory);
+  background: var(--forest);
+  border-radius: 999px;
+  transition: opacity 0.5s ease, visibility 0s linear 0s;
+}
+.cta:hover { background: var(--forest-deep); }
+.site-header[data-theme="dark"] .cta { color: var(--forest); background: var(--ivory); }
+.site-header[data-theme="dark"] .cta:hover { background: #FFFFFF; }
+
+.book-bar { display: none; }
+.menu-toggle { display: none; }
+
+/* Hidden while the booking section is on screen (html.is-booking, set by js/nav.js) */
+.is-booking .cta--header {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+}
+
+/* ----- Mobile and tablet (under 1024px) ----- */
+@media (max-width: 1023.98px) {
+  .cta--header { display: none; }
+
+  /* Without JavaScript: links wrap underneath the wordmark */
+  .site-header__bar { padding-block: 0.5rem; }
+  .site-nav { width: 100%; }
+  .site-nav a { padding-block: 0.35rem; }
+
+  .js .site-header__bar { padding-block: 0; flex-wrap: nowrap; }
+  .js .site-nav { width: auto; }
+
+  /* With JavaScript: the menu button, and the links become a full-screen menu */
+  .js .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    margin-right: -0.5rem;
+    padding: 0 0.5rem;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    transition: color 0.5s ease;
+  }
+  .menu-toggle__icon {
+    position: relative;
+    width: 1.25rem;
+    height: 7px;
+    border-top: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .js .site-nav {
+    position: fixed;
+    inset: 0;
+    z-index: -1;            /* under the header bar, so the Close button stays on top */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: calc(var(--header-h) + env(safe-area-inset-top, 0px)) var(--gutter) calc(var(--header-h) + env(safe-area-inset-bottom, 0px));
+    background: var(--ivory);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+  }
+  .js .site-nav ul {
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 100%;
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+  .js .site-nav a {
+    font-family: var(--font-serif);
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 3.25rem);
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.2;
+    color: var(--forest);
+    padding-block: 0.4rem;
+  }
+  .js .site-nav a::after { bottom: 0.45rem; }
+  .js .site-nav li {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.8s cubic-bezier(.25,.1,.25,1);
+  }
+
+  /* Open */
+  .menu-open.site-header { color: var(--forest); }
+  .menu-open .site-nav { opacity: 1 !important; visibility: visible !important; transition: opacity 0.45s ease !important; }
+  .menu-open .site-nav li { opacity: 1; transform: none; }
+  .menu-open .site-nav li:nth-child(2) { transition-delay: 0.06s; }
+  .menu-open .site-nav li:nth-child(3) { transition-delay: 0.12s; }
+  .menu-open .site-nav li:nth-child(4) { transition-delay: 0.18s; }
+  .menu-open.site-header::before,
+  .menu-open.site-header::after { opacity: 0 !important; }
+  .menu-open .menu-toggle__icon { height: 0; border-bottom: 0; }
+
+  /* Slim booking bar along the bottom of the screen */
+  .js .book-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.25rem;
+    padding: 0 var(--gutter) env(safe-area-inset-bottom, 0px);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ivory);
+    background: var(--forest);
+    box-shadow: 0 -1px 0 rgba(247, 243, 236, 0.12);
+    transition: transform 0.6s cubic-bezier(.25,.1,.25,1), visibility 0s linear 0s;
+  }
+  .book-bar:focus-visible { outline: 3px solid var(--sage); outline-offset: -5px; }
+  .is-booking .book-bar,
+  .menu-is-open .book-bar {
+    transform: translateY(110%);
+    visibility: hidden;
+    transition: transform 0.6s cubic-bezier(.25,.1,.25,1), visibility 0s linear 0.6s;
+  }
+}
+
 /* ---------- 3. Scenes: full-screen image with text on top (all sizes) ---------- */
 .scene {
   position: relative;
@@ -111,6 +364,8 @@ a { color: inherit; text-underline-offset: 0.2em; }
   overflow: hidden;
   background: var(--ivory);
 }
+/* Leave room for the fixed header at the top of every scene */
+.js .scene { padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); }
 
 .scene__media {
   position: absolute;
@@ -272,7 +527,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   .scene__content {
     margin-inline: auto;            /* centred column on tablets, full width on phones */
     max-width: calc(36rem + 2 * var(--gutter));
-    padding: calc(env(safe-area-inset-top, 0px) + clamp(1.75rem, 6dvh, 4.5rem)) var(--gutter) 2rem;
+    padding: clamp(0.75rem, 3dvh, 3rem) var(--gutter) 2rem;
   }
 
   /* A soft ivory fade from the top edge, ending where the subject begins */
@@ -291,7 +546,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   .scene--journey    { --focus: 50% 70%; --origin: 50% 72%; --wash-end: 56%; }
 
   /* Scene 1: name and tagline centred above the drop */
-  .scene--opening .scene__content { text-align: center; padding-top: calc(env(safe-area-inset-top, 0px) + clamp(3rem, 12dvh, 8rem)); }
+  .scene--opening .scene__content { text-align: center; padding-top: clamp(2rem, 8dvh, 6rem); }
 
   /* Scenes 2 and 5: keep text clear of the plants and shelves on the right */
   .scene--room .scene__content > *,
@@ -302,7 +557,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 
   /* Scene 3 and 5 hold the most text: start a little higher, tighten slightly */
   .scene--treatments .scene__content,
-  .scene--journey .scene__content { padding-top: calc(env(safe-area-inset-top, 0px) + clamp(1.25rem, 4.5dvh, 3.5rem)); }
+  .scene--journey .scene__content { padding-top: clamp(0.5rem, 1.5dvh, 2rem); }
   .scene--treatments h2 { font-size: clamp(2.1rem, 1.5rem + 3vw, 3.4rem); }
   .scene--treatments .scene__content > .treatments { margin-top: 1.25rem; }
   .treatments__list li { padding-block: 0.22rem; font-size: 0.9375rem; }
@@ -451,6 +706,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   overflow: hidden;
   padding: calc(env(safe-area-inset-top, 0px) + 3.5rem) var(--gutter) 3.5rem;
 }
+.js .booking { padding-top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 2rem); }
 
 /* Subtle soft-light texture: two very faint glows on their own layer,
    so the film can drift it slightly. */

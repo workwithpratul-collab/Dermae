@@ -158,6 +158,11 @@ window.DermaeScenes = (function () {
       .to(green, { opacity: 1, duration: 0.5, ease: soft }, 8.85)
       .to({}, { duration: 0.15 }, 9.35);
 
+    // Header links glide to these moments: each scene with its text fully shown.
+    tl.addLabel("treatments", 4.45)
+      .addLabel("doctor", 5.95)
+      .addLabel("journey", 8.52);
+
     return tl;
   }
 

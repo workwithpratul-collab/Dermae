@@ -23,7 +23,7 @@
   var portraitMQ = window.matchMedia("(orientation: portrait)"); // portrait vs landscape images and layout
 
   var ctx = null, lenis = null, tick = null, cleanups = [];
-  var state = { mode: null, timeline: null };
+  var state = { mode: null, timeline: null, lenis: null };
   window.DermaeFilm = state; // read-only peek for testing in the browser console
 
   function qa(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
@@ -36,12 +36,14 @@
     });
   }
 
-  /* Does every scene's text fit on the visible screen in film layout? (.film-on must be set) */
+  /* Does every scene's text fit on the visible screen in film layout,
+     below the fixed header? (.film-on must be set) */
   function filmFits() {
     var visible = window.innerHeight;
     return qa("#film .scene").every(function (scene) {
       var c = scene.querySelector(".scene__content");
-      return c.offsetTop >= -2 && c.offsetTop + c.offsetHeight <= visible + 2;
+      var top = parseFloat(getComputedStyle(scene).paddingTop) || 0; // header space
+      return c.offsetTop >= top - 2 && c.offsetTop + c.offsetHeight <= visible + 2;
     });
   }
 
@@ -49,6 +51,7 @@
     if (!window.Lenis) return; // native scrolling still works fine
     lenis = new window.Lenis({ lerp: 0.08, smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
+    state.lenis = lenis; // used by js/nav.js to glide to a scene
     tick = function (time) { lenis.raf(time * 1000); };
     gsap.ticker.add(tick);
     // GSAP's default "lag smoothing" stays ON: if the browser briefly pauses,
@@ -59,7 +62,7 @@
     if (ctx) { ctx.revert(); ctx = null; }       // undoes every animation, pin and inline style
     cleanups.forEach(function (fn) { fn(); });
     cleanups = [];
-    if (lenis) { gsap.ticker.remove(tick); lenis.destroy(); lenis = null; }
+    if (lenis) { gsap.ticker.remove(tick); lenis.destroy(); lenis = null; state.lenis = null; }
     root.classList.remove("film-on");
     state.mode = null;
     state.timeline = null;

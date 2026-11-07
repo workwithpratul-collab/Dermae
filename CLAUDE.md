@@ -53,6 +53,7 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 ├── js/
 │   ├── main.js           # setup: Lenis, GSAP registration, reduced-motion check
 │   ├── scenes.js         # one function per section's animation
+│   ├── nav.js            # fixed header, mobile menu, "Book consultation" bar
 │   └── form.js           # booking form submit + messages
 ├── assets/
 │   ├── images/           # optimised WebP/AVIF + JPG fallback

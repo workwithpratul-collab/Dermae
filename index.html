@@ -8,6 +8,10 @@
   <!-- This is a fictional demo, so keep it out of search results. -->
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#1F3A2E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F3A2E'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='20' fill='%23F7F3EC'%3ED%3C/text%3E%3C/svg%3E">
+
+  <!-- Tells the CSS that JavaScript is running (the header becomes fixed, the mobile menu works). -->
+  <script>document.documentElement.classList.add("js");</script>
 
   <!-- Fonts: Cormorant Garamond (headings) + Inter (body). -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,9 +29,34 @@
   <script src="js/scenes.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/form.js" defer></script>
+  <script src="js/nav.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#booking">Skip to booking</a>
+
+  <!-- Fixed header. Links glide to the right moment in the film (js/nav.js);
+       without JavaScript they are normal jump links. -->
+  <header class="site-header" id="site-header">
+    <div class="site-header__bar">
+      <a class="wordmark" href="#opening" data-nav="opening">DERMAÉ<span class="visually-hidden">, back to the start</span></a>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
+          <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
+          <li><a href="#journey" data-nav="journey">Your journey</a></li>
+          <li><a href="#booking" data-nav="booking">Book</a></li>
+        </ul>
+      </nav>
+      <a class="cta cta--header" href="#booking" data-nav="booking">Book consultation</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+        <span class="menu-toggle__text">Menu</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile: slim booking bar along the bottom of the screen -->
+  <a class="book-bar" href="#booking" data-nav="booking">Book consultation</a>
 
   <main>
 
@@ -36,7 +65,7 @@
     <div class="film" id="film">
 
       <!-- Scene 1: Opening -->
-      <section class="scene scene--opening" id="opening" aria-labelledby="opening-title">
+      <section class="scene scene--opening" id="opening" aria-labelledby="opening-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-1-portrait.jpg" width="941" height="1672">
@@ -61,7 +90,7 @@
       </section>
 
       <!-- Scene 2: Treatment room -->
-      <section class="scene scene--room" id="room" aria-labelledby="room-title">
+      <section class="scene scene--room" id="room" aria-labelledby="room-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-2-portrait.jpg" width="941" height="1672">
@@ -80,7 +109,7 @@
       </section>
 
       <!-- Scene 3: Treatments -->
-      <section class="scene scene--treatments" id="treatments" aria-labelledby="treatments-title">
+      <section class="scene scene--treatments" id="treatments" aria-labelledby="treatments-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-3-portrait.jpg" width="941" height="1672">
@@ -125,7 +154,7 @@
       </section>
 
       <!-- Scene 4: Doctor -->
-      <section class="scene scene--doctor" id="doctor" aria-labelledby="doctor-title">
+      <section class="scene scene--doctor" id="doctor" aria-labelledby="doctor-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-4-portrait.jpg" width="941" height="1672">
@@ -145,7 +174,7 @@
       </section>
 
       <!-- Scene 5: Your care journey -->
-      <section class="scene scene--journey" id="journey" aria-labelledby="journey-title">
+      <section class="scene scene--journey" id="journey" aria-labelledby="journey-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-5-portrait.jpg" width="941" height="1672">
