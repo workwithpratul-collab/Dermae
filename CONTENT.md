@@ -615,8 +615,10 @@ Dr. Sen starts by listening. She wants to understand what bothers you about your
 - Intro: How a visit works, the equipment we use, and the standards that keep you safe.
 - Subheadings: Your care, step by step · Diagnostics and equipment · Safety and hygiene
 
-**Doctor section**
+**Doctor section** (live since Day 10; the profile uses the Day 10 wording above)
 
 - Eyebrow: Your dermatologist
 - Heading: Meet Dr. Mira Sen.
-- Subheadings: Qualifications · Areas of focus · How she works · A note from Dr. Sen
+- Subheadings: Qualifications *(fictional)* · Areas of focus · How she works · A note from Dr. Sen
+- Photo caption (visible): Illustrative image. Dr. Mira Sen is fictional.
+- Photo alt text: Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope.

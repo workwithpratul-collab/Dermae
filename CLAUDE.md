@@ -190,6 +190,7 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Shared links** (`#treatments`, `#treatment-acne`, `#scene-doctor`…) are handled in `js/nav.js`: the page lands on the target after loading, and `js/main.js` re-applies it after each rebuild until the visitor scrolls (`DermaeFilm.pendingTarget`).
 - **Exception to "everything works without JavaScript":** the treatment guide needs JavaScript (its cards are built from the data file). Without it, the section shows a short note, and the treatment names stay readable in Scene 3.
 - **Section backgrounds (Day 9):** sections alternate between `--ivory` and `--ivory-deep` (`#EFE9DF`). Each `.section` sets `--section-rgb` to its background colour; `js/nav.js` uses it to give the header a solid backdrop over that section (over the film the header stays see-through). A new section with a different background must set `--section-rgb` too.
+- **Doctor photo (Day 10):** the section reuses `images/web/scene-4-portrait.jpg` (already optimised, loaded lazily), so desktop visitors see a different shot from the film. It must keep its visible "Illustrative image" caption. `[data-zoom]` images get the slow scroll zoom from `buildSections()`.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
 
 ## Progress
@@ -203,5 +204,5 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Day 6:** Approved copy applied across the site; Scene 3 gained the medical note; header and footer links became Treatments · Approach · Doctor · Book.
 - **Day 8:** Treatments section after the film (cards built from `js/treatments-data.js`, filters, search, accessible detail view, shareable `#treatment-…` links); the film now ends in soft ivory; film scene ids renamed to `scene-…`. Approach and Doctor links still go to the film scenes until their sections are built.
 - **Day 9:** Approach and technology section (four care steps, diagnostics and equipment, safety and hygiene, with the fictional-clinic label and the medical note); header and footer "Approach" go there; the header gets a solid backdrop over the sections.
-- **Day 10:** being built (Phase 2).
+- **Day 10:** Doctor section (fictional qualifications, areas of focus, how she works, illustrative note, labelled photo with Scene 4's slow zoom); header and footer "Doctor" go there. Phase 2 complete: page order is film → Treatments → Approach → Doctor → Booking → footer.
 - **Days 11–15:** still to come.

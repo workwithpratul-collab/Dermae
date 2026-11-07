@@ -1269,6 +1269,92 @@ a { color: inherit; text-underline-offset: 0.2em; }
   }
 }
 
+/* ----- Doctor (Day 10) -----
+   Scene 4's image style: the same soft-lit photo, framed, with a slow zoom
+   tied to the scroll. Phones: heading, photo, then the profile. Desktop:
+   the photo on the left, heading and profile on the right. */
+.doctor__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "figure" "details";
+  row-gap: 2.25rem;
+}
+.doctor__head { grid-area: head; }
+.doctor__figure { grid-area: figure; margin: 0; }
+.doctor__details { grid-area: details; }
+
+.doctor__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--ivory-soft);
+}
+.doctor__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 45% 72%;
+  transform-origin: 45% 60%;
+}
+/* Soft window light, as in the film */
+.doctor__light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 50% at 80% 15%, rgba(255, 248, 234, 0.35), transparent 70%);
+}
+.doctor__figure figcaption { margin-top: 0.75rem; color: var(--charcoal-soft); }
+
+.doctor__name { font-size: 1.15rem; color: var(--charcoal); }
+.doctor__name strong { font-weight: 600; color: var(--forest); }
+.doctor__disclaimer { margin-top: 0.6rem; max-width: 34rem; color: var(--charcoal-soft); }
+
+.doctor__lists {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem 3rem;
+  margin-top: 2.25rem;
+}
+.doctor__subhead {
+  margin-bottom: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(31, 58, 46, 0.22);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+.doctor__subhead .label { letter-spacing: 0; text-transform: none; font-weight: 400; font-size: 0.8125rem; }
+.doctor__list { margin: 0; padding: 0; list-style: none; }
+.doctor__list li { padding-block: 0.4rem; border-bottom: 1px solid rgba(31, 58, 46, 0.1); }
+.doctor__list .label { font-size: 0.8125rem; color: var(--charcoal-soft); }
+.doctor__philosophy { margin-top: 2.25rem; }
+.doctor__philosophy p { max-width: 40rem; }
+.doctor .doctor__note { margin-top: 2.25rem; }
+.doctor__note .doctor__subhead { border-top: 0; padding-top: 0; }
+.doctor__note figcaption { margin-top: 0.6rem; }
+
+@media (min-width: 640px) {
+  .doctor__lists { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .doctor__grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "figure head" "figure details";
+    column-gap: clamp(3rem, 6vw, 6.5rem);
+    row-gap: 1.75rem;
+  }
+  .doctor__figure { align-self: start; }
+}
+/* Tall enough screens: the photo stays in view while the profile scrolls past it */
+@media (min-width: 1024px) and (min-height: 760px) {
+  .doctor__figure { position: sticky; top: calc(var(--header-h) + 2rem); }
+}
+
 /* ---------- 6. Booking (Scene 6): full-screen forest green ---------- */
 .booking {
   position: relative;

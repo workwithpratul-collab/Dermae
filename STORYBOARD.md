@@ -84,6 +84,13 @@ The scroll film (Scenes 1–5), then **Treatments**, **Approach and technology**
 - **Safety and hygiene:** seven short items in an open two-column grid, each under a thin line.
 - **Motion:** the heading rises line by line with the scroll; subheadings, steps, terms and items fade up softly, one after another.
 
+## Doctor section (added Day 10)
+
+- **Image:** Scene 4's style: the same soft-lit clinic photo of the fictional doctor (the portrait version, so on desktop it differs from the film's shot), in a tall frame with a soft window light. A slow zoom eases the photo from slightly close to its natural framing as it scrolls through (transform only; none with reduced motion). A visible caption labels it as illustrative.
+- **Layout:** phones: eyebrow and heading, then the photo, then the profile. Desktop: the photo on the left (staying in view while the profile scrolls past, on screens at least 760px tall), heading and profile on the right.
+- **Profile:** the name line with *(fictional demo profile)* and a short italic disclaimer; Qualifications (each marked *(fictional demo credential)*) and Areas of focus as two hairline lists; How she works; and the note from Dr. Sen in the film's quote style with *(Illustrative note, fictional)*.
+- **Motion:** heading rises line by line; the photo and each part fade up softly.
+
 ## Header over the sections (Day 9)
 
 Over the film the header stays transparent with a soft fade. Over the sections after the film it gets a solid backdrop in that section's own colour, fading out below, so text scrolling underneath never shows through.

@@ -419,6 +419,14 @@ window.DermaeScenes = (function () {
       qa("[data-reveal-stagger]", sec).forEach(function (list) {
         fadeUp(Array.prototype.slice.call(list.children), list, still ? 0 : 0.07);
       });
+      // Scene 4's slow zoom: the photo eases from slightly close to its
+      // natural framing as it passes through the screen (transform only).
+      if (!still) qa("[data-zoom]", sec).forEach(function (img) {
+        gsap.fromTo(img, { scale: 1.12 }, {
+          scale: 1, ease: "none",
+          scrollTrigger: { trigger: img.parentNode, start: "top bottom", end: "bottom top", scrub: true }
+        });
+      });
     });
   }
 
