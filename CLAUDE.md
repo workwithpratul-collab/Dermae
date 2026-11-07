@@ -34,12 +34,13 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 | --- | --- |
 | Markup, styles, logic | Plain **HTML**, **CSS**, **JavaScript** (ES modules OK) |
 | Scroll animation | **GSAP** + **ScrollTrigger** |
+| Line-by-line text reveals | **GSAP SplitText** (free since GSAP 3.13) |
 | Smooth scrolling | **Lenis** (synced to ScrollTrigger) |
 | Booking form | **Formspree** (plain HTML form POST, enhanced with `fetch`) |
 
 **Do not use:** React, TypeScript, Next.js, any framework or build step, or a database.
 
-- Load GSAP, ScrollTrigger and Lenis from a CDN with **exact pinned versions** (for example `gsap@3.12.5`, never just `gsap`).
+- Load GSAP, ScrollTrigger and Lenis from a CDN with **exact pinned versions** (for example `gsap@3.13.0`, never just `gsap`).
 - Keep the site runnable by opening it through a simple local server. No `npm install` is required to view it.
 - Lenis + ScrollTrigger wiring: call `ScrollTrigger.update` on Lenis scroll and drive Lenis from `gsap.ticker`.
 

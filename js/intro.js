@@ -116,6 +116,7 @@
     var leave = reduce ? 350 : 1100;
     loader.style.setProperty("--leave", leave + "ms");
     root.classList.add("intro-done");     // the real heading shows under the loader's word
+    if (window.DermaeScenes && DermaeScenes.playIntro) DermaeScenes.playIntro();  // tagline rises line by line
     root.classList.remove("is-loading");
     loader.classList.add("is-leaving");
     if (film().lenis) film().lenis.start();
