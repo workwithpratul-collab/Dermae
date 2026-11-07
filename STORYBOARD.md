@@ -91,6 +91,17 @@ The scroll film (Scenes 1–5), then **Treatments**, **Approach and technology**
 - **Profile:** the name line with *(fictional demo profile)* and a short italic disclaimer; Qualifications (each marked *(fictional demo credential)*) and Areas of focus as two hairline lists; How she works; and the note from Dr. Sen in the film's quote style with *(Illustrative note, fictional)*.
 - **Motion:** heading rises line by line; the photo and each part fade up softly.
 
+## Patient guide section (added Day 12)
+
+- **Look:** the same open, editorial style as the Approach section, on the deeper ivory: heading block, then three blocks (Before your first visit, During your visit, After your visit), each opening with a hairline, the subheading on the left (desktop) and small uppercase labels over short lists or paragraphs on the right.
+- **Urgent care:** "When to seek urgent care" has a thin forest rule down its left side so it stands out calmly. The medical note closes the section.
+- **Motion:** heading rises line by line; subheadings and items fade up softly; short fades only with reduced motion.
+
+## Contact section (added Day 12)
+
+- **Look:** deeper ivory, between the FAQ and Booking. Heading block with the italic demo label; then the address, phone, email and demo opening hours under small uppercase labels and hairlines; then four action links (Call, WhatsApp, Email, Directions), each a serif line marked *(demo)* with a thin arrow that moves on hover. Desktop: details on the left, map on the right; phones: stacked.
+- **Map:** a quiet placeholder (a faint grid, a forest dot, "Demo location", and a "Show map" button) until the visitor clicks. Only then does the OpenStreetMap map load, with a small "Demo location" badge on top. Nothing loads from OpenStreetMap before that click.
+
 ## FAQ section (added Day 11)
 
 - **Look:** ivory, like the Approach section: one block per category, each opening with a hairline, the category name on the left (desktop) or above (phones), and its questions on the right, divided by thin lines.
@@ -112,7 +123,7 @@ Over the film the header stays transparent with a soft fade. Over the sections a
 
 - **Image:** Deep forest green background with a subtle soft-light texture.
 - **Movement:** Very slight drift, then stillness so the form is easy to use.
-- **Text (redesigned Day 5):** The heading and intro rise in line by line with the scroll. On desktop, the heading, intro and contact details sit on the left and the form on the right; on mobile they stack (heading, intro, form, contact details). The form and contact details fade in once, never tied to the scroll, so the form is never half-faded while in use.
+- **Text (redesigned Day 5; contact details moved to the Contact section on Day 12):** The heading and intro rise in line by line with the scroll. On desktop, the heading and intro sit on the left and the form on the right; on mobile they stack (heading, intro, form). The form fades in once, never tied to the scroll, so it is never half-faded while in use.
 - **Form:** Ivory underline fields on forest green. On focus, the line turns solid and thicker with a faint highlight; errors show a soft peach line and message.
 
 ## Footer (added Day 5)

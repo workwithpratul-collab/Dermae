@@ -62,6 +62,7 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 │   ├── faq-data.js       # all FAQ questions and answers (the one place the site reads them from)
 │   ├── faq.js            # FAQ accordion, grouped by category
 │   ├── assistant.js      # FAQ assistant: answers only from faq-data.js, no API, nothing stored
+│   ├── contact.js        # contact map that loads only when clicked
 │   └── form.js           # booking form submit + messages
 ├── images/
 │   ├── originals/        # full-size source images (not loaded by the site)
@@ -198,6 +199,8 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **FAQ accordion:** buttons with `aria-expanded`/`aria-controls`; answers open with a soft opacity and transform reveal (no height animation). After opening or closing, scroll animations re-measure.
 - **FAQ assistant rules (Day 11):** it may only answer from `js/faq-data.js`: no API, no external service, nothing stored (no cookies or storage; the conversation is cleared on close). The safety check always runs first: any mention of symptoms, a diagnosis, medicines or anything urgent gets the safety reply, never an FAQ answer. Otherwise it scores questions by matching words (keywords count most, then question, then answer; rarer words weigh more) and only answers when the match is strong and covers most of the message, else it shows the fallback. It must keep the "Automated FAQ assistant, not a doctor" label, close with Escape, keep Tab inside, announce replies (`role="log"`), and sit above the mobile booking bar. When adding FAQ questions, add keywords and test typical phrasings.
 - **Header (Day 11):** kept short: Treatments, Doctor, FAQ, Contact (Day 12) and Book. The Approach section is reached by scrolling.
+- **Contact details (Day 12)** live in one place: the Contact section of `index.html` (address, phone, email, hours, the action links and the demo map location in `data-lat`/`data-lon`). They are kept in HTML, not a data file, so they stay readable without JavaScript. Don't repeat them elsewhere on the page (they were removed from the booking section). Every action link and the hours are labelled *(demo)*.
+- **Map (Day 12):** nothing loads from OpenStreetMap until the visitor clicks "Show map" (`js/contact.js`); the loaded map keeps a "Demo location" badge. The location is open parkland (Hyde Park, London), so no real business is pinned.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
 
 ## Progress
@@ -214,5 +217,5 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Day 10:** Doctor section (fictional qualifications, areas of focus, how she works, illustrative note, labelled photo with Scene 4's slow zoom); header and footer "Doctor" go there. Phase 2 complete: page order is film → Treatments → Approach → Doctor → Booking → footer.
 - **Days 11–12 copy (Phase 1):** FAQ (25 questions), patient guide, contact copy and FAQ assistant copy were written in `CONTENT.md` and approved.
 - **Day 11:** FAQ section built from `js/faq-data.js` as an accessible accordion grouped by category, and a free FAQ assistant that answers only from that data (safety reply for medical messages, fallback otherwise, nothing stored). Header: Treatments, Doctor, FAQ, Book.
-- **Day 12:** being built (Phase 2).
+- **Day 12:** Patient guide (before, during and after your visit) in the Approach style; Contact section as the one place for the contact details, with demo hours, demo call/WhatsApp/email/directions links and a click-to-load demo map; contact details removed from the booking section. Header: Treatments, Doctor, FAQ, Contact, Book. Page order: film → Treatments → Approach → Doctor → Patient guide → FAQ → Contact → Booking → footer.
 - **Days 13–15:** still to come.

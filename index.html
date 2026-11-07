@@ -39,6 +39,7 @@
   <script src="js/faq-data.js" defer></script>
   <script src="js/faq.js" defer></script>
   <script src="js/assistant.js" defer></script>
+  <script src="js/contact.js" defer></script>
 
   <script src="js/scenes.js" defer></script>
   <script src="js/main.js" defer></script>
@@ -65,6 +66,7 @@
           <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
           <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
           <li><a href="#faq" data-nav="faq">FAQ</a></li>
+          <li><a href="#contact" data-nav="contact">Contact</a></li>
           <li><a href="#booking" data-nav="booking">Book</a></li>
         </ul>
       </nav>
@@ -478,6 +480,92 @@
       </div>
     </section>
 
+    <!-- Patient guide: open, editorial, like the Approach section -->
+    <section class="section approach guide" id="guide" aria-labelledby="guide-title" tabindex="-1">
+      <div class="section__inner">
+        <header class="section__head">
+          <p class="eyebrow section__eyebrow">Patient guide</p>
+          <h2 id="guide-title">Before, during and after your visit.</h2>
+          <p class="section__intro">Practical information to help you prepare, know what to expect, and look after your skin afterwards.</p>
+        </header>
+
+        <!-- 1. Before your first visit -->
+        <div class="approach__block">
+          <h3 class="approach__subhead" data-reveal>Before your first visit</h3>
+          <dl class="approach__terms" data-reveal-stagger>
+            <div>
+              <dt>What to bring</dt>
+              <dd>
+                <ul>
+                  <li>Any previous reports, letters or test results about your skin</li>
+                  <li>A list of the medicines you take, including supplements and anything bought without a prescription</li>
+                  <li>A list of the skincare and make-up products you use, or photos of their labels</li>
+                  <li>Photos of a flare-up, if your skin changes from day to day and may look different on the day</li>
+                  <li>A referral letter or insurance details, if you have them</li>
+                  <li>A few notes on the questions you’d like to ask</li>
+                </ul>
+              </dd>
+            </div>
+            <div>
+              <dt>On the day</dt>
+              <dd>
+                <ul>
+                  <li>Where possible, arrive without make-up on the areas you’d like checked, so your skin can be seen clearly.</li>
+                  <li>If your concern involves your nails, please remove any nail polish.</li>
+                  <li>Allow a little extra time when you arrive, in case there are forms to complete.</li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- 2. During your visit -->
+        <div class="approach__block">
+          <h3 class="approach__subhead" data-reveal>During your visit</h3>
+          <dl class="approach__terms" data-reveal-stagger>
+            <div>
+              <dt>The consultation</dt>
+              <dd>Your dermatologist begins by listening: what concerns you, how long it has been happening, what you’ve already tried, your general health and the products you use. There is time for your questions throughout.</dd>
+            </div>
+            <div>
+              <dt>The skin assessment</dt>
+              <dd>Your skin is examined in good light, often with a dermatoscope (a handheld skin magnifier), and sometimes with a Wood’s lamp (a gentle ultraviolet light). You may be asked to uncover the areas of concern; you can keep your underwear on for a full skin check, and you can ask for a chaperone. With your consent, photographs may be taken to compare progress later.</dd>
+            </div>
+            <div>
+              <dt>Your options</dt>
+              <dd>Your dermatologist explains what they think is happening and the options that may help, including waiting and watching. If a test is suggested, such as a patch test or a small skin sample, it is explained first. You’ll have time to decide.</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- 3. After your visit -->
+        <div class="approach__block">
+          <h3 class="approach__subhead" data-reveal>After your visit</h3>
+          <div class="approach__body">
+            <dl class="approach__terms" data-reveal-stagger>
+              <div>
+                <dt>Your plan and aftercare</dt>
+                <dd>You’ll receive a written summary of your plan. If you’ve had a treatment, you’ll also receive written aftercare instructions. Follow them closely, and protect treated skin from the sun.</dd>
+              </div>
+              <div>
+                <dt>Follow-up</dt>
+                <dd>A follow-up visit reviews how your skin is responding and adjusts the plan if needed. If tests were taken, you’ll be told how and when you’ll receive the results.</dd>
+              </div>
+              <div>
+                <dt>When to contact the clinic</dt>
+                <dd>Contact the clinic if you have questions about your aftercare, or if anything worries you, such as redness, swelling or discomfort that is increasing rather than settling, blistering, or signs of infection like warmth, oozing or a fever.</dd>
+              </div>
+              <div class="guide__urgent">
+                <dt>When to seek urgent care</dt>
+                <dd>Seek urgent medical care, or call your local emergency number, if you have difficulty breathing, swelling of the face, lips or tongue, a rash that spreads quickly with a fever, or you feel very unwell.</dd>
+              </div>
+            </dl>
+            <p class="note--medical approach__note" data-reveal>General information only, not medical advice. A dermatologist will assess your individual needs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ: built by js/faq.js from js/faq-data.js (the one place the FAQ lives) -->
     <section class="section faq" id="faq" aria-labelledby="faq-title" tabindex="-1">
       <div class="section__inner">
@@ -488,6 +576,61 @@
         </header>
         <div class="faq__groups" id="faq-groups"></div>
         <noscript><p class="faq__noscript">The FAQ needs JavaScript. You can still request a consultation with the booking form below.</p></noscript>
+      </div>
+    </section>
+
+    <!-- Contact: THE one place the (fictional) contact details live on the page.
+         To change them, change them here: the address, phone and email text,
+         the links' targets, and the demo map location (data-lat / data-lon). -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title" tabindex="-1">
+      <div class="section__inner contact-section__grid">
+        <header class="section__head">
+          <p class="eyebrow section__eyebrow">Contact</p>
+          <h2 id="contact-title">Visit, call or write.</h2>
+          <p class="section__intro">We’re happy to help with appointments and practical questions. For questions about your own skin, please book a consultation.</p>
+          <p class="label section__label" data-reveal>All contact details here are fictional demo details. Calls, messages and emails won’t reach a real clinic.</p>
+        </header>
+
+        <div class="contact-section__details" data-reveal>
+          <div class="contact-section__item">
+            <h3 class="contact-section__label">Address</h3>
+            <address>Demo address</address>
+          </div>
+          <div class="contact-section__item">
+            <h3 class="contact-section__label">Phone</h3>
+            <p>+00 00000 00000</p>
+          </div>
+          <div class="contact-section__item">
+            <h3 class="contact-section__label">Email</h3>
+            <p>hello@dermae.example</p>
+          </div>
+          <div class="contact-section__item">
+            <h3 class="contact-section__label">Opening hours <span class="label">(demo hours)</span></h3>
+            <dl class="contact-section__hours">
+              <div><dt>Monday to Friday</dt><dd>9:00 to 18:00</dd></div>
+              <div><dt>Saturday</dt><dd>9:00 to 13:00</dd></div>
+              <div><dt>Sunday and public holidays</dt><dd>Closed</dd></div>
+            </dl>
+          </div>
+          <ul class="contact-section__actions">
+            <li><a href="tel:+000000000000">Call the clinic <span class="label">(demo)</span></a></li>
+            <li><a href="https://wa.me/000000000000" rel="noopener" target="_blank">Message on WhatsApp <span class="label">(demo)</span><span class="visually-hidden">, opens in a new tab</span></a></li>
+            <li><a href="mailto:hello@dermae.example">Email the clinic <span class="label">(demo)</span></a></li>
+            <li><a href="https://www.openstreetmap.org/directions?to=51.5073%2C-0.1657" rel="noopener" target="_blank">Get directions <span class="label">(demo)</span><span class="visually-hidden">, opens in a new tab</span></a></li>
+          </ul>
+        </div>
+
+        <!-- The map loads only when the visitor asks for it (js/contact.js). -->
+        <figure class="contact-map" data-reveal data-lat="51.5073" data-lon="-0.1657">
+          <div class="contact-map__frame">
+            <div class="contact-map__placeholder">
+              <span class="contact-map__pin" aria-hidden="true"></span>
+              <p class="contact-map__tag">Demo location</p>
+              <button type="button" class="contact-map__button" hidden>Show map</button>
+            </div>
+          </div>
+          <figcaption class="label">The map loads from OpenStreetMap only when you choose to show it. It shows a neutral demo location, not a real clinic.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -560,14 +703,6 @@
           <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
         </form>
 
-        <div class="contact">
-          <h3 class="visually-hidden">Contact details</h3>
-          <address>
-            <p><span class="contact__label">Address</span> Demo address</p>
-            <p><span class="contact__label">Phone</span> +00 00000 00000</p>
-            <p><span class="contact__label">Email</span> <a href="mailto:hello@dermae.example">hello@dermae.example</a></p>
-          </address>
-        </div>
       </div>
     </section>
 
@@ -582,6 +717,7 @@
             <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
             <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
             <li><a href="#faq" data-nav="faq">FAQ</a></li>
+            <li><a href="#contact" data-nav="contact">Contact</a></li>
             <li><a href="#booking" data-nav="booking">Book</a></li>
           </ul>
         </nav>

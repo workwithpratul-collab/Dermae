@@ -39,7 +39,7 @@ The approved on-page copy for each scene. Use this wording exactly when building
 **Header:**
 
 - Wordmark: DERMAÉ (screen readers also hear ", back to the start")
-- Links: Treatments · Doctor · FAQ · Book (Contact is added on Day 12)
+- Links: Treatments · Doctor · FAQ · Contact · Book
 - Button (desktop): Book a consultation
 - Menu button (mobile): Menu, which reads Close while the menu is open
 
@@ -142,7 +142,7 @@ Phone and Preferred time are labelled *(optional)*. Appointment type starts on "
 - Sent (real Formspree ID only): Thank you. Your request has been sent, and our team will contact you to confirm the details.
 - Failed (real Formspree ID only): Sorry, your request couldn't be sent. Please try again, or email hello@dermae.example.
 
-**Contact details:**
+**Contact details:** (shown only in the Contact section since Day 12)
 
 - Address: Demo address
 - Phone: +00 00000 00000
@@ -743,7 +743,7 @@ The Contact section shows the address, opening hours and ways to get in touch. A
 
 ## Day 12: Patient guide, contact and assistant
 
-### Patient guide
+### Patient guide (live since Day 12)
 
 **Section labels**
 
@@ -795,7 +795,9 @@ Seek urgent medical care, or call your local emergency number, if you have diffi
 
 *General information only, not medical advice. A dermatologist will assess your individual needs.*
 
-### Contact
+### Contact (live since Day 12)
+
+On the site, the Contact section is the **one place** the contact details appear. They were removed from the booking section on Day 12.
 
 **Section labels and intro**
 
@@ -823,7 +825,10 @@ Seek urgent medical care, or call your local emergency number, if you have diffi
 
 - Button: Show map
 - Note under the button: The map loads from OpenStreetMap only when you choose to show it. It shows a neutral demo location, not a real clinic.
-- Map label: Demo location
+- Map label: Demo location (shown on the placeholder, and as a small badge on the map once it has loaded)
+- Map title (for screen readers): Map of the demo location
+- The WhatsApp and directions links open in a new tab; screen readers also hear ", opens in a new tab".
+- Demo location: open parkland in Hyde Park, London (no business is pinned). Change it in the Contact section of `index.html`.
 
 ### FAQ assistant
 
