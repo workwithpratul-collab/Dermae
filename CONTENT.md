@@ -176,6 +176,8 @@ Applied on Day 6: the live copy in the sections above uses the approved wording.
 
 Each entry has a one-line summary (for the cards) and a full description (for each treatment's detail view). Every entry ends with the medical note.
 
+**On the site (Day 8):** this text lives in `js/treatments-data.js`, the one file the Treatments section reads from. It was generated from this section word for word. If you change the wording, change it in both places.
+
 ### Medical dermatology
 
 #### Acne
@@ -588,7 +590,7 @@ Dr. Sen starts by listening. She wants to understand what bothers you about your
 
 ## Phase 2: new section labels and interface text
 
-**Treatments section**
+**Treatments section** (live since Day 8)
 
 - Eyebrow: Treatments
 - Heading: A closer look at each treatment.
@@ -597,9 +599,10 @@ Dr. Sen starts by listening. She wants to understand what bothers you about your
 - Filters: All · Medical · Aesthetic
 - Search label: Search treatments
 - Search placeholder: For example, acne or peels
-- Results (for screen readers): Showing [number] treatments
+- Results (for screen readers): Showing [number] treatments (or "Showing 1 treatment")
+- Without JavaScript: The treatment guide needs JavaScript. The treatments we offer are listed in the section above.
 - No results: No treatments match your search. Try another word, or show all treatments.
-- Card link: Read more
+- Card link: Read more (screen readers also hear "about [treatment name]")
 - Card tags: Medical · Aesthetic
 - Detail view close button: Close
 - Detail view link to the booking form: Book a consultation

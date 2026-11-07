@@ -38,7 +38,7 @@ window.DermaeScenes = (function () {
     s3Show: 4.15, s3In: 4.6,  s3Out: 6.55,
     s4Show: 6.9,  s4In: 7.4,  s4Out: 8.95,
     s5Show: 9.35, s5In: 9.95, s5Out: 12.05,
-    green: 12.3,  end: 12.95
+    fade: 12.3,   end: 12.95       // fade = the film fades to soft ivory, into the Treatments section
   };
 
   var root = document.documentElement;
@@ -102,7 +102,7 @@ window.DermaeScenes = (function () {
     var blur = q(".scene__blur", s[0].el);       // the drop, pre-blurred
     var roomBlur = q(".scene__blur", s[1].el);   // the room, pre-blurred
     var glow = q(".film__glow", film);
-    var green = q(".film__green", film);
+    var endFade = q(".film__end", film);       // soft ivory: the film opens into the page below
 
     var soft = "sine.inOut";
     var hasSplit = !!window.SplitText && opts.split !== false;
@@ -259,7 +259,7 @@ window.DermaeScenes = (function () {
        Slow pull back; Consult, Plan and Care one at a time, then the quote. */
     var b5 = blocks(c5), l5 = L[4];
     var linesOf = function (el) { return flat(b5.filter(function (b) { return el === b || el.contains(b); }).map(function (b) { return l5[b5.indexOf(b)]; })); };
-    tl.to(s[4].media, { scale: 1.03, duration: T.green - T.s5Show }, T.s5Show)
+    tl.to(s[4].media, { scale: 1.03, duration: T.fade - T.s5Show }, T.s5Show)
       .to(s[4].light, { xPercent: 5 * m, yPercent: -5 * m, duration: T.end - T.s5Show }, T.s5Show);
     textIn(s[4], T.s5In);
     linesIn(linesOf(q("h2", c5)), T.s5In + 0.02, 0.09);
@@ -273,15 +273,16 @@ window.DermaeScenes = (function () {
     linesIn(linesOf(quote), atQ + 0.03, 0.07);
     hold(s[4], T.s5In + 0.4, T.s5Out);
     textOut(s[4], flat(l5), T.s5Out);
-    // Fade into deep forest green, then a short hold before the pin releases.
-    tl.to(green, { opacity: 1, duration: 0.5, ease: soft }, T.green)
-      .to({}, { duration: T.end - T.green - 0.5 }, T.green + 0.5);
+    // Fade into soft ivory light, then a short hold before the pin releases
+    // and the Treatments section (also ivory) scrolls up into view.
+    tl.to(endFade, { opacity: 1, duration: 0.5, ease: soft }, T.fade)
+      .to({}, { duration: T.end - T.fade - 0.5 }, T.fade + 0.5);
 
     // Header links glide to these moments: each scene with its text fully
     // shown, part-way into its pause.
-    tl.addLabel("treatments", T.s3In + 1.6)
-      .addLabel("doctor", T.s4In + 1.22)
-      .addLabel("journey", T.s5In + 1.78);
+    tl.addLabel("scene-treatments", T.s3In + 1.6)
+      .addLabel("scene-doctor", T.s4In + 1.22)
+      .addLabel("scene-journey", T.s5In + 1.78);
 
     return tl;
   }
@@ -377,6 +378,50 @@ window.DermaeScenes = (function () {
     });
   }
 
+  /* ---------- Page sections after the film (every mode) ----------
+     Treatments, Approach and Doctor scroll normally (no pinning).
+     - Section headings rise in line by line, tied to the scroll.
+     - Eyebrows, intros and [data-reveal] blocks fade up softly once they
+       come into view, and fade back if you scroll up past them.
+     - [data-reveal-stagger] lists reveal their items one after another.
+     Reduced motion: no splitting or movement, just a short fade. */
+  function buildSections(opts) {
+    var still = !!opts.reduce;
+    var split = (!still && opts.split !== false && window.SplitText) ? splitter(opts.cleanups, true) : null;
+
+    function fadeUp(els, trigger, stagger) {
+      els = els.filter(Boolean);
+      if (!els.length) return;
+      var tween = gsap.fromTo(els, { opacity: 0, y: still ? 0 : 26 }, {
+        opacity: 1, y: 0, duration: still ? 0.5 : 0.95, ease: "power2.out", stagger: stagger || 0,
+        scrollTrigger: { trigger: trigger, start: "top 88%", toggleActions: still ? "play none none none" : "play none none reverse" }
+      });
+      // Keyboard safety: anything that receives focus is shown at once.
+      var show = function () { tween.progress(1); };
+      trigger.addEventListener("focusin", show);
+      opts.cleanups.push(function () { trigger.removeEventListener("focusin", show); });
+    }
+
+    qa(".section").forEach(function (sec) {
+      var head = q(".section__head", sec);
+      if (head) {
+        var h = q("h2", head);
+        var lines = split ? split(h) : [];
+        if (lines.length) {
+          gsap.fromTo(lines, { yPercent: HIDE }, {
+            yPercent: 0, ease: "power2.out", stagger: 0.12,
+            scrollTrigger: { trigger: head, start: "top 90%", end: "top 55%", scrub: 0.6 }
+          });
+        }
+        fadeUp((lines.length ? [] : [h]).concat(qa(".section__eyebrow, .section__intro", head)), head, 0.1);
+      }
+      qa("[data-reveal]", sec).forEach(function (el) { fadeUp([el], el); });
+      qa("[data-reveal-stagger]", sec).forEach(function (list) {
+        fadeUp(Array.prototype.slice.call(list.children), list, still ? 0 : 0.07);
+      });
+    });
+  }
+
   /* ---------- Scroll progress line (every mode) ----------
      Fills from top to bottom over the whole page. Reduced motion: it simply
      follows the scroll bar, with no smoothing. */
@@ -389,5 +434,5 @@ window.DermaeScenes = (function () {
     });
   }
 
-  return { buildFilm: buildFilm, buildBooking: buildBooking, buildCalm: buildCalm, buildProgress: buildProgress, playIntro: playIntro };
+  return { buildFilm: buildFilm, buildBooking: buildBooking, buildCalm: buildCalm, buildSections: buildSections, buildProgress: buildProgress, playIntro: playIntro };
 })();

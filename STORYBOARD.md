@@ -60,7 +60,21 @@ One slow, continuous camera move with soft light and no sudden jumps.
 - **Image:** Calm consultation corner with two chairs, a plant, and soft window light.
 - **Movement:** Slow pull back.
 - **Text:** Consult, Plan, and Care appear one at a time (each number fades in with its lines), followed by the illustrative quote, whose side rule grows down.
-- **Transition:** The image fades into deep forest green.
+- **Transition (changed Day 8):** The image fades into soft ivory light. The film then releases, and the Treatments section (also ivory) scrolls up into view, so the film flows straight into the page.
+
+---
+
+## Page order (Day 8 onward)
+
+The scroll film (Scenes 1–5), then **Treatments**, **Approach and technology**, **Doctor**, and finally **Booking** (Scene 6, the forest-green finale) and the footer. The sections after the film scroll normally; only the film is pinned.
+
+## Treatments section (added Day 8)
+
+- **Look:** ivory, editorial like Scene 3: an eyebrow, a large light serif heading, a short intro, then filter pills (All, Medical, Aesthetic) and an underline search box above a hairline. Cards sit in an open grid (one column on phones, two on tablets, three on desktop) separated by thin lines, with no boxes.
+- **Card:** a small tag (Medical or Aesthetic), the treatment name in serif, the one-line summary, and "Read more" with a short line that draws out on hover. The whole card is clickable.
+- **Motion:** the heading rises in line by line with the scroll; the intro, tools and cards fade up softly, one card after another. Filtering is instant (no page reload).
+- **Detail view:** an ivory panel slides in gently from the right over a soft green-tinted dimming (full screen on phones). A sticky top bar holds the tag and a Close button; below come the name, the summary in italic serif, each part of the entry under a small uppercase label with a hairline, the medical note, and "Book a consultation".
+- **Links:** each treatment has its own address (e.g. `#treatment-acne`); opening it goes to the card and opens its detail view.
 
 ## Scene 6: Booking
 
@@ -97,6 +111,7 @@ Turn off zooms and smooth scrolling, and use gentle fades only.
 - Loading screen: no letter animation, just one short fade.
 - No line splitting: text simply fades in.
 - Header links jump instead of gliding. The grain stays still. The progress line just follows the scroll bar.
+- Sections after the film: short fades only, with no movement. The treatment detail view opens and closes without sliding.
 
 ## Image rule
 

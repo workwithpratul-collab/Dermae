@@ -19,7 +19,6 @@
   var toggleText = header.querySelector(".menu-toggle__text");
   var wordmark = header.querySelector(".wordmark");
   var booking = document.getElementById("booking");
-  var green = document.querySelector(".film__green");
   var mobileMQ = window.matchMedia("(max-width: 1023.98px)");
   var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -139,11 +138,8 @@
     var headerH = header.offsetHeight;
 
     // Dark when forest green is behind the header: the booking section and
-    // footer, or the film's fade to green at the end of Scene 5.
+    // footer. (The film now ends in soft ivory, so it never needs dark.)
     var dark = bTop <= headerH * 0.5;
-    if (!dark && root.classList.contains("film-on") && green && window.gsap) {
-      dark = Number(window.gsap.getProperty(green, "opacity")) > 0.5;
-    }
     // Soft background: always over the photos (some, like the opening's olive
     // corner, are too busy or dark for the links on their own), but over solid
     // forest green only once the booking content scrolls under the header.
@@ -163,12 +159,25 @@
   }
   update();
 
-  // Opening the page with a scene address (e.g. …/#doctor): go to that moment.
-  var start = (location.hash || "").slice(1);
-  if (/^(treatments|doctor|journey)$/.test(start) && film().mode === "film") {
+  // Opening the page with an address such as …/#treatments, …/#scene-doctor
+  // or …/#treatment-acne: go straight there once the page is laid out.
+  var start = decodeURIComponent((location.hash || "").slice(1));
+  if (start && start !== "opening" && document.getElementById(start)) {
+    var f = film();
+    var isFilmMoment = f.mode === "film" && f.timeline && f.timeline.labels[start] != null;
+    // A section or card: js/main.js keeps landing on it after each rebuild
+    // (fonts loading, resizing) until the visitor scrolls on their own.
+    if (!isFilmMoment && window.DermaeFilm) {
+      window.DermaeFilm.pendingTarget = start;
+      var forget = function () {
+        if (window.DermaeFilm) window.DermaeFilm.pendingTarget = null;
+        ["wheel", "touchstart", "keydown", "pointerdown"].forEach(function (t) { window.removeEventListener(t, forget, true); });
+      };
+      ["wheel", "touchstart", "keydown", "pointerdown"].forEach(function (t) { window.addEventListener(t, forget, true); });
+    }
     var jump = function () {
-      var lenis = film().lenis, y = Math.round(targetY(start));
-      if (lenis) lenis.scrollTo(y, { immediate: true }); else window.scrollTo(0, y);
+      var lenis = film().lenis, y = Math.max(0, Math.round(targetY(start)));
+      if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } else window.scrollTo(0, y);
     };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { requestAnimationFrame(jump); });
     else jump();

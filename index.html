@@ -32,6 +32,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 
+  <!-- Treatment library: the data (one place for all treatment content), then the cards, filters and detail view -->
+  <script src="js/treatments-data.js" defer></script>
+  <script src="js/treatments.js" defer></script>
+
   <script src="js/scenes.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/form.js" defer></script>
@@ -55,8 +59,8 @@
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
           <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
-          <li><a href="#journey" data-nav="journey">Approach</a></li>
-          <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
+          <li><a href="#scene-journey" data-nav="scene-journey">Approach</a></li>
+          <li><a href="#scene-doctor" data-nav="scene-doctor">Doctor</a></li>
           <li><a href="#booking" data-nav="booking">Book</a></li>
         </ul>
       </nav>
@@ -140,7 +144,7 @@
       </section>
 
       <!-- Scene 3: Treatments -->
-      <section class="scene scene--treatments" id="treatments" aria-labelledby="treatments-title" tabindex="-1">
+      <section class="scene scene--treatments" id="scene-treatments" aria-labelledby="treatments-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-3-portrait.jpg" width="941" height="1672">
@@ -186,7 +190,7 @@
       </section>
 
       <!-- Scene 4: Doctor -->
-      <section class="scene scene--doctor" id="doctor" aria-labelledby="doctor-title" tabindex="-1">
+      <section class="scene scene--doctor" id="scene-doctor" aria-labelledby="doctor-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-4-portrait.jpg" width="941" height="1672">
@@ -206,7 +210,7 @@
       </section>
 
       <!-- Scene 5: Your care journey -->
-      <section class="scene scene--journey" id="journey" aria-labelledby="journey-title" tabindex="-1">
+      <section class="scene scene--journey" id="scene-journey" aria-labelledby="journey-title" tabindex="-1">
         <div class="scene__media">
           <picture>
             <source media="(orientation: portrait)" srcset="images/web/scene-5-portrait.jpg" width="941" height="1672">
@@ -234,10 +238,60 @@
         </div>
       </section>
 
-      <!-- Film-only layers (hidden unless the film is running) -->
+      <!-- Film-only layers (hidden unless the film is running): the window-light
+           brighten (Scene 4 → 5) and the soft ivory fade at the end of the film -->
       <div class="film__glow" aria-hidden="true"></div>
-      <div class="film__green" aria-hidden="true"></div>
+      <div class="film__end" aria-hidden="true"></div>
     </div>
+
+    <!-- Treatments: the full treatment library. Cards are built by
+         js/treatments.js from js/treatments-data.js. -->
+    <section class="section library" id="treatments" aria-labelledby="library-title" tabindex="-1">
+      <div class="section__inner">
+        <header class="section__head">
+          <p class="eyebrow section__eyebrow">Treatments</p>
+          <h2 id="library-title">A closer look at each treatment.</h2>
+          <p class="section__intro">Clear, general information about the conditions we see and the treatments we offer. Your dermatologist will advise what may suit you.</p>
+        </header>
+
+        <!-- Filters and search change the list instantly; nothing reloads. -->
+        <form class="library__tools" role="search" data-reveal hidden>
+          <div class="library__filters" role="group" aria-label="Show treatments">
+            <button type="button" class="filter" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter" data-filter="medical" aria-pressed="false">Medical</button>
+            <button type="button" class="filter" data-filter="aesthetic" aria-pressed="false">Aesthetic</button>
+          </div>
+          <div class="library__search">
+            <label for="treatment-search">Search treatments</label>
+            <input type="search" id="treatment-search" placeholder="For example, acne or peels" autocomplete="off" spellcheck="false">
+          </div>
+        </form>
+
+        <p class="visually-hidden" id="library-status" role="status" aria-live="polite"></p>
+        <ul class="library__grid" id="library-grid" data-reveal-stagger></ul>
+        <p class="library__empty" hidden>No treatments match your search. Try another word, or <button type="button" class="text-button" data-reset>show all treatments</button>.</p>
+
+        <noscript><p class="library__noscript">The treatment guide needs JavaScript. The treatments we offer are listed in the section above.</p></noscript>
+
+        <p class="note--medical library__note" data-reveal>General information only, not medical advice. A dermatologist will assess your individual needs.</p>
+      </div>
+    </section>
+
+    <!-- Treatment detail view (a modal dialog). Filled in by js/treatments.js.
+         data-lenis-prevent lets the panel scroll on its own. -->
+    <dialog class="t-dialog" id="treatment-dialog" aria-labelledby="t-dialog-title" data-lenis-prevent>
+      <div class="t-dialog__panel">
+        <div class="t-dialog__top">
+          <p class="eyebrow t-dialog__tag"></p>
+          <button type="button" class="t-dialog__close" data-close>Close</button>
+        </div>
+        <h2 class="t-dialog__title" id="t-dialog-title" tabindex="-1"></h2>
+        <p class="t-dialog__summary"></p>
+        <div class="t-dialog__body"></div>
+        <p class="note--medical t-dialog__note">General information only, not medical advice. A dermatologist will assess your individual needs.</p>
+        <a class="cta t-dialog__book" href="#booking" data-nav="booking">Book a consultation</a>
+      </div>
+    </dialog>
 
     <!-- Scene 6: Booking -->
     <section class="booking" id="booking" aria-labelledby="booking-title" tabindex="-1">
@@ -328,8 +382,8 @@
         <nav class="footer__nav" aria-label="Footer">
           <ul>
             <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
-            <li><a href="#journey" data-nav="journey">Approach</a></li>
-            <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
+            <li><a href="#scene-journey" data-nav="scene-journey">Approach</a></li>
+            <li><a href="#scene-doctor" data-nav="scene-doctor">Doctor</a></li>
             <li><a href="#booking" data-nav="booking">Book</a></li>
           </ul>
         </nav>

@@ -57,6 +57,8 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 │   ├── scenes.js         # the film timeline (beat table T), text splitting, booking, progress line
 │   ├── nav.js            # fixed header, mobile menu, "Book consultation" bar
 │   ├── intro.js          # loading screen + "Scroll to begin" hint
+│   ├── treatments-data.js # all treatment content (the one place the site reads it from)
+│   ├── treatments.js     # treatment cards, filters, search, detail view, #treatment-… links
 │   └── form.js           # booking form submit + messages
 ├── images/
 │   ├── originals/        # full-size source images (not loaded by the site)
@@ -173,7 +175,7 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 
 ## Decisions made so far (Days 1–5)
 
-- **Film timing** lives in one beat table (`T`) in `js/scenes.js`; the film is 1.8 screen-heights per scene. Keep each scene's text fully readable for at least ~0.65 beats, and let it fully leave before the next picture fades in. Header links glide to timeline labels (`treatments`, `doctor`, `journey`) set in the same file; move them if the timing changes.
+- **Film timing** lives in one beat table (`T`) in `js/scenes.js`; the film is 1.8 screen-heights per scene. Keep each scene's text fully readable for at least ~0.65 beats, and let it fully leave before the next picture fades in. Film moments have timeline labels named after the scene ids (`scene-treatments`, `scene-doctor`, `scene-journey`); a link whose `data-nav` is one of those glides to that moment, and any other `data-nav` glides to the element with that id. Move the labels if the timing changes.
 - **Text reveals** use SplitText with masked lines. Split only after the web fonts have loaded, and split again whenever the screen width changes. Headings get their full text as an `aria-label`; other split text gets a visually hidden full copy, with the line pieces hidden from screen readers. With reduced motion, text is never split.
 - **Blur transitions** use a pre-blurred copy of the image (`.scene__blur`) whose opacity fades. The blur itself is never animated.
 - **The header** always has a soft ivory backdrop over the photos (some are too dark for the links on their own) and becomes ivory-on-forest over green. Re-check its contrast when images or timing change.
@@ -182,6 +184,11 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **After a resize or rotation**, the film is rebuilt and the visitor's place is restored from the last normal scroll.
 - **The progress line** follows the scroll bar in every mode, including reduced motion (it shows position; it isn't decoration that moves on its own).
 - **Longer copy and the film (Day 6):** new copy must still fit each scene above its subject. Phones (portrait, under 640px) have their own tighter rules for Scenes 3 and 5, and Scene 3's landscape column is wider so its heading stays on two lines. If text doesn't fit, the film silently falls back to the calm version, so check the mode after copy changes.
+- **Page order (Day 8):** film → Treatments → Approach and technology → Doctor → Booking → footer. The film ends in soft ivory so it flows into the ivory sections; forest green is kept for the Booking finale. The new sections use the shared `.section` styles and `buildSections()` reveals in `js/scenes.js`.
+- **Treatment content** lives on the site in one file, `js/treatments-data.js`, which `js/treatments.js` renders. It was generated word for word from the treatment library in `CONTENT.md`; keep the two identical. Bold uses `**…**`; the medical note is added automatically to every treatment.
+- **Treatment detail view** is a native `<dialog>` opened with `showModal()`. Escape and Close close it, Tab is kept inside, focus returns to the card's link, and the panel scrolls on its own (`data-lenis-prevent`, Lenis stopped). Its address is set with `history.replaceState`, so opening and closing never jumps the page.
+- **Shared links** (`#treatments`, `#treatment-acne`, `#scene-doctor`…) are handled in `js/nav.js`: the page lands on the target after loading, and `js/main.js` re-applies it after each rebuild until the visitor scrolls (`DermaeFilm.pendingTarget`).
+- **Exception to "everything works without JavaScript":** the treatment guide needs JavaScript (its cards are built from the data file). Without it, the section shows a short note, and the treatment names stay readable in Scene 3.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
 
 ## Progress
@@ -193,5 +200,6 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Day 5:** Redesigned booking scene (two columns on desktop, underline fields) and a full footer.
 - **Days 6–10 copy (Phase 1):** brand voice, a rewrite of all site copy, the treatment library, approach and technology, and the expanded doctor profile were written in `CONTENT.md` and approved.
 - **Day 6:** Approved copy applied across the site; Scene 3 gained the medical note; header and footer links became Treatments · Approach · Doctor · Book.
-- **Days 8–10:** being built (Phase 2).
+- **Day 8:** Treatments section after the film (cards built from `js/treatments-data.js`, filters, search, accessible detail view, shareable `#treatment-…` links); the film now ends in soft ivory; film scene ids renamed to `scene-…`. Approach and Doctor links still go to the film scenes until their sections are built.
+- **Days 9–10:** being built (Phase 2).
 - **Days 11–15:** still to come.

@@ -100,6 +100,7 @@
       } else {
         DermaeScenes.buildCalm({ cleanups: cleanups, reduce: reduceMQ.matches, split: split });
       }
+      DermaeScenes.buildSections({ cleanups: cleanups, reduce: reduceMQ.matches, split: split });
       DermaeScenes.buildProgress({ reduce: reduceMQ.matches });
     });
     state.mode = useFilm ? "film" : "calm";
@@ -107,7 +108,14 @@
     if (!reduceMQ.matches) startLenis();
     ScrollTrigger.refresh();
 
-    if (rebuilding && fraction > 0) {
+    // Opened from a shared link (e.g. #treatments or #treatment-acne): land on
+    // that element after every rebuild, until the visitor scrolls themselves.
+    var target = state.pendingTarget && document.getElementById(state.pendingTarget);
+    if (target) {
+      var ty = Math.round(target.getBoundingClientRect().top + window.pageYOffset);
+      if (lenis) { lenis.resize(); lenis.scrollTo(ty, { immediate: true, force: true }); }
+      else window.scrollTo(0, ty);
+    } else if (rebuilding && fraction > 0) {
       var y = fraction * Math.max(1, root.scrollHeight - window.innerHeight);
       // While rebuilding, the page was briefly shorter. Lenis must re-measure
       // the full height first, or it won't scroll back down to the old place.

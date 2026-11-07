@@ -921,6 +921,260 @@ a { color: inherit; text-underline-offset: 0.2em; }
   :root { --gutter: 8rem; }
 }
 
+/* ---------- 5b. Page sections after the film (Treatments, Approach, Doctor) ----------
+   Editorial, like Scene 3: open layouts, hairlines, no heavy boxes. They
+   scroll normally; js/scenes.js adds soft reveals (buildSections). */
+.section {
+  position: relative;
+  z-index: 1;
+  background: var(--ivory);
+  padding: clamp(4.5rem, 11vh, 8.5rem) var(--gutter);
+}
+.section:focus { outline: none; }
+.section__inner { max-width: 76rem; margin: 0 auto; }
+.section__head { max-width: 46rem; }
+.section__eyebrow { margin: 0 0 1.1rem; }
+.section h2 {
+  font-weight: 400;
+  font-size: clamp(2.4rem, 1.5rem + 3.2vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.section__intro { margin-top: 1.25rem; max-width: 36rem; color: var(--charcoal); }
+.section .line-mask { padding-bottom: 0.22em; margin-bottom: -0.22em; }
+
+/* Small italic medical note used under medical information */
+.library__note,
+.t-dialog__note {
+  font-size: 0.8125rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--charcoal-soft);
+}
+
+/* ----- Treatments: filters, search and cards ----- */
+.library__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(31, 58, 46, 0.22);
+}
+.library__filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.filter {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.2rem;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: transparent;
+  border: 1px solid rgba(31, 58, 46, 0.45);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.filter:hover { border-color: var(--forest); }
+.filter[aria-pressed="true"] { color: var(--ivory); background: var(--forest); border-color: var(--forest); }
+.filter:focus-visible { outline: 3px solid var(--forest); outline-offset: 3px; }
+
+.library__search { display: flex; flex-direction: column; gap: 0.3rem; width: min(100%, 22rem); }
+.library__search label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+.library__search input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.1rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--charcoal);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(31, 58, 46, 0.6);
+  border-radius: 0;
+  appearance: none;
+}
+.library__search input::placeholder { color: var(--charcoal-soft); opacity: 1; }
+.library__search input:focus-visible { outline: none; border-bottom-color: var(--forest); box-shadow: 0 1px 0 var(--forest); }
+
+.library__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: clamp(2rem, 4vw, 3.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.t-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem 0 2rem;
+  border-bottom: 1px solid rgba(31, 58, 46, 0.18);
+}
+.t-card__tag {
+  margin: 0 0 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+.t-card__title { font-size: clamp(1.7rem, 1.4rem + 0.8vw, 2.1rem); font-weight: 500; }
+.t-card__summary { margin-top: 0.7rem; color: var(--charcoal); font-size: 0.975rem; line-height: 1.6; }
+.t-card__link {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 1.1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--forest);
+}
+.t-card__link::before {           /* the whole card is clickable, through its one link */
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.t-card__link::after {            /* a thin line that draws in on hover */
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 0.3rem;
+  background: currentColor;
+  transform: scaleX(0.35);
+  transform-origin: 0 50%;
+  transition: transform 0.5s cubic-bezier(.25,.1,.25,1);
+}
+.t-card:hover .t-card__link::after,
+.t-card__link:focus-visible::after { transform: scaleX(1); }
+.t-card__link:focus-visible { outline: none; }
+.t-card:has(.t-card__link:focus-visible) { outline: 3px solid var(--forest); outline-offset: 6px; }
+
+.library__empty { margin-top: 2rem; color: var(--charcoal); }
+.text-button {
+  padding: 0;
+  font: inherit;
+  color: var(--forest);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+.library__noscript { margin-top: 2rem; }
+.library__note { margin-top: 2.25rem; max-width: 40rem; }
+
+@media (min-width: 640px) {
+  .library__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .library__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ----- Treatment detail view: a panel from the right (full screen on phones) ----- */
+.t-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+.t-dialog::backdrop { background: rgba(23, 44, 34, 0); transition: background-color 0.45s ease; }
+.t-dialog.is-open::backdrop { background: rgba(23, 44, 34, 0.42); }
+.t-dialog__panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: min(100%, 42rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) clamp(1.5rem, 5vw, 3.5rem) calc(env(safe-area-inset-bottom, 0px) + 3rem);
+  color: var(--charcoal);
+  background: var(--ivory);
+  box-shadow: -24px 0 60px rgba(23, 44, 34, 0.12);
+  opacity: 0;
+  transform: translateX(6%);
+  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(.22,.61,.36,1);
+}
+.t-dialog.is-open .t-dialog__panel { opacity: 1; transform: none; }
+.t-dialog__top {
+  position: sticky;
+  top: calc(-1.25rem - env(safe-area-inset-top, 0px));
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 calc(-1 * clamp(1.5rem, 5vw, 3.5rem));
+  padding: 0.6rem clamp(1.5rem, 5vw, 3.5rem);
+  background: var(--ivory);
+  border-bottom: 1px solid rgba(31, 58, 46, 0.14);
+}
+.t-dialog__tag { margin: 0; }
+.t-dialog__close {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.1rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--forest);
+  background: transparent;
+  border: 1px solid rgba(31, 58, 46, 0.45);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.t-dialog__close:hover { border-color: var(--forest); }
+.t-dialog :focus-visible { outline: 3px solid var(--forest); outline-offset: 3px; }
+.t-dialog__title { margin-top: 2rem; font-size: clamp(2.4rem, 1.8rem + 2vw, 3.4rem); font-weight: 400; }
+.t-dialog__title:focus { outline: none; }
+.t-dialog__summary {
+  margin-top: 0.9rem;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--forest);
+}
+.t-dialog__section { margin-top: 1.9rem; padding-top: 1.4rem; border-top: 1px solid rgba(31, 58, 46, 0.16); }
+.t-dialog__section h3 {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+.t-dialog__section p + p,
+.t-dialog__section ul + p { margin-top: 0.75rem; }
+.t-dialog__section ul { margin: 0; padding-left: 1.1rem; }
+.t-dialog__section li { padding-block: 0.15rem; }
+.t-dialog__section li::marker { color: var(--sage); }
+.t-dialog__note { margin-top: 2.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(31, 58, 46, 0.16); }
+.t-dialog__book { margin-top: 1.75rem; }
+.dialog-is-open .book-bar { visibility: hidden; }
+
 /* ---------- 6. Booking (Scene 6): full-screen forest green ---------- */
 .booking {
   position: relative;
@@ -1206,7 +1460,7 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 
 .film__glow,
-.film__green { display: none; }
+.film__end { display: none; }
 
 /* One full-screen stage; the five scenes sit on top of each other.
    The stage is the visible screen height (dvh). Its layers reach the
@@ -1221,7 +1475,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 .film-on .film .scene,
 .film-on .film__glow,
-.film-on .film__green {
+.film-on .film__end {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 100vh;
@@ -1262,9 +1516,10 @@ html.lenis, html.lenis body { height: auto; }
   will-change: transform;
 }
 
-/* Brighten (Scene 4 → 5) and forest-green fade (Scene 5 → 6) */
+/* Brighten (Scene 4 → 5) and the soft ivory fade at the end of the film,
+   which opens into the Treatments section (also ivory) */
 .film-on .film__glow,
-.film-on .film__green {
+.film-on .film__end {
   display: block;
   opacity: 0;
   pointer-events: none;
@@ -1273,9 +1528,9 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 20;
   background: radial-gradient(ellipse 90% 80% at 80% 20%, #FFFDF8 0%, #F8F1E4 75%);
 }
-.film-on .film__green {
+.film-on .film__end {
   z-index: 21;
-  background-color: var(--forest);
+  background-color: var(--ivory);
 }
 
 /* ---------- 10. Reduced motion ---------- */
