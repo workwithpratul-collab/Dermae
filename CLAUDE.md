@@ -59,6 +59,9 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 │   ├── intro.js          # loading screen + "Scroll to begin" hint
 │   ├── treatments-data.js # all treatment content (the one place the site reads it from)
 │   ├── treatments.js     # treatment cards, filters, search, detail view, #treatment-… links
+│   ├── faq-data.js       # all FAQ questions and answers (the one place the site reads them from)
+│   ├── faq.js            # FAQ accordion, grouped by category
+│   ├── assistant.js      # FAQ assistant: answers only from faq-data.js, no API, nothing stored
 │   └── form.js           # booking form submit + messages
 ├── images/
 │   ├── originals/        # full-size source images (not loaded by the site)
@@ -191,6 +194,10 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Exception to "everything works without JavaScript":** the treatment guide needs JavaScript (its cards are built from the data file). Without it, the section shows a short note, and the treatment names stay readable in Scene 3.
 - **Section backgrounds (Day 9):** sections alternate between `--ivory` and `--ivory-deep` (`#EFE9DF`). Each `.section` sets `--section-rgb` to its background colour; `js/nav.js` uses it to give the header a solid backdrop over that section (over the film the header stays see-through). A new section with a different background must set `--section-rgb` too.
 - **Doctor photo (Day 10):** the section reuses `images/web/scene-4-portrait.jpg` (already optimised, loaded lazily), so desktop visitors see a different shot from the film. It must keep its visible "Illustrative image" caption. `[data-zoom]` images get the slow scroll zoom from `buildSections()`.
+- **FAQ (Day 11)** lives in `js/faq-data.js`, generated word for word from the FAQ in `CONTENT.md` (keep them identical), plus a `keywords` list per question for the assistant. Answers that mention treatments link to them with `see` (treatment ids); any `#treatment-…` link on the page opens that treatment's detail view in place, and focus returns to the link afterwards. Like the treatment guide, the FAQ needs JavaScript (a short note shows without it).
+- **FAQ accordion:** buttons with `aria-expanded`/`aria-controls`; answers open with a soft opacity and transform reveal (no height animation). After opening or closing, scroll animations re-measure.
+- **FAQ assistant rules (Day 11):** it may only answer from `js/faq-data.js`: no API, no external service, nothing stored (no cookies or storage; the conversation is cleared on close). The safety check always runs first: any mention of symptoms, a diagnosis, medicines or anything urgent gets the safety reply, never an FAQ answer. Otherwise it scores questions by matching words (keywords count most, then question, then answer; rarer words weigh more) and only answers when the match is strong and covers most of the message, else it shows the fallback. It must keep the "Automated FAQ assistant, not a doctor" label, close with Escape, keep Tab inside, announce replies (`role="log"`), and sit above the mobile booking bar. When adding FAQ questions, add keywords and test typical phrasings.
+- **Header (Day 11):** kept short: Treatments, Doctor, FAQ, Contact (Day 12) and Book. The Approach section is reached by scrolling.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
 
 ## Progress
@@ -205,4 +212,7 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Day 8:** Treatments section after the film (cards built from `js/treatments-data.js`, filters, search, accessible detail view, shareable `#treatment-…` links); the film now ends in soft ivory; film scene ids renamed to `scene-…`. Approach and Doctor links still go to the film scenes until their sections are built.
 - **Day 9:** Approach and technology section (four care steps, diagnostics and equipment, safety and hygiene, with the fictional-clinic label and the medical note); header and footer "Approach" go there; the header gets a solid backdrop over the sections.
 - **Day 10:** Doctor section (fictional qualifications, areas of focus, how she works, illustrative note, labelled photo with Scene 4's slow zoom); header and footer "Doctor" go there. Phase 2 complete: page order is film → Treatments → Approach → Doctor → Booking → footer.
-- **Days 11–15:** still to come.
+- **Days 11–12 copy (Phase 1):** FAQ (25 questions), patient guide, contact copy and FAQ assistant copy were written in `CONTENT.md` and approved.
+- **Day 11:** FAQ section built from `js/faq-data.js` as an accessible accordion grouped by category, and a free FAQ assistant that answers only from that data (safety reply for medical messages, fallback otherwise, nothing stored). Header: Treatments, Doctor, FAQ, Book.
+- **Day 12:** being built (Phase 2).
+- **Days 13–15:** still to come.

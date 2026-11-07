@@ -35,6 +35,10 @@
   <!-- Treatment library: the data (one place for all treatment content), then the cards, filters and detail view -->
   <script src="js/treatments-data.js" defer></script>
   <script src="js/treatments.js" defer></script>
+  <!-- FAQ: the data (one place for all questions), the accordion, and the FAQ assistant -->
+  <script src="js/faq-data.js" defer></script>
+  <script src="js/faq.js" defer></script>
+  <script src="js/assistant.js" defer></script>
 
   <script src="js/scenes.js" defer></script>
   <script src="js/main.js" defer></script>
@@ -59,8 +63,8 @@
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
           <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
-          <li><a href="#approach" data-nav="approach">Approach</a></li>
           <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
+          <li><a href="#faq" data-nav="faq">FAQ</a></li>
           <li><a href="#booking" data-nav="booking">Book</a></li>
         </ul>
       </nav>
@@ -74,6 +78,28 @@
 
   <!-- Mobile: slim booking bar along the bottom of the screen -->
   <a class="book-bar" href="#booking" data-nav="booking">Book a consultation</a>
+
+  <!-- FAQ assistant (js/assistant.js): answers only from the FAQ, no external
+       service, nothing stored. Hidden until JavaScript has set it up. -->
+  <button class="assistant-launcher" type="button" aria-haspopup="dialog" aria-controls="assistant" hidden>
+    <span aria-hidden="true">Questions?</span><span class="visually-hidden">Open the FAQ assistant</span>
+  </button>
+  <dialog class="assistant" id="assistant" aria-labelledby="assistant-title" data-lenis-prevent>
+    <div class="assistant__top">
+      <div>
+        <h2 class="assistant__title" id="assistant-title">FAQ assistant</h2>
+        <p class="assistant__label">Automated FAQ assistant, not a doctor</p>
+      </div>
+      <button class="assistant__close" type="button" data-close>Close</button>
+    </div>
+    <p class="assistant__privacy">Your messages aren’t stored. They disappear when you close or reload the page.</p>
+    <div class="assistant__log" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <form class="assistant__form" autocomplete="off">
+      <label class="visually-hidden" for="assistant-input">Type your question</label>
+      <input id="assistant-input" type="text" placeholder="Type your question" maxlength="300">
+      <button class="assistant__send" type="submit">Send</button>
+    </form>
+  </dialog>
 
   <!-- Scroll progress: a thin line down the right edge (decorative) -->
   <div class="progress" aria-hidden="true"><span class="progress__fill"></span></div>
@@ -452,6 +478,19 @@
       </div>
     </section>
 
+    <!-- FAQ: built by js/faq.js from js/faq-data.js (the one place the FAQ lives) -->
+    <section class="section faq" id="faq" aria-labelledby="faq-title" tabindex="-1">
+      <div class="section__inner">
+        <header class="section__head">
+          <p class="eyebrow section__eyebrow">FAQ</p>
+          <h2 id="faq-title">Questions, answered clearly.</h2>
+          <p class="section__intro">Practical answers about appointments, consultations, fees, privacy and treatments. For anything about your own skin, your dermatologist will advise.</p>
+        </header>
+        <div class="faq__groups" id="faq-groups"></div>
+        <noscript><p class="faq__noscript">The FAQ needs JavaScript. You can still request a consultation with the booking form below.</p></noscript>
+      </div>
+    </section>
+
     <!-- Scene 6: Booking -->
     <section class="booking" id="booking" aria-labelledby="booking-title" tabindex="-1">
       <div class="booking__texture" aria-hidden="true"></div>
@@ -541,8 +580,8 @@
         <nav class="footer__nav" aria-label="Footer">
           <ul>
             <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
-            <li><a href="#approach" data-nav="approach">Approach</a></li>
             <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
+            <li><a href="#faq" data-nav="faq">FAQ</a></li>
             <li><a href="#booking" data-nav="booking">Book</a></li>
           </ul>
         </nav>

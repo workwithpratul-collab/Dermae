@@ -66,7 +66,7 @@ One slow, continuous camera move with soft light and no sudden jumps.
 
 ## Page order (Day 8 onward)
 
-The scroll film (Scenes 1–5), then **Treatments**, **Approach and technology**, **Doctor**, and finally **Booking** (Scene 6, the forest-green finale) and the footer. The sections after the film scroll normally; only the film is pinned.
+The scroll film (Scenes 1–5), then **Treatments**, **Approach and technology**, **Doctor**, **Patient guide** (Day 12), **FAQ** (Day 11), **Contact** (Day 12), and finally **Booking** (Scene 6, the forest-green finale) and the footer. The sections after the film scroll normally; only the film is pinned. The header is kept short: Treatments, Doctor, FAQ, Contact and Book.
 
 ## Treatments section (added Day 8)
 
@@ -90,6 +90,19 @@ The scroll film (Scenes 1–5), then **Treatments**, **Approach and technology**
 - **Layout:** phones: eyebrow and heading, then the photo, then the profile. Desktop: the photo on the left (staying in view while the profile scrolls past, on screens at least 760px tall), heading and profile on the right.
 - **Profile:** the name line with *(fictional demo profile)* and a short italic disclaimer; Qualifications (each marked *(fictional demo credential)*) and Areas of focus as two hairline lists; How she works; and the note from Dr. Sen in the film's quote style with *(Illustrative note, fictional)*.
 - **Motion:** heading rises line by line; the photo and each part fade up softly.
+
+## FAQ section (added Day 11)
+
+- **Look:** ivory, like the Approach section: one block per category, each opening with a hairline, the category name on the left (desktop) or above (phones), and its questions on the right, divided by thin lines.
+- **Accordion:** each question is a serif line with a thin plus on the right that turns into a minus when open. The answer rises in softly (opacity and a small upward move only); with reduced motion it simply appears. Several answers can be open at once.
+- **Links:** treatment names in an answer ("See: …") open that treatment's detail view right where you are.
+
+## FAQ assistant (added Day 11)
+
+- **Launcher:** a small ivory pill, "Questions?", in the bottom-right corner; on phones and tablets it sits just above the "Book a consultation" bar.
+- **Panel:** a calm ivory card (a full-width sheet on phones) over a light dimming: title, the label "Automated FAQ assistant, not a doctor", the privacy line, the conversation, and a question box with an underline and a forest "Send" button.
+- **Conversation:** replies sit on a soft deeper-ivory card; the visitor's messages on forest green, right-aligned. Suggested questions are small outlined pills.
+- **Motion:** the panel fades and rises gently into place; nothing moves with reduced motion.
 
 ## Header over the sections (Day 9)
 

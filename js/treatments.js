@@ -107,7 +107,7 @@
   var summary = dialog.querySelector(".t-dialog__summary");
   var body = dialog.querySelector(".t-dialog__body");
   var panel = dialog.querySelector(".t-dialog__panel");
-  var openCard = null, closing = null;
+  var openCard = null, opener = null, closing = null;   // opener: the link that opened it
 
   function fill(t) {
     tag.textContent = LABEL[t.category];
@@ -132,11 +132,12 @@
       .filter(function (el) { return el.offsetParent !== null || el === title; });
   }
 
-  function open(id) {
+  function open(id, trigger) {
     var c = byId[id];
     if (!c) return;
     if (closing) { clearTimeout(closing); closing = null; dialog.close(); }
     openCard = c;
+    opener = trigger || c.link;
     fill(c.t);
     panel.scrollTop = 0;
     if (!dialog.open) dialog.showModal();
@@ -154,23 +155,27 @@
     root.classList.remove("dialog-is-open");
     if (film().lenis) film().lenis.start();
     setHash(null);
-    var card = openCard;
+    var back = opener;
     var done = function () {
       closing = null;
       dialog.close();
-      if (returnFocus !== false && card) card.link.focus({ preventScroll: true });
+      if (returnFocus !== false && back) back.focus({ preventScroll: true });
     };
     // Let the panel slide away first. With reduced motion there is no slide,
     // so close at once (the page behind can only take focus once it's closed).
     if (reduce.matches) done(); else closing = setTimeout(done, 420);
   }
 
-  // Cards: open the detail view instead of jumping to the card.
-  grid.addEventListener("click", function (e) {
-    var a = e.target.closest ? e.target.closest(".t-card__link") : null;
-    if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  // Any link to a treatment (a card, or e.g. an FAQ answer) opens its detail
+  // view right where you are, instead of jumping to the card. Closing it
+  // returns focus to the link you clicked.
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#treatment-"]') : null;
+    if (!a || dialog.contains(a) || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var id = a.getAttribute("href").replace("#treatment-", "");
+    if (!byId[id]) return;
     e.preventDefault();
-    open(a.getAttribute("href").replace("#treatment-", ""));
+    open(id, a);
   });
 
   dialog.addEventListener("cancel", function (e) { e.preventDefault(); close(); });   // Escape
@@ -210,5 +215,6 @@
   }
 
   apply();
-  window.DermaeLibrary = { open: open, close: close };   // handy for testing in the console
+  // Used by js/faq.js and js/assistant.js to name treatments; handy for testing too.
+  window.DermaeLibrary = { open: open, close: close, name: function (id) { return byId[id] ? byId[id].t.name : null; } };
 })();

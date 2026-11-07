@@ -2,7 +2,7 @@
 
 The approved on-page copy for each scene. Use this wording exactly when building the site. See `STORYBOARD.md` for visuals and motion, and `CLAUDE.md` for content rules.
 
-**Status:** sections marked **Draft (Days 11–12)** are written but not yet approved. The Days 6–10 copy was approved. The Day 6 rewrite is live in the sections below; the later sections are added to the site as each day is built (see Progress in `CLAUDE.md`).
+**Status:** the Days 6–10 and Days 11–12 copy was approved. The Day 6 rewrite is live in the sections below; the later sections are added to the site as each day is built (see Progress in `CLAUDE.md`).
 
 ---
 
@@ -39,7 +39,7 @@ The approved on-page copy for each scene. Use this wording exactly when building
 **Header:**
 
 - Wordmark: DERMAÉ (screen readers also hear ", back to the start")
-- Links: Treatments · Approach · Doctor · Book
+- Links: Treatments · Doctor · FAQ · Book (Contact is added on Day 12)
 - Button (desktop): Book a consultation
 - Menu button (mobile): Menu, which reads Close while the menu is open
 
@@ -155,7 +155,7 @@ Phone and Preferred time are labelled *(optional)*. Appointment type starts on "
 ## Footer (added Day 5)
 
 - Wordmark: DERMAÉ (screen readers also hear ", back to the start")
-- Links: Treatments · Approach · Doctor · Book
+- Links: the same as the header
 - Note: the footer note above, word for word
 - Copyright: © 2026 DERMAÉ, design demo
 
@@ -626,9 +626,9 @@ Dr. Sen starts by listening. She wants to understand what bothers you about your
 ---
 ---
 
-# Draft (Days 11–12): awaiting approval
+# Approved additions (Days 11–12)
 
-Nothing below is on the site yet. Phase 2 builds it once approved. Same rules as Days 6–10: the Brand voice above, no prices, no drug names or doses, no statistics, every fictional detail labelled, and the medical note wherever medical information appears.
+Approved by the user. Each part goes on the site on its build day (Phase 2). Same rules as Days 6–10: the Brand voice above, no prices, no drug names or doses, no statistics, every fictional detail labelled, and the medical note wherever medical information appears.
 
 ## Day 11: FAQ
 
@@ -640,6 +640,10 @@ Nothing below is on the site yet. Phase 2 builds it once approved. Same rules as
 - Medical note (under the Treatments questions): General information only, not medical advice. A dermatologist will assess your individual needs.
 
 Answers that mention a treatment end with **See:** and the treatment entry's name; on the site this links to that entry in the Treatments section.
+
+**On the site (Day 11):** the FAQ lives in `js/faq-data.js`, the one file the FAQ section and the FAQ assistant read from. It was generated from this section word for word, plus a short list of extra keywords per question for the assistant. If you change the wording, change it in both places.
+
+- Without JavaScript: The FAQ needs JavaScript. You can still request a consultation with the booking form below.
 
 ### Appointments
 
@@ -823,7 +827,7 @@ Seek urgent medical care, or call your local emergency number, if you have diffi
 
 ### FAQ assistant
 
-**Interface labels**
+**Interface labels** (live since Day 11)
 
 - Open button: Questions? (screen readers hear "Open the FAQ assistant")
 - Panel title: FAQ assistant
@@ -833,6 +837,8 @@ Seek urgent medical care, or call your local emergency number, if you have diffi
 - Send button: Send
 - Close button: Close
 - Before a matched answer: From our FAQ:
+- Suggested questions group (screen readers only): Suggested questions
+- Treatment answers also show the medical note.
 - Link under a matched answer: Read it in the FAQ
 
 **Welcome message**
