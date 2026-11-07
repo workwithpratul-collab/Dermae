@@ -11,7 +11,11 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F3A2E'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='20' fill='%23F7F3EC'%3ED%3C/text%3E%3C/svg%3E">
 
   <!-- Tells the CSS that JavaScript is running (the header becomes fixed, the mobile menu works). -->
-  <script>document.documentElement.classList.add("js");</script>
+  <script>
+    document.documentElement.classList.add("js", "is-loading");
+    // Always start the film from the opening shot after a reload.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  </script>
 
   <!-- Fonts: Cormorant Garamond (headings) + Inter (body). -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,8 +34,15 @@
   <script src="js/main.js" defer></script>
   <script src="js/form.js" defer></script>
   <script src="js/nav.js" defer></script>
+  <script src="js/intro.js" defer></script>
 </head>
 <body>
+  <!-- Loading screen (only with JavaScript). js/intro.js reveals the name
+       letter by letter, then fades this away into Scene 1. -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__word"><span class="loader__mask">DERMAÉ</span></div>
+  </div>
+
   <a class="skip-link" href="#booking">Skip to booking</a>
 
   <!-- Fixed header. Links glide to the right moment in the film (js/nav.js);
@@ -57,6 +68,12 @@
 
   <!-- Mobile: slim booking bar along the bottom of the screen -->
   <a class="book-bar" href="#booking" data-nav="booking">Book consultation</a>
+
+  <!-- "Scroll to begin": fades in after the loader, fades out on the first scroll -->
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="scroll-hint__text">Scroll to begin</span>
+    <span class="scroll-hint__line"></span>
+  </div>
 
   <main>
 
