@@ -76,6 +76,18 @@ The scroll film (Scenes 1–5), then **Treatments**, **Approach and technology**
 - **Detail view:** an ivory panel slides in gently from the right over a soft green-tinted dimming (full screen on phones). A sticky top bar holds the tag and a Close button; below come the name, the summary in italic serif, each part of the entry under a small uppercase label with a hairline, the medical note, and "Book a consultation".
 - **Links:** each treatment has its own address (e.g. `#treatment-acne`); opening it goes to the card and opens its detail view.
 
+## Approach and technology section (added Day 9)
+
+- **Look:** a slightly deeper ivory than Treatments, editorial like Scene 3. The heading block carries the fictional-clinic label in small italics. Then three blocks, each opening with a hairline: the subheading on the left (desktop) or above (phones), the content on the right.
+- **Your care, step by step:** four numbered steps (01–04) in two columns on tablets and desktop, each under its own thin line.
+- **Diagnostics and equipment:** each term in small uppercase over its plain-language description, divided by hairlines; the laser and peel types as short lists; the medical note at the end.
+- **Safety and hygiene:** seven short items in an open two-column grid, each under a thin line.
+- **Motion:** the heading rises line by line with the scroll; subheadings, steps, terms and items fade up softly, one after another.
+
+## Header over the sections (Day 9)
+
+Over the film the header stays transparent with a soft fade. Over the sections after the film it gets a solid backdrop in that section's own colour, fading out below, so text scrolling underneath never shows through.
+
 ## Scene 6: Booking
 
 - **Image:** Deep forest green background with a subtle soft-light texture.

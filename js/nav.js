@@ -19,6 +19,7 @@
   var toggleText = header.querySelector(".menu-toggle__text");
   var wordmark = header.querySelector(".wordmark");
   var booking = document.getElementById("booking");
+  var sections = Array.prototype.slice.call(document.querySelectorAll(".section"));
   var mobileMQ = window.matchMedia("(max-width: 1023.98px)");
   var reduceMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -144,6 +145,19 @@
     // corner, are too busy or dark for the links on their own), but over solid
     // forest green only once the booking content scrolls under the header.
     var scrim = dark ? bTop < -8 : true;
+
+    // Over the text sections after the film (not over photos), the soft fade
+    // isn't enough: text would show through behind the header. There the
+    // backdrop turns solid, in that section's own colour (--section-rgb).
+    var line = headerH * 0.6, solid = "";
+    for (var i = 0; !dark && i < sections.length; i++) {
+      var r = sections[i].getBoundingClientRect();
+      if (r.top <= line && r.bottom > line) { solid = getComputedStyle(sections[i]).getPropertyValue("--section-rgb").trim(); break; }
+    }
+    setState("solid", solid, function (v) {
+      header.classList.toggle("is-solid", !!v);
+      if (v) header.style.setProperty("--scrim-rgb", v);
+    });
 
     setState("dark", dark, function (v) { if (v) header.setAttribute("data-theme", "dark"); else header.removeAttribute("data-theme"); });
     setState("scrim", scrim, function (v) { header.classList.toggle("has-scrim", v); });

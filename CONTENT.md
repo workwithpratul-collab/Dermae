@@ -494,7 +494,7 @@ A check may be especially useful if you have many moles, a family history of ski
 
 ### Your care, step by step
 
-Scene 5 gives the short version (Consult, Plan, Care). This is the fuller picture, in four steps.
+*Editor's note (not shown on the site): Scene 5 gives the short version (Consult, Plan, Care). This is the fuller picture, in four steps.*
 
 **1. Consultation**
 Time set aside to talk, without rushing. Your dermatologist asks about your concerns and goals, your skin history, your general health, any medicines and allergies, and the products you use. Bring a list of your medicines and anything you've already tried. There is always time for your questions.
@@ -608,7 +608,7 @@ Dr. Sen starts by listening. She wants to understand what bothers you about your
 - Detail view link to the booking form: Book a consultation
 - Medical note: General information only, not medical advice. A dermatologist will assess your individual needs.
 
-**Approach and technology section**
+**Approach and technology section** (live since Day 9; the subheadings, step names, terms and safety items use the wording above)
 
 - Eyebrow: Approach and technology
 - Heading: Careful at every step.

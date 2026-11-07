@@ -189,6 +189,7 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Treatment detail view** is a native `<dialog>` opened with `showModal()`. Escape and Close close it, Tab is kept inside, focus returns to the card's link, and the panel scrolls on its own (`data-lenis-prevent`, Lenis stopped). Its address is set with `history.replaceState`, so opening and closing never jumps the page.
 - **Shared links** (`#treatments`, `#treatment-acne`, `#scene-doctor`…) are handled in `js/nav.js`: the page lands on the target after loading, and `js/main.js` re-applies it after each rebuild until the visitor scrolls (`DermaeFilm.pendingTarget`).
 - **Exception to "everything works without JavaScript":** the treatment guide needs JavaScript (its cards are built from the data file). Without it, the section shows a short note, and the treatment names stay readable in Scene 3.
+- **Section backgrounds (Day 9):** sections alternate between `--ivory` and `--ivory-deep` (`#EFE9DF`). Each `.section` sets `--section-rgb` to its background colour; `js/nav.js` uses it to give the header a solid backdrop over that section (over the film the header stays see-through). A new section with a different background must set `--section-rgb` too.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
 
 ## Progress
@@ -201,5 +202,6 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Days 6–10 copy (Phase 1):** brand voice, a rewrite of all site copy, the treatment library, approach and technology, and the expanded doctor profile were written in `CONTENT.md` and approved.
 - **Day 6:** Approved copy applied across the site; Scene 3 gained the medical note; header and footer links became Treatments · Approach · Doctor · Book.
 - **Day 8:** Treatments section after the film (cards built from `js/treatments-data.js`, filters, search, accessible detail view, shareable `#treatment-…` links); the film now ends in soft ivory; film scene ids renamed to `scene-…`. Approach and Doctor links still go to the film scenes until their sections are built.
-- **Days 9–10:** being built (Phase 2).
+- **Day 9:** Approach and technology section (four care steps, diagnostics and equipment, safety and hygiene, with the fictional-clinic label and the medical note); header and footer "Approach" go there; the header gets a solid backdrop over the sections.
+- **Day 10:** being built (Phase 2).
 - **Days 11–15:** still to come.
