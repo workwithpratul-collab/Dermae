@@ -45,7 +45,7 @@ One slow, continuous camera move with soft light and no sudden jumps.
 
 - **Image:** Close view of a clean treatment area with soft shadows and a sage wall.
 - **Movement:** Slow sideways glide.
-- **Text:** The heading appears first. Then the medical and aesthetic lists rise line by line, side by side, while the divider draws down between them, followed by a short rule and the closing note.
+- **Text:** The heading appears first. Then the medical and aesthetic lists rise line by line, side by side, while the divider draws down between them, followed by a short rule, the closing note and the medical note (Day 6).
 - **Transition:** The image softly crossfades into the doctor scene.
 
 ## Scene 4: Doctor

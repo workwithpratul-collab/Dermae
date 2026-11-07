@@ -2,7 +2,7 @@
 
 The approved on-page copy for each scene. Use this wording exactly when building the site. See `STORYBOARD.md` for visuals and motion, and `CLAUDE.md` for content rules.
 
-**Status:** sections marked **Draft (Days 6–10)** are written but not yet approved. Until they are, the site keeps using the current copy below them.
+**Status:** the Days 6–10 copy was approved. The Day 6 rewrite is live in the sections below; the later sections are added to the site as each day is built (see Progress in `CLAUDE.md`).
 
 ---
 
@@ -30,20 +30,20 @@ The approved on-page copy for each scene. Use this wording exactly when building
 
 ## Page-wide (added Days 1–2)
 
-**Skip link** (shows on keyboard focus): Skip to booking
+**Skip link** (shows on keyboard focus): Skip to the booking form
 
 **Loading screen:** DERMAÉ (revealed letter by letter)
 
-**Scroll hint:** Scroll to begin
+**Scroll hint:** Scroll to enter
 
 **Header:**
 
 - Wordmark: DERMAÉ (screen readers also hear ", back to the start")
-- Links: Treatments · Doctor · Your journey · Book
-- Button (desktop): Book consultation
+- Links: Treatments · Approach · Doctor · Book
+- Button (desktop): Book a consultation
 - Menu button (mobile): Menu, which reads Close while the menu is open
 
-**Mobile bottom bar:** Book consultation
+**Mobile bottom bar:** Book a consultation
 
 ---
 
@@ -51,51 +51,53 @@ The approved on-page copy for each scene. Use this wording exactly when building
 
 **Name:** DERMAÉ
 
-**Tagline:** Skin science, beautifully considered.
+**Tagline:** Specialist skin care, carefully considered.
 
 ---
 
 ## Scene 2: Treatment room
 
-**Heading:** Where science meets stillness.
+**Heading:** Clinical care, without the rush.
 
-**Body:** Thoughtful dermatology in a calm, unhurried space, with care shaped around your skin.
+**Body:** Unhurried appointments with a dermatologist, in a quiet room designed around your comfort and your skin.
 
 ---
 
 ## Scene 3: Treatments
 
-**Heading:** Care for every stage of your skin.
+**Heading:** Medical and aesthetic dermatology, in one place.
 
 **Card — Medical dermatology:** Acne, eczema, psoriasis, pigmentation concerns, hair loss, and skin examinations.
 
 **Card — Aesthetic dermatology:** Chemical peels, laser treatments, microneedling, scar treatments, and skin rejuvenation.
 
-**Note:** Your dermatologist will help you understand which options may be suitable.
+**Note:** Your dermatologist will explain which options may suit your skin, and why.
+
+**Medical note:** General information only, not medical advice. A dermatologist will assess your individual needs.
 
 ---
 
 ## Scene 4: Doctor
 
-**Heading:** Led by expertise. Guided by you.
+**Heading:** Specialist care, shaped by your goals.
 
 **Name and role:** Dr. Mira Sen, Lead Dermatologist *(fictional demo profile)*
 
-**Body:** Every consultation begins with listening, followed by a clear explanation of your options and a plan that fits your skin and your life.
+**Body:** Each consultation starts with listening. Your options are then explained clearly, and together you agree a plan that fits your skin and your routine.
 
 ---
 
 ## Scene 5: Your care journey
 
-**Heading:** Clarity at every step.
+**Heading:** Clear steps, from first visit to follow-up.
 
 **Steps:**
 
-1. **Consult:** Share your concerns and goals.
-2. **Plan:** Discuss suitable options and what to expect.
-3. **Care:** Receive guidance before and after treatment.
+1. **Consult:** Tell us what concerns you, and what you hope for.
+2. **Plan:** Talk through suitable options, recovery time and realistic expectations.
+3. **Care:** Get clear advice before and after each treatment.
 
-**Quote:** "I finally understood my skin and what to do next." *(Illustrative quote)*
+**Quote:** "For the first time, I understood my skin and what to do next." *(Illustrative quote)*
 
 ---
 
@@ -103,7 +105,7 @@ The approved on-page copy for each scene. Use this wording exactly when building
 
 **Heading:** Begin with a conversation.
 
-**Body:** Request a consultation, and our team will contact you to confirm the details.
+**Body:** Request a consultation, and we'll contact you to confirm a time that suits you.
 
 **Form fields:**
 
@@ -114,7 +116,7 @@ The approved on-page copy for each scene. Use this wording exactly when building
 - Preferred date
 - Preferred time
 
-Phone and Preferred time are labelled *(optional)*. Appointment type starts on "Choose one", then offers: Medical dermatology / Aesthetic dermatology / Not sure yet.
+Phone and Preferred time are labelled *(optional)*. Appointment type starts on "Choose a type", then offers: Medical dermatology / Aesthetic dermatology / Not sure yet.
 
 **Button:** Request Consultation
 
@@ -124,7 +126,7 @@ Phone and Preferred time are labelled *(optional)*. Appointment type starts on "
 
 - Name: Please enter your name.
 - Email (empty): Please enter your email address.
-- Email (not valid): Please enter an email address like name@example.com.
+- Email (not valid): Please enter a full email address, like name@example.com.
 - Appointment type: Please choose an appointment type.
 - Preferred date (empty): Please choose a preferred date.
 - Preferred date (in the past): Please choose a date from today onwards.
@@ -134,8 +136,8 @@ Phone and Preferred time are labelled *(optional)*. Appointment type starts on "
 
 **Form status messages:**
 
-- Some fields need fixing: Please check the highlighted fields.
-- Valid, but Formspree isn't connected yet: This demo form isn't connected yet, so your request hasn't been sent.
+- Some fields need fixing: Some details need checking. Please see the highlighted fields.
+- Valid, but Formspree isn't connected yet: Thank you. This is a demo form, so nothing has been sent.
 - Sending (real Formspree ID only): Sending…
 - Sent (real Formspree ID only): Thank you. Your request has been sent, and our team will contact you to confirm the details.
 - Failed (real Formspree ID only): Sorry, your request couldn't be sent. Please try again, or email hello@dermae.example.
@@ -153,94 +155,20 @@ Phone and Preferred time are labelled *(optional)*. Appointment type starts on "
 ## Footer (added Day 5)
 
 - Wordmark: DERMAÉ (screen readers also hear ", back to the start")
-- Links: Treatments · Doctor · Your journey · Book
+- Links: Treatments · Approach · Doctor · Book
 - Note: the footer note above, word for word
 - Copyright: © 2026 DERMAÉ, design demo
 
 ---
 ---
 
-# Draft (Days 6–10): awaiting approval
+# Approved additions (Days 6–10)
 
-Nothing below is on the site yet. Phase 2 builds it once approved.
+Approved by the user. Each part goes on the site on its build day (Phase 2).
 
-## Day 6: Copy rewrite (current → proposed)
+## Day 6: Copy rewrite
 
-Same meaning and scene order, sharper and more specific. Items marked **Unchanged (rule)** are fixed by `CLAUDE.md` (form fields, button label, contact details, footer note, demo-form message).
-
-### Page-wide
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Skip link | Skip to booking | Skip to the booking form |
-| Header links | Treatments · Doctor · Your journey · Book | Treatments · Approach · Doctor · Book *(matches the new page order)* |
-| Header button / mobile bar | Book consultation | Book a consultation |
-| Loading screen | DERMAÉ | Unchanged |
-| Scroll hint | Scroll to begin | Scroll to enter |
-
-### Scene 1: Opening
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Name | DERMAÉ | Unchanged |
-| Tagline | Skin science, beautifully considered. | Specialist skin care, carefully considered. |
-
-### Scene 2: Treatment room
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Heading | Where science meets stillness. | Clinical care, without the rush. |
-| Body | Thoughtful dermatology in a calm, unhurried space, with care shaped around your skin. | Unhurried appointments with a dermatologist, in a quiet room designed around your comfort and your skin. |
-
-### Scene 3: Treatments
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Heading | Care for every stage of your skin. | Medical and aesthetic dermatology, in one place. |
-| Medical list | Acne, eczema, psoriasis, pigmentation concerns, hair loss, and skin examinations. | Unchanged (matches the treatment library) |
-| Aesthetic list | Chemical peels, laser treatments, microneedling, scar treatments, and skin rejuvenation. | Unchanged (matches the treatment library) |
-| Note | Your dermatologist will help you understand which options may be suitable. | Your dermatologist will explain which options may suit your skin, and why. |
-| Medical note | *(none)* | General information only, not medical advice. A dermatologist will assess your individual needs. |
-
-### Scene 4: Doctor
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Heading | Led by expertise. Guided by you. | Specialist care, shaped by your goals. |
-| Name and role | Dr. Mira Sen, Lead Dermatologist *(fictional demo profile)* | Unchanged |
-| Body | Every consultation begins with listening, followed by a clear explanation of your options and a plan that fits your skin and your life. | Each consultation starts with listening. Your options are then explained clearly, and together you agree a plan that fits your skin and your routine. |
-
-### Scene 5: Your care journey
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Heading | Clarity at every step. | Clear steps, from first visit to follow-up. |
-| Consult | Share your concerns and goals. | Tell us what concerns you, and what you hope for. |
-| Plan | Discuss suitable options and what to expect. | Talk through suitable options, recovery time and realistic expectations. |
-| Care | Receive guidance before and after treatment. | Get clear advice before and after each treatment. |
-| Quote | "I finally understood my skin and what to do next." *(Illustrative quote)* | "For the first time, I understood my skin and what to do next." *(Illustrative quote)* |
-
-### Scene 6: Booking
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Heading | Begin with a conversation. | Begin with a conversation. *(kept: already clear and calm)* |
-| Body | Request a consultation, and our team will contact you to confirm the details. | Request a consultation, and we'll contact you to confirm a time that suits you. |
-| Form fields, button, contact details | as above | Unchanged (rule) |
-| Appointment type first option | Choose one | Choose a type |
-| Demo note | Demo form: not connected yet, so requests won't be sent. | Unchanged (rule) |
-| Status: fields to fix | Please check the highlighted fields. | Some details need checking. Please see the highlighted fields. |
-| Status: demo submit | This demo form isn't connected yet, so your request hasn't been sent. | Thank you. This is a demo form, so nothing has been sent. |
-| Error: email not valid | Please enter an email address like name@example.com. | Please enter a full email address, like name@example.com. |
-| Other error messages | as above | Unchanged (already short and clear) |
-
-### Footer
-
-| Where | Current | Proposed |
-| --- | --- | --- |
-| Links | Treatments · Doctor · Your journey · Book | Treatments · Approach · Doctor · Book |
-| Footer note | DERMAÉ is a fictional concept website. … | Unchanged (rule) |
-| Copyright | © 2026 DERMAÉ, design demo | Unchanged |
+Applied on Day 6: the live copy in the sections above uses the approved wording. The previous wording and the side-by-side comparison are in commit 6d47ef3 ("Days 6-10: copy draft"). Items fixed by `CLAUDE.md` (form fields, button label, contact details, footer note, demo-form message) were kept.
 
 ---
 

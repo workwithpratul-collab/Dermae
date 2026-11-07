@@ -38,7 +38,7 @@
     name: "Please enter your name.",
     email: {
       valueMissing: "Please enter your email address.",
-      typeMismatch: "Please enter an email address like name@example.com."
+      typeMismatch: "Please enter a full email address, like name@example.com."
     },
     "appointment-type": "Please choose an appointment type.",
     date: {
@@ -111,13 +111,13 @@
     setStatus("", null);
 
     if (!validate()) {
-      setStatus("Please check the highlighted fields.", "error");
+      setStatus("Some details need checking. Please see the highlighted fields.", "error");
       return;
     }
 
     // Not connected yet: be honest, send nothing.
     if (isPlaceholder) {
-      setStatus("This demo form isn't connected yet, so your request hasn't been sent.", "error");
+      setStatus("Thank you. This is a demo form, so nothing has been sent.", "error");
       return;
     }
 

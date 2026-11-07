@@ -132,6 +132,7 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 ## Content rules (important)
 
 - **Every clinic detail is fictional and clearly so.** Use the details from `CONTENT.md`: address "Demo address", phone `+00 00000 00000`, email `hello@dermae.example`. Keep the footer note visible: *"DERMAÉ is a fictional concept website. Its clinic details, doctor, and quotes are illustrative and aren't medical advice."*
+- **Follow the Brand voice section in `CONTENT.md`** (tone, words to use and avoid). Wherever medical information appears, show the note: *"General information only, not medical advice. A dermatologist will assess your individual needs."*
 - **Patient quotes are illustrative.** Label each one visibly, as `CONTENT.md` does with *(Illustrative quote)*. Never present quotes as genuine reviews, and never add star ratings or review counts that imply real data.
 - **No fake "results".** Don't show before/after photos presented as real outcomes. If imagery is AI-generated or stock, label it as illustrative.
 - **No unsupported medical claims.** Avoid words like "cure", "guaranteed", "permanent", "clinically proven", or specific percentages and statistics. Prefer soft, honest wording such as "may help", "designed to" and "results vary". Suggest consulting a qualified dermatologist.
@@ -180,6 +181,7 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **The loading screen** has a CSS safety net that hides it after 4.5s even if JavaScript fails, so the site can never get stuck behind it.
 - **After a resize or rotation**, the film is rebuilt and the visitor's place is restored from the last normal scroll.
 - **The progress line** follows the scroll bar in every mode, including reduced motion (it shows position; it isn't decoration that moves on its own).
+- **Longer copy and the film (Day 6):** new copy must still fit each scene above its subject. Phones (portrait, under 640px) have their own tighter rules for Scenes 3 and 5, and Scene 3's landscape column is wider so its heading stays on two lines. If text doesn't fit, the film silently falls back to the calm version, so check the mode after copy changes.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
 
 ## Progress
@@ -189,4 +191,7 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Day 3:** Line-by-line masked text reveals in every scene (GSAP upgraded to 3.13.0 for SplitText).
 - **Day 4:** Scroll progress line, film grain, the Scene 1 → 2 camera move, and a full retiming of the film.
 - **Day 5:** Redesigned booking scene (two columns on desktop, underline fields) and a full footer.
-- **Days 6–15:** still to come.
+- **Days 6–10 copy (Phase 1):** brand voice, a rewrite of all site copy, the treatment library, approach and technology, and the expanded doctor profile were written in `CONTENT.md` and approved.
+- **Day 6:** Approved copy applied across the site; Scene 3 gained the medical note; header and footer links became Treatments · Approach · Doctor · Book.
+- **Days 8–10:** being built (Phase 2).
+- **Days 11–15:** still to come.

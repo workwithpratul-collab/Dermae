@@ -45,7 +45,7 @@
     <div class="loader__word"><span class="loader__mask">DERMAÉ</span></div>
   </div>
 
-  <a class="skip-link" href="#booking">Skip to booking</a>
+  <a class="skip-link" href="#booking">Skip to the booking form</a>
 
   <!-- Fixed header. Links glide to the right moment in the film (js/nav.js);
        without JavaScript they are normal jump links. -->
@@ -55,12 +55,12 @@
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
           <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
+          <li><a href="#journey" data-nav="journey">Approach</a></li>
           <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
-          <li><a href="#journey" data-nav="journey">Your journey</a></li>
           <li><a href="#booking" data-nav="booking">Book</a></li>
         </ul>
       </nav>
-      <a class="cta cta--header" href="#booking" data-nav="booking">Book consultation</a>
+      <a class="cta cta--header" href="#booking" data-nav="booking">Book a consultation</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span class="menu-toggle__icon" aria-hidden="true"></span>
         <span class="menu-toggle__text">Menu</span>
@@ -69,7 +69,7 @@
   </header>
 
   <!-- Mobile: slim booking bar along the bottom of the screen -->
-  <a class="book-bar" href="#booking" data-nav="booking">Book consultation</a>
+  <a class="book-bar" href="#booking" data-nav="booking">Book a consultation</a>
 
   <!-- Scroll progress: a thin line down the right edge (decorative) -->
   <div class="progress" aria-hidden="true"><span class="progress__fill"></span></div>
@@ -79,7 +79,7 @@
 
   <!-- "Scroll to begin": fades in after the loader, fades out on the first scroll -->
   <div class="scroll-hint" aria-hidden="true">
-    <span class="scroll-hint__text">Scroll to begin</span>
+    <span class="scroll-hint__text">Scroll to enter</span>
     <span class="scroll-hint__line"></span>
   </div>
 
@@ -110,7 +110,7 @@
         <div class="scene__wash" aria-hidden="true"></div>
         <div class="scene__content">
           <h1 class="brand" id="opening-title">DERMAÉ</h1>
-          <p class="tagline">Skin science, beautifully considered.</p>
+          <p class="tagline">Specialist skin care, carefully considered.</p>
         </div>
       </section>
 
@@ -134,8 +134,8 @@
         <div class="scene__light" aria-hidden="true"></div>
         <div class="scene__wash" aria-hidden="true"></div>
         <div class="scene__content">
-          <h2 id="room-title">Where science meets stillness.</h2>
-          <p>Thoughtful dermatology in a calm, unhurried space, with care shaped around your skin.</p>
+          <h2 id="room-title">Clinical care, without the rush.</h2>
+          <p>Unhurried appointments with a dermatologist, in a quiet room designed around your comfort and your skin.</p>
         </div>
       </section>
 
@@ -154,7 +154,7 @@
         <div class="scene__wash" aria-hidden="true"></div>
         <div class="scene__content">
           <!-- "of your skin." is kept together so the heading never ends on a lone word. -->
-          <h2 id="treatments-title">Care for every stage <span class="nowrap">of your skin.</span></h2>
+          <h2 id="treatments-title">Medical and aesthetic dermatology, <span class="nowrap">in one place.</span></h2>
           <div class="treatments">
             <div class="treatments__col treatments__col--medical">
               <h3 class="eyebrow">Medical dermatology</h3>
@@ -180,7 +180,8 @@
             </div>
           </div>
           <span class="treatments__rule" aria-hidden="true"></span>
-          <p class="note">Your dermatologist will help you understand which options may be suitable.</p>
+          <p class="note">Your dermatologist will explain which options may suit your skin, and why.</p>
+          <p class="note note--medical">General information only, not medical advice. A dermatologist will assess your individual needs.</p>
         </div>
       </section>
 
@@ -198,9 +199,9 @@
         <div class="scene__light" aria-hidden="true"></div>
         <div class="scene__wash" aria-hidden="true"></div>
         <div class="scene__content">
-          <h2 id="doctor-title">Led by expertise. Guided by you.</h2>
+          <h2 id="doctor-title">Specialist care, shaped by your goals.</h2>
           <p class="doctor-name"><strong>Dr. Mira Sen</strong>, Lead Dermatologist <span class="label">(fictional demo profile)</span></p>
-          <p>Every consultation begins with listening, followed by a clear explanation of your options and a plan that fits your skin and your life.</p>
+          <p>Each consultation starts with listening. Your options are then explained clearly, and together you agree a plan that fits your skin and your routine.</p>
         </div>
       </section>
 
@@ -218,15 +219,15 @@
         <div class="scene__light" aria-hidden="true"></div>
         <div class="scene__wash" aria-hidden="true"></div>
         <div class="scene__content">
-          <h2 id="journey-title">Clarity at every step.</h2>
+          <h2 id="journey-title">Clear steps, from first visit to follow-up.</h2>
           <ol class="steps">
-            <li><h3>Consult</h3> <p>Share your concerns and goals.</p></li>
-            <li><h3>Plan</h3> <p>Discuss suitable options and what to expect.</p></li>
-            <li><h3>Care</h3> <p>Receive guidance before and after treatment.</p></li>
+            <li><h3>Consult</h3> <p>Tell us what concerns you, and what you hope for.</p></li>
+            <li><h3>Plan</h3> <p>Talk through suitable options, recovery time and realistic expectations.</p></li>
+            <li><h3>Care</h3> <p>Get clear advice before and after each treatment.</p></li>
           </ol>
           <figure class="quote">
             <blockquote>
-              <p>“I finally understood my skin and what to do next.”</p>
+              <p>“For the first time, I understood my skin and what to do next.”</p>
             </blockquote>
             <figcaption class="label">(Illustrative quote)</figcaption>
           </figure>
@@ -243,7 +244,7 @@
       <div class="booking__texture" aria-hidden="true"></div>
       <div class="booking__inner">
         <h2 id="booking-title">Begin with a conversation.</h2>
-        <p class="booking__intro">Request a consultation, and our team will contact you to confirm the details.</p>
+        <p class="booking__intro">Request a consultation, and we’ll contact you to confirm a time that suits you.</p>
 
         <!--
           FORMSPREE: replace YOUR_FORM_ID with the real form ID when it is ready.
@@ -280,7 +281,7 @@
             <div class="field">
               <label for="appointment-type">Appointment type</label>
               <select id="appointment-type" name="appointment_type" required>
-                <option value="">Choose one</option>
+                <option value="">Choose a type</option>
                 <option>Medical dermatology</option>
                 <option>Aesthetic dermatology</option>
                 <option>Not sure yet</option>
@@ -327,8 +328,8 @@
         <nav class="footer__nav" aria-label="Footer">
           <ul>
             <li><a href="#treatments" data-nav="treatments">Treatments</a></li>
+            <li><a href="#journey" data-nav="journey">Approach</a></li>
             <li><a href="#doctor" data-nav="doctor">Doctor</a></li>
-            <li><a href="#journey" data-nav="journey">Your journey</a></li>
             <li><a href="#booking" data-nav="booking">Book</a></li>
           </ul>
         </nav>
