@@ -31,6 +31,9 @@
   /* Load every film image now (not lazily) and decode it, so no scene flickers in. */
   function preloadImages() {
     qa("#film img").forEach(function (img) {
+      // Scene 1 is already loading at high priority; the rest follow quietly
+      // in the background so they don't compete with it.
+      if (!img.closest(".scene--opening")) img.fetchPriority = "low";
       img.loading = "eager";
       if (img.decode) img.decode().catch(function () {});
     });

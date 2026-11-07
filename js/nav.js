@@ -164,13 +164,19 @@
     setState("booking", bTop < vh * 0.8, function (v) { root.classList.toggle("is-booking", v); });
   }
 
-  // The film keeps easing for a moment after scrolling stops, so check every
-  // frame while GSAP is running (one cheap measurement per frame).
-  if (window.gsap) window.gsap.ticker.add(update);
-  else {
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+  // What's behind the header depends only on the scroll position and the
+  // layout, so check on scroll and resize (Lenis scrolls the page natively,
+  // so it fires scroll events), and after the scroll animations re-measure.
+  // Nothing runs on frames where nothing has moved.
+  var queued = false;
+  function queue() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; update(); });
   }
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue);
+  if (window.ScrollTrigger) window.ScrollTrigger.addEventListener("refresh", queue);
   update();
 
   // Opening the page with an address such as …/#treatments, …/#scene-doctor

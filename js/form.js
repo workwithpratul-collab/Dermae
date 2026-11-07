@@ -18,7 +18,8 @@
   var button = form.querySelector('button[type="submit"]');
   var dateInput = document.getElementById("date");
 
-  // The placeholder in the action URL means "not connected yet".
+  // The form address lives in ONE place: the form's action in index.html
+  // (marked "FORM ENDPOINT"). The placeholder there means "not connected yet".
   var isPlaceholder = /YOUR_FORM_ID/.test(form.getAttribute("action") || "");
 
   // Hide the "not connected" note once a real ID is in place.

@@ -153,10 +153,18 @@ window.DermaeScenes = (function () {
         pin: true,
         scrub: 0.6,               // a gentle catch-up, on top of Lenis smoothing
         anticipatePin: 1,
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
+        // html.film-live: the film is on screen, so its layers get smoothness
+        // hints (will-change, see css/styles.css). Removed once you scroll past
+        // the film, added back when you return to it.
+        onLeave: function () { root.classList.remove("film-live"); },
+        onEnterBack: function () { root.classList.add("film-live"); },
+        // After every (re)measure, set it from where the visitor actually is.
+        onRefresh: function (self) { root.classList.toggle("film-live", self.scroll() <= self.end); }
       }
     });
     intro.tl = tl;
+    opts.cleanups.push(function () { root.classList.remove("film-live"); });
 
     /* Text helpers. Lines rise in one after another ("step" beats apart);
        on the way out they rise through the top of their masks. */

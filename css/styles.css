@@ -1289,6 +1289,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
   aspect-ratio: 4 / 5;
   background: var(--ivory-soft);
 }
+.doctor__frame picture { display: block; width: 100%; height: 100%; }
 .doctor__frame img {
   width: 100%;
   height: 100%;
@@ -1558,7 +1559,6 @@ a { color: inherit; text-underline-offset: 0.2em; }
   transition: opacity 0.45s ease, transform 0.55s cubic-bezier(.22,.61,.36,1);
 }
 .faq__a.is-shown .faq__a-inner { opacity: 1; transform: none; }
-.faq__a-inner p + p { margin-top: 0.6rem; }
 .faq__see span { font-weight: 600; color: var(--forest); }
 .faq__see a { color: var(--forest); }
 .faq__note { margin-top: 1.25rem; font-size: 0.8125rem; font-style: italic; color: var(--charcoal-soft); }
@@ -2029,13 +2029,14 @@ html.lenis, html.lenis body { height: auto; }
   /* The layer is taller than the visible screen by the browser-bar height.
      This padding keeps the text centred on the part you can actually see. */
   padding-bottom: calc(100lvh - 100dvh);
-  will-change: opacity;
 }
-.film-on .scene__media {
-  transform-origin: var(--origin, 50% 50%);
-  will-change: transform;
-}
-.film-on .scene__content { will-change: transform, opacity; }
+.film-on .scene__media { transform-origin: var(--origin, 50% 50%); }
+/* Smoothness hints (separate graphics layers) only while the film is on
+   screen (html.film-live, set by js/scenes.js); once you scroll past it,
+   the browser can free that memory. */
+.film-live .film .scene { will-change: opacity; }
+.film-live .scene__media { will-change: transform; }
+.film-live .scene__content { will-change: transform, opacity; }
 
 /* Pre-blurred copy of the serum image. The blur itself never animates
    (that can stutter); only its opacity does, which stays smooth. */
@@ -2055,7 +2056,6 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 1;
   pointer-events: none;
   background: radial-gradient(ellipse 45% 55% at 78% 22%, rgba(255, 248, 234, 0.42), transparent 70%);
-  will-change: transform;
 }
 
 /* Brighten (Scene 4 → 5) and the soft ivory fade at the end of the film,

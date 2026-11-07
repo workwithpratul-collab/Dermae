@@ -66,7 +66,7 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 │   └── form.js           # booking form submit + messages
 ├── images/
 │   ├── originals/        # full-size source images (not loaded by the site)
-│   └── web/              # optimised JPGs: scene-N-desktop / -mobile / -portrait
+│   └── web/              # optimised images, WebP + JPEG fallback (see "Images" in the decisions below)
 ├── .nojekyll             # lets GitHub Pages serve files as-is
 ├── CONTENT.md            # approved copy
 ├── STORYBOARD.md         # how each scene looks and moves
@@ -163,6 +163,21 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - Progressive enhancement: the form works as a normal POST without JS. With JS, submit via `fetch` and show inline success and error messages.
 - Add a honeypot field (`_gotcha`) for spam.
 
+### Connecting the form
+
+The form is **not connected yet** on purpose. The endpoint lives in **one place**: the `action` of the booking form in `index.html`, inside the comment marked **FORM ENDPOINT**. `js/form.js` reads it from there, so nothing else needs to change.
+
+To connect it later:
+
+1. Create a free account at formspree.io and make a new form. Formspree gives it an ID (the part after `/f/` in its address, e.g. `xyzabcde`).
+2. In the Formspree form's settings, set the email address that should receive requests. If offered, add the site's domain to the allowed domains.
+3. In `index.html`, replace `YOUR_FORM_ID` in `action="https://formspree.io/f/YOUR_FORM_ID"` with that ID. Change nothing else.
+4. Reload the site. Because the address no longer contains `YOUR_FORM_ID`, `js/form.js` now hides the "Demo form: not connected yet…" note and sends requests for real, showing the "Thank you. Your request has been sent…" or "Sorry…" message.
+5. Test it: send one request and check it arrives (Formspree may ask you to confirm the first one). Try a wrong email address, an empty required field and a past date too.
+6. Commit with a clear message, e.g. "Connect the booking form to Formspree". The form ID is public and safe to commit.
+
+Notes: the hidden `_subject` field sets the email subject, and `_gotcha` is the spam honeypot (leave both). Without JavaScript the form posts directly and Formspree shows its own thank-you page. Never invent a form ID; only use one the site owner has created.
+
 ## Working style (the user is learning)
 
 - **Explain what you're doing and why in simple, plain language.** Avoid jargon, or explain it when you use it.
@@ -201,6 +216,11 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Header (Day 11):** kept short: Treatments, Doctor, FAQ, Contact (Day 12) and Book. The Approach section is reached by scrolling.
 - **Contact details (Day 12)** live in one place: the Contact section of `index.html` (address, phone, email, hours, the action links and the demo map location in `data-lat`/`data-lon`). They are kept in HTML, not a data file, so they stay readable without JavaScript. Don't repeat them elsewhere on the page (they were removed from the booking section). Every action link and the hours are labelled *(demo)*.
 - **Map (Day 12):** nothing loads from OpenStreetMap until the visitor clicks "Show map" (`js/contact.js`); the loaded map keeps a "Demo location" badge. The location is open parkland (Hyde Park, London), so no real business is pinned.
+- **Images (Day 13):** every scene image exists as WebP (served first) and JPEG (fallback for older browsers), in these sizes per scene N: `scene-N-desktop` (1672 wide), `scene-N-desktop-1280`, `scene-N-mobile` (900 wide, same landscape crop), `scene-N-portrait` (941 wide) and `scene-N-portrait-600`. Each `<picture>` has a portrait WebP + JPEG `<source>` (`sizes="max(100vw, 56.3vh)"`), a landscape WebP `<source>` and an `<img>` with JPEG `srcset` (`sizes="max(100vw, 177.8vh)"`, because the photos cover the screen), and every source and image has `width`/`height`. The pre-blurred copies use exactly the same `srcset`/`sizes` so the browser reuses the same file. WebP files were made with Chrome's own encoder (canvas, quality 0.8; JPEGs 0.82), so no extra tool was installed. New images should follow the same names and sizes.
+- **Loading order (Day 13):** Scene 1's image is preloaded in the `<head>` at high priority (one hint per orientation). The other film images load in the background at low priority once the scripts run (`preloadImages()` in `js/main.js`), so the film never flickers. Images below the film (`loading="lazy"`) and the map (on click) load only when needed.
+- **Fonts (Day 13):** only Cormorant Garamond 300, 500 and 500 italic, and Inter 400, 500, 600 (what actually renders; text set to 400 in Cormorant shows as 500, as it always has). `display=swap`, with a preconnect. The font stylesheet loads without blocking the first screen (`media="print"` switched to `all` on load, plus a `<noscript>` fallback); `js/intro.js` waits for it before revealing the name.
+- **Animation lightness (Day 13):** `will-change` is applied only while the film is on screen (`html.film-live`, set by the film's ScrollTrigger); the light layers have none. The header checks what's behind it only on scroll, resize and ScrollTrigger refresh, not every frame. Off-screen parts don't animate: the film's timeline stops once you're past it, and reveals and the doctor zoom run only within their scroll ranges.
+- **Measuring weight:** count requests and downloaded bytes with the browser cache disabled, on first load and after scrolling the whole page, at a desktop and a phone size. Day 13 numbers are in the Day 13 commit message.
 - **Testing:** use real mouse clicks and key presses, not `element.click()`, so invisible overlays get caught. If Python and Node aren't installed, VS Code's Live Server extension works as the local server.
 
 ## Progress
@@ -218,4 +238,5 @@ Calm, airy and premium: lots of whitespace, restrained animation, soft shadows (
 - **Days 11–12 copy (Phase 1):** FAQ (25 questions), patient guide, contact copy and FAQ assistant copy were written in `CONTENT.md` and approved.
 - **Day 11:** FAQ section built from `js/faq-data.js` as an accessible accordion grouped by category, and a free FAQ assistant that answers only from that data (safety reply for medical messages, fallback otherwise, nothing stored). Header: Treatments, Doctor, FAQ, Book.
 - **Day 12:** Patient guide (before, during and after your visit) in the Approach style; Contact section as the one place for the contact details, with demo hours, demo call/WhatsApp/email/directions links and a click-to-load demo map; contact details removed from the booking section. Header: Treatments, Doctor, FAQ, Contact, Book. Page order: film → Treatments → Approach → Doctor → Patient guide → FAQ → Contact → Booking → footer.
-- **Days 13–15:** still to come.
+- **Day 13:** Speed and performance: WebP versions and right-sized images for every scene (`srcset`/`sizes`, width and height everywhere), Scene 1 preloaded at high priority and the rest in the background, fonts trimmed to what renders and loaded without blocking, `will-change` only while the film is on screen, header checks only on scroll, one unused CSS rule removed, and the form endpoint marked in one place with a "Connecting the form" guide. Page weight about 55–59% lower (see the Day 13 commit).
+- **Days 14–15:** still to come.

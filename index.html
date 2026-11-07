@@ -20,7 +20,18 @@
   <!-- Fonts: Cormorant Garamond (headings) + Inter (body). -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap">
+  <!-- Only the weights the site uses (Cormorant 300, 500 and 500 italic; Inter 400, 500, 600),
+       with font-display: swap. Loaded without blocking the first screen: "print"
+       until it arrives, then "all". js/intro.js waits for it before revealing the name. -->
+  <link id="font-css" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,500&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,500&family=Inter:wght@400;500;600&display=swap"></noscript>
+
+  <!-- Scene 1's image is needed first: start downloading it straight away,
+       at high priority (one hint per screen orientation; WebP-capable browsers). -->
+  <link rel="preload" as="image" type="image/webp" media="(orientation: portrait)" fetchpriority="high"
+        imagesrcset="images/web/scene-1-portrait-600.webp 600w, images/web/scene-1-portrait.webp 941w" imagesizes="max(100vw, 56.3vh)">
+  <link rel="preload" as="image" type="image/webp" media="(orientation: landscape)" fetchpriority="high"
+        imagesrcset="images/web/scene-1-mobile.webp 900w, images/web/scene-1-desktop-1280.webp 1280w, images/web/scene-1-desktop.webp 1672w" imagesizes="max(100vw, 177.8vh)">
 
   <link rel="stylesheet" href="css/styles.css">
 
@@ -125,17 +136,19 @@
       <section class="scene scene--opening" id="opening" aria-labelledby="opening-title" tabindex="-1">
         <div class="scene__media">
           <picture>
-            <source media="(orientation: portrait)" srcset="images/web/scene-1-portrait.jpg" width="941" height="1672">
-            <source media="(max-width: 950px)" srcset="images/web/scene-1-mobile.jpg" width="900" height="507">
-            <img src="images/web/scene-1-desktop.jpg" width="1672" height="941"
+            <source media="(orientation: portrait)" type="image/webp" srcset="images/web/scene-1-portrait-600.webp 600w, images/web/scene-1-portrait.webp 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source media="(orientation: portrait)" srcset="images/web/scene-1-portrait-600.jpg 600w, images/web/scene-1-portrait.jpg 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source type="image/webp" srcset="images/web/scene-1-mobile.webp 900w, images/web/scene-1-desktop-1280.webp 1280w, images/web/scene-1-desktop.webp 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941">
+            <img src="images/web/scene-1-desktop.jpg" srcset="images/web/scene-1-mobile.jpg 900w, images/web/scene-1-desktop-1280.jpg 1280w, images/web/scene-1-desktop.jpg 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941"
                  alt="Close-up of a clear serum drop resting on skin."
                  fetchpriority="high" decoding="async">
           </picture>
           <!-- Same image, pre-blurred: faded in so "the drop softens into a blur". -->
           <picture class="scene__blur" aria-hidden="true">
-            <source media="(orientation: portrait)" srcset="images/web/scene-1-portrait.jpg">
-            <source media="(max-width: 950px)" srcset="images/web/scene-1-mobile.jpg">
-            <img src="images/web/scene-1-desktop.jpg" alt="" decoding="async">
+            <source media="(orientation: portrait)" type="image/webp" srcset="images/web/scene-1-portrait-600.webp 600w, images/web/scene-1-portrait.webp 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source media="(orientation: portrait)" srcset="images/web/scene-1-portrait-600.jpg 600w, images/web/scene-1-portrait.jpg 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source type="image/webp" srcset="images/web/scene-1-mobile.webp 900w, images/web/scene-1-desktop-1280.webp 1280w, images/web/scene-1-desktop.webp 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941">
+            <img src="images/web/scene-1-desktop.jpg" srcset="images/web/scene-1-mobile.jpg 900w, images/web/scene-1-desktop-1280.jpg 1280w, images/web/scene-1-desktop.jpg 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941" alt="" decoding="async">
           </picture>
         </div>
         <div class="scene__light" aria-hidden="true"></div>
@@ -150,17 +163,19 @@
       <section class="scene scene--room" id="room" aria-labelledby="room-title" tabindex="-1">
         <div class="scene__media">
           <picture>
-            <source media="(orientation: portrait)" srcset="images/web/scene-2-portrait.jpg" width="941" height="1672">
-            <source media="(max-width: 950px)" srcset="images/web/scene-2-mobile.jpg" width="900" height="507">
-            <img src="images/web/scene-2-desktop.jpg" width="1672" height="941"
+            <source media="(orientation: portrait)" type="image/webp" srcset="images/web/scene-2-portrait-600.webp 600w, images/web/scene-2-portrait.webp 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source media="(orientation: portrait)" srcset="images/web/scene-2-portrait-600.jpg 600w, images/web/scene-2-portrait.jpg 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source type="image/webp" srcset="images/web/scene-2-mobile.webp 900w, images/web/scene-2-desktop-1280.webp 1280w, images/web/scene-2-desktop.webp 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941">
+            <img src="images/web/scene-2-desktop.jpg" srcset="images/web/scene-2-mobile.jpg 900w, images/web/scene-2-desktop-1280.jpg 1280w, images/web/scene-2-desktop.jpg 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941"
                  alt="A calm ivory and sage treatment room with soft window light."
                  loading="lazy" decoding="async">
           </picture>
           <!-- Same image, pre-blurred: faded out so the room "comes into focus". -->
           <picture class="scene__blur" aria-hidden="true">
-            <source media="(orientation: portrait)" srcset="images/web/scene-2-portrait.jpg">
-            <source media="(max-width: 950px)" srcset="images/web/scene-2-mobile.jpg">
-            <img src="images/web/scene-2-desktop.jpg" alt="" loading="lazy" decoding="async">
+            <source media="(orientation: portrait)" type="image/webp" srcset="images/web/scene-2-portrait-600.webp 600w, images/web/scene-2-portrait.webp 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source media="(orientation: portrait)" srcset="images/web/scene-2-portrait-600.jpg 600w, images/web/scene-2-portrait.jpg 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source type="image/webp" srcset="images/web/scene-2-mobile.webp 900w, images/web/scene-2-desktop-1280.webp 1280w, images/web/scene-2-desktop.webp 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941">
+            <img src="images/web/scene-2-desktop.jpg" srcset="images/web/scene-2-mobile.jpg 900w, images/web/scene-2-desktop-1280.jpg 1280w, images/web/scene-2-desktop.jpg 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941" alt="" loading="lazy" decoding="async">
           </picture>
         </div>
         <div class="scene__light" aria-hidden="true"></div>
@@ -175,9 +190,10 @@
       <section class="scene scene--treatments" id="scene-treatments" aria-labelledby="treatments-title" tabindex="-1">
         <div class="scene__media">
           <picture>
-            <source media="(orientation: portrait)" srcset="images/web/scene-3-portrait.jpg" width="941" height="1672">
-            <source media="(max-width: 950px)" srcset="images/web/scene-3-mobile.jpg" width="900" height="507">
-            <img src="images/web/scene-3-desktop.jpg" width="1672" height="941"
+            <source media="(orientation: portrait)" type="image/webp" srcset="images/web/scene-3-portrait-600.webp 600w, images/web/scene-3-portrait.webp 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source media="(orientation: portrait)" srcset="images/web/scene-3-portrait-600.jpg 600w, images/web/scene-3-portrait.jpg 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source type="image/webp" srcset="images/web/scene-3-mobile.webp 900w, images/web/scene-3-desktop-1280.webp 1280w, images/web/scene-3-desktop.webp 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941">
+            <img src="images/web/scene-3-desktop.jpg" srcset="images/web/scene-3-mobile.jpg 900w, images/web/scene-3-desktop-1280.jpg 1280w, images/web/scene-3-desktop.jpg 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941"
                  alt="A clean treatment area with a sage wall and soft shadows."
                  loading="lazy" decoding="async">
           </picture>
@@ -221,9 +237,10 @@
       <section class="scene scene--doctor" id="scene-doctor" aria-labelledby="doctor-title" tabindex="-1">
         <div class="scene__media">
           <picture>
-            <source media="(orientation: portrait)" srcset="images/web/scene-4-portrait.jpg" width="941" height="1672">
-            <source media="(max-width: 950px)" srcset="images/web/scene-4-mobile.jpg" width="900" height="507">
-            <img src="images/web/scene-4-desktop.jpg" width="1672" height="941"
+            <source media="(orientation: portrait)" type="image/webp" srcset="images/web/scene-4-portrait-600.webp 600w, images/web/scene-4-portrait.webp 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source media="(orientation: portrait)" srcset="images/web/scene-4-portrait-600.jpg 600w, images/web/scene-4-portrait.jpg 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source type="image/webp" srcset="images/web/scene-4-mobile.webp 900w, images/web/scene-4-desktop-1280.webp 1280w, images/web/scene-4-desktop.webp 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941">
+            <img src="images/web/scene-4-desktop.jpg" srcset="images/web/scene-4-mobile.jpg 900w, images/web/scene-4-desktop-1280.jpg 1280w, images/web/scene-4-desktop.jpg 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941"
                  alt="Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope."
                  loading="lazy" decoding="async">
           </picture>
@@ -241,9 +258,10 @@
       <section class="scene scene--journey" id="scene-journey" aria-labelledby="journey-title" tabindex="-1">
         <div class="scene__media">
           <picture>
-            <source media="(orientation: portrait)" srcset="images/web/scene-5-portrait.jpg" width="941" height="1672">
-            <source media="(max-width: 950px)" srcset="images/web/scene-5-mobile.jpg" width="900" height="507">
-            <img src="images/web/scene-5-desktop.jpg" width="1671" height="941"
+            <source media="(orientation: portrait)" type="image/webp" srcset="images/web/scene-5-portrait-600.webp 600w, images/web/scene-5-portrait.webp 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source media="(orientation: portrait)" srcset="images/web/scene-5-portrait-600.jpg 600w, images/web/scene-5-portrait.jpg 941w" sizes="max(100vw, 56.3vh)" width="941" height="1672">
+            <source type="image/webp" srcset="images/web/scene-5-mobile.webp 900w, images/web/scene-5-desktop-1280.webp 1280w, images/web/scene-5-desktop.webp 1672w" sizes="max(100vw, 177.8vh)" width="1672" height="941">
+            <img src="images/web/scene-5-desktop.jpg" srcset="images/web/scene-5-mobile.jpg 900w, images/web/scene-5-desktop-1280.jpg 1280w, images/web/scene-5-desktop.jpg 1672w" sizes="max(100vw, 177.8vh)" width="1671" height="941"
                  alt="A calm consultation corner with two chairs, a plant and soft window light."
                  loading="lazy" decoding="async">
           </picture>
@@ -428,9 +446,12 @@
 
         <figure class="doctor__figure" data-reveal>
           <div class="doctor__frame">
-            <img src="images/web/scene-4-portrait.jpg" width="941" height="1672"
-                 alt="Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope."
-                 loading="lazy" decoding="async" data-zoom>
+            <picture>
+              <source type="image/webp" srcset="images/web/scene-4-portrait-600.webp 600w, images/web/scene-4-portrait.webp 941w" sizes="(min-width: 1024px) 40vw, 92vw" width="941" height="1672">
+              <img src="images/web/scene-4-portrait.jpg" srcset="images/web/scene-4-portrait-600.jpg 600w, images/web/scene-4-portrait.jpg 941w" sizes="(min-width: 1024px) 40vw, 92vw" width="941" height="1672"
+                   alt="Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope."
+                   loading="lazy" decoding="async" data-zoom>
+            </picture>
             <span class="doctor__light" aria-hidden="true"></span>
           </div>
           <figcaption class="label">Illustrative image. Dr. Mira Sen is fictional.</figcaption>
@@ -642,9 +663,14 @@
         <p class="booking__intro">Request a consultation, and we’ll contact you to confirm a time that suits you.</p>
 
         <!--
-          FORMSPREE: replace YOUR_FORM_ID with the real form ID when it is ready.
+          ================================================================
+          FORM ENDPOINT: the ONE place to connect the booking form.
+          Replace YOUR_FORM_ID in the action below with your Formspree form
+          ID (see "Connecting the form" in CLAUDE.md). Nothing else needs to
+          change: js/form.js reads this address.
           While the placeholder is here, js/form.js will NOT send anything and
           will say so clearly instead of showing a fake "sent" message.
+          ================================================================
         -->
         <form class="form" id="booking-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
           <input type="hidden" name="_subject" value="New consultation request (DERMAÉ demo)">

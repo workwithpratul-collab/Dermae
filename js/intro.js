@@ -86,8 +86,16 @@
 
   function fontReady() {
     if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    // The font stylesheet loads without blocking the page (see index.html):
+    // first wait for it to arrive, so the browser knows the font exists…
+    var css = document.getElementById("font-css");
+    var cssReady = (!css || css.media === "all") ? Promise.resolve() : new Promise(function (res) {
+      css.addEventListener("load", res, { once: true });
+      css.addEventListener("error", res, { once: true });
+    });
+    // …then for the heading font itself. Never longer than FONT_WAIT in all.
     return Promise.race([
-      document.fonts.load('500 1em "Cormorant Garamond"').catch(function () {}),
+      cssReady.then(function () { return document.fonts.load('500 1em "Cormorant Garamond"'); }).catch(function () {}),
       wait(FONT_WAIT)
     ]);
   }
