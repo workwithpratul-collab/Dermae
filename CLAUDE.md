@@ -70,6 +70,9 @@ The exact on-page wording lives in **`CONTENT.md`** (the source of truth for cop
 │   ├── web/              # optimised images, WebP + JPEG fallback (see "Images" in the decisions below)
 │   └── share/            # share image (og-image.jpg, 1200x630), favicon.svg, favicon-32.png, apple-touch-icon.png, icon-512.png
 ├── .nojekyll             # lets GitHub Pages serve files as-is
+├── .gitignore        # keeps the private pitch/ folder out of git
+├── README.md         # portfolio overview of the project
+├── CASE-STUDY.md     # the design and technical thinking (no invented results)
 ├── CONTENT.md            # approved copy
 ├── STORYBOARD.md         # how each scene looks and moves
 └── CLAUDE.md
@@ -196,6 +199,12 @@ Notes: the hidden `_subject` field sets the email subject, and `_gotcha` is the 
 - `404.html` is self-contained (inline styles, absolute icon address) because GitHub Pages shows it at any depth. Its home link goes to `/Dermae/` live and `/` locally.
 - **The demo stays out of search results:** `<meta name="robots" content="noindex, nofollow">` is in `index.html` and `404.html` on purpose. **For a real client site, remove the robots line from `index.html`** (and replace every demo detail in the structured data with the clinic's real, checked details), otherwise search engines will never list it.
 
+## Pitch kit (Day 15)
+
+- `pitch/` is **private**: it is listed in `.gitignore`, so it is never committed or published. It holds `pricing.html` (a printable A4 price sheet in the DERMAÉ style: open it in a browser and print or save as PDF) and `walkthrough-script.md` (a 60–90 second screen-recording script).
+- Never move pricing or pitch notes into a tracked file. Before pushing, `git ls-files pitch` must print nothing.
+- `README.md` and `CASE-STUDY.md` are public. Keep them honest: DERMAÉ is a fictional demo, so they describe the design and build and never invent clients, results or numbers.
+
 ## Git
 
 - Small, focused commits with messages that describe the change (for example "Add page skeleton with six sections").
@@ -254,4 +263,4 @@ Notes: the hidden `_subject` field sets the email subject, and `_gotcha` is the 
 - **Day 12:** Patient guide (before, during and after your visit) in the Approach style; Contact section as the one place for the contact details, with demo hours, demo call/WhatsApp/email/directions links and a click-to-load demo map; contact details removed from the booking section. Header: Treatments, Doctor, FAQ, Contact, Book. Page order: film → Treatments → Approach → Doctor → Patient guide → FAQ → Contact → Booking → footer.
 - **Day 13:** Speed and performance: WebP versions and right-sized images for every scene (`srcset`/`sizes`, width and height everywhere), Scene 1 preloaded at high priority and the rest in the background, fonts trimmed to what renders and loaded without blocking, `will-change` only while the film is on screen, header checks only on scroll, one unused CSS rule removed, and the form endpoint marked in one place with a "Connecting the form" guide. Page weight about 55–59% lower (see the Day 13 commit).
 - **Day 14:** Mobile, tablet, accessibility and SEO: native touch scrolling, safe areas for notches (header, bar, launcher, side margins), no overlaps between the book bar, "Questions?" button and menu, a sideways-phone layout (Book in the header, Scene 3 widened and made more readable), every tap target at least 44x44, a menu that works at 200% zoom; keyboard, headings, landmarks, alt text and focus checked at every size; title, description, share image, Open Graph/Twitter tags, icons, MedicalClinic structured data with demo details, and a 404 page (noindex kept on purpose). Tested at 360x640, 390x844, 430x932, 844x390, 768x1024, 1024x768, 1366x768 and 1920x1080, scrolling down and back up.
-- **Day 15:** still to come.
+- **Day 15:** Pitch kit: a portfolio README, a case study (problem, goal, design approach, features, technical decisions, content and medical wording, and what a real clinic must provide), and a private, git-ignored `pitch/` folder with a printable price sheet and a walkthrough script.
