@@ -2,7 +2,7 @@
 
 The approved on-page copy for each scene. Use this wording exactly when building the site. See `STORYBOARD.md` for visuals and motion, and `CLAUDE.md` for content rules.
 
-**Status:** the Days 6–10 copy was approved. The Day 6 rewrite is live in the sections below; the later sections are added to the site as each day is built (see Progress in `CLAUDE.md`).
+**Status:** sections marked **Draft (Days 11–12)** are written but not yet approved. The Days 6–10 copy was approved. The Day 6 rewrite is live in the sections below; the later sections are added to the site as each day is built (see Progress in `CLAUDE.md`).
 
 ---
 
@@ -622,3 +622,238 @@ Dr. Sen starts by listening. She wants to understand what bothers you about your
 - Subheadings: Qualifications *(fictional)* · Areas of focus · How she works · A note from Dr. Sen
 - Photo caption (visible): Illustrative image. Dr. Mira Sen is fictional.
 - Photo alt text: Illustrative image: a dermatologist examines a patient's cheek with a handheld skin scope.
+
+---
+---
+
+# Draft (Days 11–12): awaiting approval
+
+Nothing below is on the site yet. Phase 2 builds it once approved. Same rules as Days 6–10: the Brand voice above, no prices, no drug names or doses, no statistics, every fictional detail labelled, and the medical note wherever medical information appears.
+
+## Day 11: FAQ
+
+**Section labels**
+
+- Eyebrow: FAQ
+- Heading: Questions, answered clearly.
+- Intro: Practical answers about appointments, consultations, fees, privacy and treatments. For anything about your own skin, your dermatologist will advise.
+- Medical note (under the Treatments questions): General information only, not medical advice. A dermatologist will assess your individual needs.
+
+Answers that mention a treatment end with **See:** and the treatment entry's name; on the site this links to that entry in the Treatments section.
+
+### Appointments
+
+**How do I book an appointment?**
+Use the booking form on this page to request a consultation. Choose the appointment type that fits most closely, or "Not sure yet", and the team will contact you to confirm a time that suits you. (This is a demo site, so the form doesn't send requests yet.)
+
+**Do I need a referral from my doctor?**
+You don't usually need a referral to book a private consultation. If you have a referral letter, please bring it, as it helps your dermatologist understand your history. Some insurers ask for a referral before they will cover a visit, so it's worth checking with yours.
+
+**How long does a first appointment take?**
+A first appointment is longer than a follow-up, because it includes a full conversation and a skin assessment. You'll be told how long to allow when your appointment is confirmed.
+
+**Can I change or cancel my appointment?**
+Yes. Please let the clinic know as early as you can, so the time can be offered to someone else. The clinic will explain its change and cancellation policy when your appointment is confirmed.
+
+### Consultations
+
+**What happens at my first consultation?**
+Your dermatologist will ask about your concerns, your skin history, your general health and the products you use, then examine your skin. They will explain what they see, talk through your options, and give you time to ask questions and decide. The Patient guide describes each step.
+
+**What should I bring to my first appointment?**
+Bring any previous reports or test results, a list of the medicines you take (including supplements), and a list or photos of the skincare and make-up you use. If your skin changes from day to day, photos of a flare-up can help. The Patient guide has a full list.
+
+**Should I wear make-up to my appointment?**
+Where possible, please arrive without make-up on the areas you'd like checked, so your skin can be seen clearly. If your concern involves your nails, please remove any nail polish.
+
+**Can I bring someone with me, or ask for a chaperone?**
+Yes. You're welcome to bring a family member or friend, and you can ask for a chaperone at any appointment.
+
+**Will I have treatment on the same day?**
+Sometimes, if it's suitable and you feel ready. Often the first visit is for assessment and planning, so you have time to consider your options before any treatment begins.
+
+### Treatments
+
+**How do I know which treatment is right for me?**
+Your dermatologist will assess your skin and explain which options may suit you, and why. The Treatments section gives general information about each condition and treatment, to help you prepare your questions.
+
+**Do treatments hurt?**
+It depends on the treatment, and everyone feels it differently. Many people describe warmth, tingling or a snapping sensation. A numbing cream or cooling is used for some treatments. Your dermatologist will explain what you may feel before you begin.
+**See:** Chemical peels, Laser treatments, Microneedling
+
+**How many sessions will I need?**
+It varies with the treatment, your skin and your goals. Many aesthetic treatments are given as a course of sessions some weeks apart. Your dermatologist will advise.
+**See:** Chemical peels, Laser treatments, Microneedling, Skin rejuvenation
+
+**Is there any downtime after treatment?**
+Some treatments have little or no recovery time; others can leave the skin red, flaking or peeling for several days or longer. You'll be told what to expect before you decide.
+**See:** Chemical peels, Laser treatments, Microneedling, Scar treatments
+
+**Are treatments suitable for darker skin tones?**
+Many treatments can be suitable, with care. Some peels and lasers carry a higher risk of pigment change on darker skin, so the type and settings are chosen carefully, and a patch test may be suggested first. Your dermatologist will advise.
+**See:** Pigmentation concerns, Chemical peels, Laser treatments
+
+**When will I see results?**
+Changes in the skin are usually gradual, often over weeks or months, and results vary from person to person. Your dermatologist will explain what may be realistic for you.
+
+*General information only, not medical advice. A dermatologist will assess your individual needs.*
+
+### Fees and payments
+
+**How much does a consultation cost?**
+Fees are explained at or before your consultation, so you'll know the cost before you commit. We don't list prices on this website.
+
+**Will I know the cost of treatment before I agree to it?**
+Yes. Your treatment plan sets out the options, how many visits may be needed and the cost, in writing. You'll have time to decide, and you're never asked to commit on the spot.
+
+**Can I use health insurance?**
+It depends on your insurer and the reason for your visit. Medical skin conditions are more often covered than aesthetic treatments. Please check with your insurer before your appointment; the clinic can provide the paperwork they may ask for.
+
+### Privacy and safety
+
+**How is my personal information kept private?**
+Your records are kept confidential and stored securely. They are used only for your care and shared only with your permission, or where the law requires it.
+
+**Will you take photographs of my skin?**
+Only with your consent. Photographs help compare progress over time and are used only for your care. They are never shared or used for marketing without your separate, written permission.
+
+**How do you keep treatments safe and hygienic?**
+Reusable instruments are sterilised between every patient, single-use items are used where appropriate, and lasers are used only by trained staff with eye protection. The Approach and technology section explains these standards.
+
+**What is a patch test, and will I need one?**
+A patch test treats a small area first, to see how your skin responds before a full treatment. It may be suggested before some peels and laser treatments, especially for sensitive skin or darker skin tones.
+**See:** Chemical peels, Laser treatments
+
+### General
+
+**Is DERMAÉ a real clinic?**
+No. DERMAÉ is a fictional clinic created as a design demo. Its clinic details, doctor and quotes are illustrative, and nothing on this site is medical advice.
+
+**Can I ask a medical question online?**
+We can't give medical advice online, because your skin needs to be seen and assessed in person. Please book a consultation. If you have severe or rapidly worsening symptoms, or you feel unwell, seek urgent medical care.
+
+**Where is the clinic, and when is it open?**
+The Contact section shows the address, opening hours and ways to get in touch. All of these are fictional demo details.
+
+---
+
+## Day 12: Patient guide, contact and assistant
+
+### Patient guide
+
+**Section labels**
+
+- Eyebrow: Patient guide
+- Heading: Before, during and after your visit.
+- Intro: Practical information to help you prepare, know what to expect, and look after your skin afterwards.
+
+#### Before your first visit
+
+**What to bring**
+
+- Any previous reports, letters or test results about your skin
+- A list of the medicines you take, including supplements and anything bought without a prescription
+- A list of the skincare and make-up products you use, or photos of their labels
+- Photos of a flare-up, if your skin changes from day to day and may look different on the day
+- A referral letter or insurance details, if you have them
+- A few notes on the questions you'd like to ask
+
+**On the day**
+
+- Where possible, arrive without make-up on the areas you'd like checked, so your skin can be seen clearly.
+- If your concern involves your nails, please remove any nail polish.
+- Allow a little extra time when you arrive, in case there are forms to complete.
+
+#### During your visit
+
+**The consultation**
+Your dermatologist begins by listening: what concerns you, how long it has been happening, what you've already tried, your general health and the products you use. There is time for your questions throughout.
+
+**The skin assessment**
+Your skin is examined in good light, often with a dermatoscope (a handheld skin magnifier), and sometimes with a Wood's lamp (a gentle ultraviolet light). You may be asked to uncover the areas of concern; you can keep your underwear on for a full skin check, and you can ask for a chaperone. With your consent, photographs may be taken to compare progress later.
+
+**Your options**
+Your dermatologist explains what they think is happening and the options that may help, including waiting and watching. If a test is suggested, such as a patch test or a small skin sample, it is explained first. You'll have time to decide.
+
+#### After your visit
+
+**Your plan and aftercare**
+You'll receive a written summary of your plan. If you've had a treatment, you'll also receive written aftercare instructions. Follow them closely, and protect treated skin from the sun.
+
+**Follow-up**
+A follow-up visit reviews how your skin is responding and adjusts the plan if needed. If tests were taken, you'll be told how and when you'll receive the results.
+
+**When to contact the clinic**
+Contact the clinic if you have questions about your aftercare, or if anything worries you, such as redness, swelling or discomfort that is increasing rather than settling, blistering, or signs of infection like warmth, oozing or a fever.
+
+**When to seek urgent care**
+Seek urgent medical care, or call your local emergency number, if you have difficulty breathing, swelling of the face, lips or tongue, a rash that spreads quickly with a fever, or you feel very unwell.
+
+*General information only, not medical advice. A dermatologist will assess your individual needs.*
+
+### Contact
+
+**Section labels and intro**
+
+- Eyebrow: Contact
+- Heading: Visit, call or write.
+- Intro: We're happy to help with appointments and practical questions. For questions about your own skin, please book a consultation.
+- Demo label: All contact details here are fictional demo details. Calls, messages and emails won't reach a real clinic.
+
+**Opening hours** *(demo hours)*
+
+- Monday to Friday: 9:00 to 18:00
+- Saturday: 9:00 to 13:00
+- Sunday and public holidays: Closed
+
+**Address:** Demo address
+
+**Contact links** (each marked *(demo)*)
+
+- Call: Call the clinic
+- WhatsApp: Message on WhatsApp
+- Email: Email the clinic
+- Directions: Get directions
+
+**Map**
+
+- Button: Show map
+- Note under the button: The map loads from OpenStreetMap only when you choose to show it. It shows a neutral demo location, not a real clinic.
+- Map label: Demo location
+
+### FAQ assistant
+
+**Interface labels**
+
+- Open button: Questions? (screen readers hear "Open the FAQ assistant")
+- Panel title: FAQ assistant
+- Label (always visible in the panel): Automated FAQ assistant, not a doctor
+- Privacy line: Your messages aren't stored. They disappear when you close or reload the page.
+- Input label: Type your question
+- Send button: Send
+- Close button: Close
+- Before a matched answer: From our FAQ:
+- Link under a matched answer: Read it in the FAQ
+
+**Welcome message**
+Hello. I can answer common questions about appointments, consultations, fees, privacy and treatments, using the answers in our FAQ. I'm an automated assistant, not a doctor, so I can't give medical advice.
+
+**Suggested questions**
+
+- How do I book an appointment?
+- What should I bring to my first appointment?
+- How much does a consultation cost?
+- Will you take photographs of my skin?
+- Is DERMAÉ a real clinic?
+
+**Fallback reply** (no good match)
+Sorry, I couldn't find an answer to that in our FAQ. You can browse all the questions, or request a consultation and the team will help.
+Links: Browse the FAQ · Book a consultation
+
+**Safety reply** (the message mentions symptoms, a diagnosis, medicines or anything urgent)
+I can't give medical advice, or assess symptoms, diagnoses or medicines. A dermatologist can help at a consultation, so please consider booking one. If your symptoms are severe or spreading quickly, or you feel very unwell, seek urgent medical care now, or call your local emergency number.
+Link: Book a consultation
+
+### Phase 2: header
+
+- Header links: Treatments · Doctor · FAQ · Contact · Book
